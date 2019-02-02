@@ -55,7 +55,7 @@ BlankScreen {
                 icon: "\uf0f6"
                 onClicked: {
                     ProjectManager.baseFolder = ProjectManager.Projects
-                    stackView.push(Qt.resolvedUrl("ProjectsScreen.qml"))
+                    leftView.push(Qt.resolvedUrl("ProjectsScreen.qml"))
                 }
             }
 
@@ -64,26 +64,26 @@ BlankScreen {
                 icon: "\uf1c9"
                 onClicked: {
                     ProjectManager.baseFolder = ProjectManager.Examples
-                    stackView.push(Qt.resolvedUrl("ExamplesScreen.qml"))
+                    leftView.push(Qt.resolvedUrl("ExamplesScreen.qml"))
                 }
             }
 
             CNavigationButton {
                 text: qsTr("SETTINGS")
                 icon: "\uf0ad"
-                onClicked: stackView.push(Qt.resolvedUrl("SettingsScreen.qml"))
+                onClicked: rightView.push(Qt.resolvedUrl("SettingsScreen.qml"))
             }
 
             CNavigationButton {
                 text: qsTr("MODULES")
                 icon: "\uf085"
-                onClicked: stackView.push(Qt.resolvedUrl("ModulesScreen.qml"))
+                onClicked: rightView.push(Qt.resolvedUrl("ModulesScreen.qml"))
             }
 
             CNavigationButton {
                 text: qsTr("ABOUT")
                 icon: "\uf0e5"
-                onClicked: stackView.push(Qt.resolvedUrl("AboutScreen.qml"))
+                onClicked: rightView.push(Qt.resolvedUrl("AboutScreen.qml"))
             }
         }
     }

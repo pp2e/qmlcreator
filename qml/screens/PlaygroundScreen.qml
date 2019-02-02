@@ -38,7 +38,7 @@ BlankScreen {
             CBackButton {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                enabled: !stackView.busy
+                enabled: !leftView.busy
                 text: ProjectManager.fileName
             }
 

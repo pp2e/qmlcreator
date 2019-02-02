@@ -18,9 +18,10 @@
 
 import QtQuick 2.5
 
-Item {
+Rectangle {
     id: blankScreen
+    color: "white"
 
-    enabled: !stackView.busy
+    enabled: !leftView.busy
 }
 

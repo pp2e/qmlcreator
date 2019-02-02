@@ -17,6 +17,7 @@
 ****************************************************************************/
 
 import QtQuick 2.5
+import QtQuick.Controls 2.3
 import QtQuick.Controls 1.4
 import "components"
 import "components/dialogs"
@@ -25,6 +26,20 @@ import "screens"
 CApplicationWindow {
     id: appWindow
 
+    function popPage()  {
+        if (rightView.currentItem !== rightView.initialItem) {
+            rightView.pop()
+            return true;
+        }
+
+        if (leftView.currentItem !== leftView.initialItem) {
+            leftView.pop()
+            return true;
+        }
+
+        return false
+    }
+
     onBackPressed: {
         if (dialog.visible)
         {
@@ -32,18 +47,91 @@ CApplicationWindow {
         }
         else
         {
-            if (stackView.depth > 1)
-                stackView.pop()
+            if (leftView.depth > 1 || rightView.depth > 1)
+                popPage()
             else
                 Qt.quit()
         }
     }
 
-    StackView {
-        id: stackView
+    SwipeView {
         anchors.fill: parent
-        initialItem: MainMenuScreen { }
-        enabled: !dialog.visible
+        states: [
+            State {
+                when: !enableDualView
+                name: "singleView"
+                ParentChange {
+                    target: leftView
+                    parent: leftStackContainer
+                }
+                ParentChange {
+                    target: rightView
+                    parent: leftStackContainer
+                }
+            },
+            State {
+                when: enableDualView
+                name: "dualView"
+                ParentChange {
+                    target: leftView
+                    parent: leftStackContainer
+                }
+                ParentChange {
+                    target: rightView
+                    parent: rightStackContainer
+                }
+            }
+        ]
+
+        // Stack views
+        Item {
+            StackView {
+                id: leftView
+                anchors.fill: parent
+                enabled: !dialog.visible
+                initialItem: MainMenuScreen { }
+            }
+        }
+        Item {
+            StackView {
+                id: rightView
+                anchors.fill: parent
+                enabled: !dialog.visible
+                initialItem: Item {
+                    Image {
+                        visible: enableDualView
+                        anchors.fill: parent
+                        anchors.margins: parent.width / 4
+                        fillMode: Image.PreserveAspectFit
+                        source: "qrc:/resources/images/icon512.png"
+                    }
+                }
+            }
+        }
+    }
+
+    Rectangle {
+        anchors.fill: parent
+        color: "white"
+        Row {
+            anchors.fill: parent
+
+            // Stack view containers
+            Rectangle {
+                id: leftStackContainer
+                clip: true
+                width: enableDualView ? parent.width / 3
+                                      : parent.width
+                height: parent.height
+            }
+            Rectangle {
+                id: rightStackContainer
+                clip: true
+                width: enableDualView ? (parent.width / 3) * 2
+                                      : parent.width
+                height: parent.height
+            }
+        }
     }
 
     DialogLoader {

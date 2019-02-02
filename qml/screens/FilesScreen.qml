@@ -79,8 +79,10 @@ BlankScreen {
             removeButtonVisible: modelData !== "main.qml"
 
             onClicked: {
+                if (rightView.currentItem !== rightView.initialItem)
+                    rightView.pop()
                 ProjectManager.fileName = modelData
-                stackView.push(Qt.resolvedUrl("EditorScreen.qml"))
+                rightView.push(Qt.resolvedUrl("EditorScreen.qml"))
             }
 
             onRemoveClicked: {

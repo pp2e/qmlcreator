@@ -82,7 +82,9 @@ BlankScreen {
             text: modelData
             onClicked: {
                 ProjectManager.projectName = modelData
-                stackView.push(Qt.resolvedUrl("FilesScreen.qml"))
+                if (rightView.currentItem !== rightView.initialItem)
+                    rightView.pop()
+                leftView.push(Qt.resolvedUrl("FilesScreen.qml"))
             }
 
             onRemoveClicked: {

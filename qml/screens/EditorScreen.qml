@@ -35,6 +35,7 @@ BlankScreen {
             spacing: 0
 
             CBackButton {
+                visible: !enableDualView
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 text: ProjectManager.fileName
@@ -73,7 +74,7 @@ BlankScreen {
                     ProjectManager.saveFileContent(codeArea.text)
                     ProjectManager.clearComponentCache()
                     Qt.inputMethod.hide()
-                    stackView.push(Qt.resolvedUrl("PlaygroundScreen.qml"))
+                    rightView.push(Qt.resolvedUrl("PlaygroundScreen.qml"))
                 }
             }
         }

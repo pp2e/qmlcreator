@@ -53,8 +53,8 @@ Item {
         id: mouseArea
         anchors.fill: parent
         onClicked: {
-            if (!stackView.busy)
-                stackView.pop()
+            if (!leftView.busy && !rightView.busy)
+                popPage()
         }
     }
 }
