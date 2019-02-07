@@ -42,6 +42,9 @@ parts:
       - qtbase5-dev
       - libevdev-dev
       - libudev-dev
+      - qt3d5-dev
+      - libqt5websockets5-dev
+      - libqt5sensors5-dev
       - qml-module-qt3d
       - qml-module-qtnfc
       - qml-module-qtorganizer
