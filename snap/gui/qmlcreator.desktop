@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=QML Creator
+Comment=A lightweight QML IDE
+Exec=qmlcreator
+Icon=${SNAP}/meta/gui/qmlcreator.png
+Categories=Development;IDE;
+Terminal=false
+StartupNotify=true
+Keywords=QMLCreator;QML;IDE
