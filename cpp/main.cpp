@@ -20,7 +20,7 @@
 #include <QDateTime>
 #include <QQmlApplicationEngine>
 #include <QTranslator>
-#include <QtConfig>
+#include <QtGlobal>
 #include "MessageHandler.h"
 #include "ProjectManager.h"
 #include "SyntaxHighlighter.h"
@@ -43,10 +43,7 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine(QUrl("qrc:/qml/main.qml"));
 
-    const QString qtVersion =
-            QStringLiteral("%1.%2.%3").arg(QString::number(QT_VERSION_MAJOR),
-                                           QString::number(QT_VERSION_MINOR),
-                                           QString::number(QT_VERSION_PATCH));
+    const QString qtVersion = QT_VERSION_STR;
     const QString buildDateTime = QStringLiteral("%1 %2").arg(__DATE__, __TIME__);
     engine.rootContext()->setContextProperty("qtVersion", qtVersion);
     engine.rootContext()->setContextProperty("buildDateTime", buildDateTime);
