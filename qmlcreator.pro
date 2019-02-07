@@ -11,6 +11,8 @@ QT += \
 TARGET = qmlcreator
 TEMPLATE = app
 
+INSTALLS += target
+
 CONFIG += mobility
 MOBILITY =
 
