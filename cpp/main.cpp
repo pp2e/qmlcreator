@@ -20,6 +20,7 @@
 #include <QDateTime>
 #include <QQmlApplicationEngine>
 #include <QTranslator>
+#include <QtGlobal>
 #include "MessageHandler.h"
 #include "ProjectManager.h"
 #include "SyntaxHighlighter.h"
