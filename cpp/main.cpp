@@ -17,6 +17,7 @@
 ****************************************************************************/
 
 #include <QGuiApplication>
+#include <QDateTime>
 #include <QQmlApplicationEngine>
 #include <QTranslator>
 #include "MessageHandler.h"
@@ -40,6 +41,15 @@ int main(int argc, char *argv[])
     qmlRegisterType<SyntaxHighlighter>("SyntaxHighlighter", 1, 1, "SyntaxHighlighter");
 
     QQmlApplicationEngine engine(QUrl("qrc:/qml/main.qml"));
+
+    const QString qtVersion =
+            QStringLiteral("%1.%2.%3").arg(QString::number(QT_VERSION_MAJOR),
+                                           QString::number(QT_VERSION_MINOR),
+                                           QString::number(QT_VERSION_PATCH));
+    const QString buildDateTime = QStringLiteral("%1 %2").arg(__DATE__, __TIME__);
+    engine.rootContext()->setContextProperty("qtVersion", qtVersion);
+    engine.rootContext()->setContextProperty("buildDateTime", buildDateTime);
+
     ProjectManager::setQmlEngine(&engine);
     MessageHandler::setQmlEngine(&engine);
 
