@@ -23,6 +23,19 @@ import "../components"
 
 BlankScreen {
     id: editorScreen
+    objectName: "EditorScreen"
+
+    function saveContent() {
+        ProjectManager.fileName = fileName
+        ProjectManager.saveFileContent(codeArea.text)
+    }
+
+    property alias codeArea : codeArea
+    property string fileName: ""
+    onFileNameChanged: {
+        ProjectManager.fileName = fileName
+        codeArea.text = ProjectManager.getFileContent();
+    }
 
     CToolBar {
         id: toolBar
@@ -35,10 +48,12 @@ BlankScreen {
             spacing: 0
 
             CBackButton {
-                visible: !enableDualView
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                text: ProjectManager.fileName
+                text: fileName
+                onClicked: {
+                    saveContent()
+                }
             }
 
             CToolButton {
@@ -84,7 +99,7 @@ BlankScreen {
         id: codeArea
 
         Component.onDestruction: {
-            ProjectManager.saveFileContent(text)
+            saveContent();
         }
 
         anchors.top: toolBar.bottom
@@ -94,6 +109,6 @@ BlankScreen {
 
         indentSize: settings.indentSize
 
-        text: ProjectManager.getFileContent()
+        text: ""
     }
 }

@@ -25,6 +25,10 @@ import "../components"
 BlankScreen {
     id: projectsScreen
 
+    readonly property Component editorScreenComponent :
+        Qt.createComponent(Qt.resolvedUrl("EditorScreen.qml"),
+                           Component.PreferSynchronous);
+
     Stack.onStatusChanged: {
         if (Stack.status === Stack.Activating)
             listView.model = ProjectManager.files()
@@ -79,10 +83,24 @@ BlankScreen {
             removeButtonVisible: modelData !== "main.qml"
 
             onClicked: {
-                if (rightView.currentItem !== rightView.initialItem)
+                if (rightView.currentItem.objectName !== undefined) {
+                    if (rightView.currentItem.objectName === "EditorScreen") {
+                        ProjectManager.saveFileContent(rightView.currentItem.codeArea.text)
+                        rightView.currentItem.fileName = modelData
+                        return;
+                    }
+                }
+
+                while (rightView.currentItem !== rightView.initialItem) {
                     rightView.pop()
-                ProjectManager.fileName = modelData
-                rightView.push(Qt.resolvedUrl("EditorScreen.qml"))
+                }
+
+                var editorScreen =
+                        editorScreenComponent.createObject(rightView,
+                                                           {
+                                                               fileName : modelData,
+                                                           });
+                rightView.push(editorScreen)
             }
 
             onRemoveClicked: {

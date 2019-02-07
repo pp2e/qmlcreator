@@ -80,11 +80,26 @@ BlankScreen {
 
         delegate: CFileButton {
             text: modelData
+
             onClicked: {
-                ProjectManager.projectName = modelData
-                if (rightView.currentItem !== rightView.initialItem)
+                if (rightView.currentItem.objectName !== undefined) {
+                    if (rightView.currentItem.objectName === "EditorScreen") {
+                        ProjectManager.saveFileContent(rightView.currentItem.codeArea.text)
+                        rightView.currentItem.fileName = modelData
+                        return;
+                    }
+                }
+
+                while (rightView.currentItem !== rightView.initialItem) {
                     rightView.pop()
-                leftView.push(Qt.resolvedUrl("FilesScreen.qml"))
+                }
+
+                var editorScreen =
+                        editorScreenComponent.createObject(rightView,
+                                                           {
+                                                               fileName : modelData,
+                                                           });
+                rightView.push(editorScreen)
             }
 
             onRemoveClicked: {

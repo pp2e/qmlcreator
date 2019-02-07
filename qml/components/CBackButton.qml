@@ -23,6 +23,7 @@ Item {
     id: cBackButton
 
     property alias text: buttonLabel.text
+    signal clicked()
 
     Rectangle {
         id: background
@@ -53,6 +54,7 @@ Item {
         id: mouseArea
         anchors.fill: parent
         onClicked: {
+            cBackButton.clicked()
             if (!leftView.busy && !rightView.busy)
                 popPage()
         }
