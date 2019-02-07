@@ -221,7 +221,7 @@ void ProjectManager::saveFileContent(QString content)
     textStream<<content;
 }
 
-QQmlApplicationEngine *ProjectManager::m_qmlEngine = NULL;
+QQmlApplicationEngine *ProjectManager::m_qmlEngine = Q_NULLPTR;
 
 void ProjectManager::setQmlEngine(QQmlApplicationEngine *engine)
 {

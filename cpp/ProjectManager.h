@@ -33,10 +33,10 @@ class ProjectManager : public QObject
     Q_OBJECT
 
     Q_ENUMS(BaseFolder)
-    Q_PROPERTY(BaseFolder baseFolder MEMBER m_baseFolder READ baseFolder WRITE setBaseFolder NOTIFY baseFolderChanged)
-    Q_PROPERTY(QString projectName MEMBER m_projectName READ projectName WRITE setProjectName NOTIFY projectNameChanged)
-    Q_PROPERTY(QString fileName MEMBER m_fileName READ fileName WRITE setFileName NOTIFY fileNameChanged)
-    Q_PROPERTY(QString fileFormat MEMBER m_fileFormat READ fileFormat NOTIFY fileFormatChanged)
+    Q_PROPERTY(BaseFolder baseFolder READ baseFolder WRITE setBaseFolder NOTIFY baseFolderChanged)
+    Q_PROPERTY(QString projectName READ projectName WRITE setProjectName NOTIFY projectNameChanged)
+    Q_PROPERTY(QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged)
+    Q_PROPERTY(QString fileFormat READ fileFormat NOTIFY fileFormatChanged)
 
 public:
     explicit ProjectManager(QObject *parent = 0);
