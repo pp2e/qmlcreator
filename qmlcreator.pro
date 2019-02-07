@@ -11,6 +11,7 @@ QT += \
 TARGET = qmlcreator
 TEMPLATE = app
 
+target.path = /usr/bin
 INSTALLS += target
 
 CONFIG += mobility
