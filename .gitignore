@@ -1,2 +1,5 @@
 *.user
 *.tar.bz2
+parts/
+stage/
+prime/
