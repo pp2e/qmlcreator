@@ -59,14 +59,14 @@ BlankScreen {
                 }
             }
 
-            CNavigationButton {
+            /*CNavigationButton {
                 text: qsTr("EXAMPLES")
                 icon: "\uf1c9"
                 onClicked: {
                     ProjectManager.baseFolder = ProjectManager.Examples
                     leftView.push(Qt.resolvedUrl("ExamplesScreen.qml"))
                 }
-            }
+            }*/
 
             CNavigationButton {
                 text: qsTr("SETTINGS")

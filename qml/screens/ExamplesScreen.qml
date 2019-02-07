@@ -25,6 +25,10 @@ import "../components"
 BlankScreen {
     id: examplesScreen
 
+    readonly property Component editorScreenComponent :
+        Qt.createComponent(Qt.resolvedUrl("EditorScreen.qml"),
+                           Component.PreferSynchronous);
+
     Stack.onStatusChanged: {
         if (Stack.status === Stack.Activating)
             listView.model = ProjectManager.projects()
