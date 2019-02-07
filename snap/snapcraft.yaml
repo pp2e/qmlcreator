@@ -19,7 +19,6 @@ apps:
     environment:
       QT_PLUGIN_PATH: ${SNAP}/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/qt5/plugins
       QML2_IMPORT_PATH: ${SNAP}/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/qt5/qml
-    desktop: ${SNAP}/gui/qmlcreator.desktop
     command: desktop-launch qmlcreator
     plugs: [ x11, wayland, desktop, opengl ]
 
