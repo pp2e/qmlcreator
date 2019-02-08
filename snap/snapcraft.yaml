@@ -88,6 +88,7 @@ parts:
       - qml-module-qtmultimedia
       - qml-module-qtquick-privatewidgets
     stage-packages:
+      - dbus-x11
       - qml-module-qt3d
       - qml-module-qtnfc
       - qml-module-qtquick-scene2d
