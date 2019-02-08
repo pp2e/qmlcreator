@@ -76,7 +76,6 @@ parts:
       - qml-module-qtwebchannel
       - qml-module-qt-labs-platform
       - qml-module-qtquick-extras
-      - qml-module-qtwebengine
       - qml-module-qt-labs-settings
       - qml-module-qtquick-layouts
       - qml-module-qtwebkit
@@ -88,7 +87,6 @@ parts:
       - qml-module-qt-websockets
       - qml-module-qtmultimedia
       - qml-module-qtquick-privatewidgets
-      - qml-module-qtwebview
     after: [ desktop-qt5 ]
   env:
     plugin: nil
@@ -140,7 +138,6 @@ parts:
       - qml-module-qtwebchannel
       - qml-module-qt-labs-platform
       - qml-module-qtquick-extras
-      - qml-module-qtwebengine
       - qml-module-qt-labs-settings
       - qml-module-qtquick-layouts
       - qml-module-qtwebkit
@@ -152,7 +149,6 @@ parts:
       - qml-module-qt-websockets
       - qml-module-qtmultimedia
       - qml-module-qtquick-privatewidgets
-      - qml-module-qtwebview
       - qtwayland5
     after: [ qmlcreator ]
   desktop-qt5:
