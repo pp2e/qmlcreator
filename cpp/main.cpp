@@ -25,6 +25,31 @@
 #include "ProjectManager.h"
 #include "SyntaxHighlighter.h"
 
+#ifdef Q_OS_ANDROID
+#include <QtAndroidExtras/QtAndroid>
+
+bool checkAndroidStoragePermissions() {
+    const auto permissionsRequest = QStringList(
+    { QString("android.permission.READ_EXTERNAL_STORAGE"),
+      QString("android.permission.WRITE_EXTERNAL_STORAGE")});
+
+    if (QtAndroid::checkPermission(permissionsRequest[0])
+            == QtAndroid::PermissionResult::Denied
+            || (QtAndroid::checkPermission(permissionsRequest[1]))
+            == QtAndroid::PermissionResult::Denied) {
+        auto permissionResults
+                = QtAndroid::requestPermissionsSync(permissionsRequest);
+        if ((permissionResults[permissionsRequest[0]]
+             == QtAndroid::PermissionResult::Denied)
+                || (permissionResults[permissionsRequest[1]]
+                    == QtAndroid::PermissionResult::Denied))
+            return false;
+    }
+    return true;
+}
+
+#endif
+
 int main(int argc, char *argv[])
 {
     qInstallMessageHandler(&MessageHandler::handler);
@@ -40,6 +65,10 @@ int main(int argc, char *argv[])
 
     qmlRegisterSingletonType<ProjectManager>("ProjectManager", 1, 1, "ProjectManager", &ProjectManager::projectManagerProvider);
     qmlRegisterType<SyntaxHighlighter>("SyntaxHighlighter", 1, 1, "SyntaxHighlighter");
+
+#ifdef Q_OS_ANDROID
+    checkAndroidStoragePermissions();
+#endif
 
     QQmlApplicationEngine engine(QUrl("qrc:/qml/main.qml"));
 
