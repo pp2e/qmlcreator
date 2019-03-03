@@ -5,6 +5,7 @@ description: |
   QML Creator is a simple and lightweight IDE for projects based on QML & JavaScript.
   
   Features:
+    - Responsive interface
     - Simple project layout style
     - Syntax highlighting
     - Debug output overlay
