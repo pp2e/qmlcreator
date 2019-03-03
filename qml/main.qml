@@ -26,20 +26,6 @@ import "screens"
 CApplicationWindow {
     id: appWindow
 
-    function popPage()  {
-        if (rightView.currentItem !== rightView.initialItem) {
-            rightView.pop()
-            return true;
-        }
-
-        if (leftView.currentItem !== leftView.initialItem) {
-            leftView.pop()
-            return true;
-        }
-
-        return false
-    }
-
     onBackPressed: {
         if (dialog.visible)
         {
@@ -47,89 +33,38 @@ CApplicationWindow {
         }
         else
         {
-            if (leftView.depth > 1 || rightView.depth > 1)
-                popPage()
+            if (splitView.leftView.depth > 1 || splitView.rightView.depth > 1)
+                splitView.popPage()
             else
                 Qt.quit()
         }
     }
 
-    SwipeView {
+    CSplitView {
+        id: splitView
         anchors.fill: parent
-        states: [
-            State {
-                when: !enableDualView
-                name: "singleView"
-                ParentChange {
-                    target: leftView
-                    parent: leftStackContainer
-                }
-                ParentChange {
-                    target: rightView
-                    parent: leftStackContainer
-                }
-            },
-            State {
-                when: enableDualView
-                name: "dualView"
-                ParentChange {
-                    target: leftView
-                    parent: leftStackContainer
-                }
-                ParentChange {
-                    target: rightView
-                    parent: rightStackContainer
-                }
-            }
-        ]
 
-        // Stack views
-        Item {
-            StackView {
-                id: leftView
-                anchors.fill: parent
-                enabled: !dialog.visible
-                initialItem: MainMenuScreen { }
-            }
+        Component.onCompleted: {
+            splitView.leftView.push(initialLeftView)
+            splitView.rightView.push(initialRightView)
         }
-        Item {
-            StackView {
-                id: rightView
-                anchors.fill: parent
-                enabled: !dialog.visible
-                initialItem: Item {
-                    Image {
-                        visible: enableDualView
-                        anchors.fill: parent
-                        anchors.margins: parent.width / 4
-                        fillMode: Image.PreserveAspectFit
-                        source: "qrc:/resources/images/icon512.png"
-                    }
-                }
-            }
+
+        MainMenuScreen
+        {
+            id: initialLeftView
+            anchors.fill: splitView.leftView
+            splitView: splitView
         }
-    }
 
-    Rectangle {
-        anchors.fill: parent
-        color: "white"
-        Row {
-            anchors.fill: parent
-
-            // Stack view containers
-            Rectangle {
-                id: leftStackContainer
-                clip: true
-                width: enableDualView ? parent.width / 3
-                                      : parent.width
-                height: parent.height
-            }
-            Rectangle {
-                id: rightStackContainer
-                clip: true
-                width: enableDualView ? (parent.width / 3) * 2
-                                      : parent.width
-                height: parent.height
+        Item {
+            id: initialRightView
+            anchors.fill: splitView.rightView
+            Image {
+                anchors.fill: parent
+                anchors.margins: parent.width / 4
+                visible: splitView.enableDualView
+                fillMode: Image.PreserveAspectFit
+                source: "qrc:/resources/images/icon512.png"
             }
         }
     }
