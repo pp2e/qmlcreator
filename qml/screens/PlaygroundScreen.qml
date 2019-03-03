@@ -81,7 +81,7 @@ BlankScreen {
                 width: messagesFlickable.width
                 height: messagesFlickable.height
                 visible: settings.debugging
-                color: palette.editorNormal
+                color: appWindow.palette.editorNormal
                 opacity: 0.3
                 font.pixelSize: 6 * settings.pixelDensity
                 wrapMode: TextEdit.Wrap
