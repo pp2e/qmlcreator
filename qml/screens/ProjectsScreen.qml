@@ -30,6 +30,10 @@ BlankScreen {
             listView.model = ProjectManager.projects()
     }
 
+    Component.onCompleted: {
+        listView.model = ProjectManager.projects()
+    }
+
     CToolBar {
         id: toolBar
         anchors.left: parent.left

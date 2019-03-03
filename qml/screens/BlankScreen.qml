@@ -22,6 +22,6 @@ Rectangle {
     id: blankScreen
     color: "white"
 
-    enabled: !leftView.busy
+    enabled: !splitView.leftView.busy
 }
 

@@ -65,7 +65,7 @@ Item {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         width: column.width * 1.2
-        color: palette.lineNumbersBackground
+        color: appWindow.palette.lineNumbersBackground
 
         Column {
             id: column
@@ -76,7 +76,9 @@ Item {
                 model: textEdit.lineCount
                 delegate: Text {
                     anchors.right: column.right
-                    color: index + 1 === textEdit.currentLine ? palette.label : palette.lineNumber
+                    color: index + 1 === textEdit.currentLine ?
+                               appWindow.palette.label :
+                               appWindow.palette.lineNumber
                     font.family: settings.font
                     font.pixelSize: settings.fontSize
                     font.bold: index + 1 === textEdit.currentLine
@@ -115,9 +117,9 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
 
-            color: palette.editorNormal
-            selectionColor: palette.editorSelection
-            selectedTextColor: palette.editorSelectedText
+            color: appWindow.palette.editorNormal
+            selectionColor: appWindow.palette.editorSelection
+            selectedTextColor: appWindow.palette.editorSelectedText
 
             font.family: settings.font
             font.pixelSize: settings.fontSize
@@ -232,16 +234,16 @@ Item {
             SyntaxHighlighter {
                 id: syntaxHighlighter
 
-                normalColor: palette.editorNormal
-                commentColor: palette.editorComment
-                numberColor: palette.editorNumber
-                stringColor: palette.editorString
-                operatorColor: palette.editorOperator
-                keywordColor: palette.editorKeyword
-                builtInColor: palette.editorBuiltIn
-                markerColor: palette.editorMarker
-                itemColor: palette.editorItem
-                propertyColor: palette.editorProperty
+                normalColor: appWindow.palette.editorNormal
+                commentColor: appWindow.palette.editorComment
+                numberColor: appWindow.palette.editorNumber
+                stringColor: appWindow.palette.editorString
+                operatorColor: appWindow.palette.editorOperator
+                keywordColor: appWindow.palette.editorKeyword
+                builtInColor: appWindow.palette.editorBuiltIn
+                markerColor: appWindow.palette.editorMarker
+                itemColor: appWindow.palette.editorItem
+                propertyColor: appWindow.palette.editorProperty
             }
 
             Component.onCompleted: {
@@ -366,7 +368,7 @@ Item {
                     width: parent.width
                     height: parent.height
                     radius: width / 2
-                    color: palette.editorSelectionHandle
+                    color: appWindow.palette.editorSelectionHandle
 
                     Rectangle {
                         width: Math.floor(parent.width / 2)
@@ -426,7 +428,7 @@ Item {
                     width: parent.width
                     height: parent.height
                     radius: width / 2
-                    color: palette.editorSelectionHandle
+                    color: appWindow.palette.editorSelectionHandle
 
                     Rectangle {
                         width: Math.floor(parent.width / 2)

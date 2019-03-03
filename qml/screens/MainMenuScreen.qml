@@ -23,6 +23,8 @@ import "../components"
 BlankScreen {
     id: mainMenuScreen
 
+    property var splitView : null
+
     CToolBar {
         id: toolBar
         anchors.left: parent.left
@@ -55,35 +57,35 @@ BlankScreen {
                 icon: "\uf0f6"
                 onClicked: {
                     ProjectManager.baseFolder = ProjectManager.Projects
-                    leftView.push(Qt.resolvedUrl("ProjectsScreen.qml"))
+                    splitView.leftView.push(Qt.resolvedUrl("ProjectsScreen.qml"))
                 }
             }
 
-            /*CNavigationButton {
+            CNavigationButton {
                 text: qsTr("EXAMPLES")
                 icon: "\uf1c9"
                 onClicked: {
                     ProjectManager.baseFolder = ProjectManager.Examples
-                    leftView.push(Qt.resolvedUrl("ExamplesScreen.qml"))
+                    splitView.leftView.push(Qt.resolvedUrl("ExamplesScreen.qml"))
                 }
-            }*/
+            }
 
             CNavigationButton {
                 text: qsTr("SETTINGS")
                 icon: "\uf0ad"
-                onClicked: rightView.push(Qt.resolvedUrl("SettingsScreen.qml"))
+                onClicked: splitView.rightView.push(Qt.resolvedUrl("SettingsScreen.qml"))
             }
 
             CNavigationButton {
                 text: qsTr("MODULES")
                 icon: "\uf085"
-                onClicked: rightView.push(Qt.resolvedUrl("ModulesScreen.qml"))
+                onClicked: splitView.rightView.push(Qt.resolvedUrl("ModulesScreen.qml"))
             }
 
             CNavigationButton {
                 text: qsTr("ABOUT")
                 icon: "\uf0e5"
-                onClicked: rightView.push(Qt.resolvedUrl("AboutScreen.qml"))
+                onClicked: splitView.rightView.push(Qt.resolvedUrl("AboutScreen.qml"))
             }
         }
     }

@@ -34,6 +34,10 @@ BlankScreen {
             listView.model = ProjectManager.files()
     }
 
+    Component.onCompleted: {
+        listView.model = ProjectManager.files()
+    }
+
     CToolBar {
         id: toolBar
         anchors.left: parent.left
@@ -91,9 +95,9 @@ BlankScreen {
                     }
                 }
 
-                while (rightView.currentItem !== rightView.initialItem) {
+                /*while (rightView.currentItem !== rightView.initialItem) {
                     rightView.pop()
-                }
+                }*/
 
                 var editorScreen =
                         editorScreenComponent.createObject(rightView,

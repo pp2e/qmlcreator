@@ -34,6 +34,10 @@ BlankScreen {
             listView.model = ProjectManager.projects()
     }
 
+    Component.onCompleted: {
+        listView.model = ProjectManager.projects()
+    }
+
     CToolBar {
         id: toolBar
         anchors.left: parent.left
@@ -94,16 +98,20 @@ BlankScreen {
                     }
                 }
 
-                while (rightView.currentItem !== rightView.initialItem) {
+                /*while (rightView.currentItem !== rightView.initialItem) {
                     rightView.pop()
-                }
+                }*/
 
-                var editorScreen =
+                /*var editorScreen =
                         editorScreenComponent.createObject(rightView,
                                                            {
                                                                fileName : modelData,
                                                            });
-                rightView.push(editorScreen)
+                rightView.push(editorScreen)*/
+
+
+                ProjectManager.projectName = modelData
+                leftView.push(Qt.resolvedUrl("FilesScreen.qml"))
             }
 
             onRemoveClicked: {

@@ -55,8 +55,8 @@ Item {
         anchors.fill: parent
         onClicked: {
             cBackButton.clicked()
-            if (!leftView.busy && !rightView.busy)
-                popPage()
+            if (!splitView.leftView.busy && !splitView.rightView.busy)
+                splitView.popPage()
         }
     }
 }

@@ -27,14 +27,16 @@ Item {
     Rectangle {
         id: background
         anchors.fill: parent
-        color: mouseArea.pressed ? palette.contextMenuButtonPressed : palette.contextMenuButton
+        color: mouseArea.pressed ?
+                   appWindow.palette.contextMenuButtonPressed :
+                   appWindow.palette.contextMenuButton
     }
 
     CLabel {
         id: buttonLabel
         anchors.fill: parent
         horizontalAlignment: Text.AlignHCenter
-        color: palette.contextMenuButtonText
+        color: appWindow.palette.contextMenuButtonText
     }
 
     MouseArea {
