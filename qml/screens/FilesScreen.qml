@@ -95,9 +95,9 @@ BlankScreen {
                     }
                 }
 
-                /*while (rightView.currentItem !== rightView.initialItem) {
+                while (rightView.depth > 1) {
                     rightView.pop()
-                }*/
+                }
 
                 var editorScreen =
                         editorScreenComponent.createObject(rightView,

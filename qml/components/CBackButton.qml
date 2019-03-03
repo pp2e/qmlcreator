@@ -23,6 +23,8 @@ Item {
     id: cBackButton
 
     property alias text: buttonLabel.text
+    property bool closeOnly : false
+    property var targetSplit : null
     signal clicked()
 
     Rectangle {
@@ -39,7 +41,9 @@ Item {
         spacing: 3 * settings.pixelDensity
 
         CIcon {
-            text: "\uf104"
+            text: !closeOnly ?
+                      "\uf104" :
+                      "\uf00d"
         }
 
         CLabel {
@@ -55,6 +59,13 @@ Item {
         anchors.fill: parent
         onClicked: {
             cBackButton.clicked()
+
+            if (targetSplit !== undefined &&
+                    targetSplit !== null) {
+                targetSplit.pop()
+                return;
+            }
+
             if (!splitView.leftView.busy && !splitView.rightView.busy)
                 splitView.popPage()
         }

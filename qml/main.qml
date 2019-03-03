@@ -25,6 +25,7 @@ import "screens"
 
 CApplicationWindow {
     id: appWindow
+    property alias splitView : splitView
 
     onBackPressed: {
         if (dialog.visible)
@@ -52,13 +53,11 @@ CApplicationWindow {
         MainMenuScreen
         {
             id: initialLeftView
-            anchors.fill: splitView.leftView
             splitView: splitView
         }
 
         Item {
             id: initialRightView
-            anchors.fill: splitView.rightView
             Image {
                 anchors.fill: parent
                 anchors.margins: parent.width / 4

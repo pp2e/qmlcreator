@@ -36,7 +36,7 @@ Item {
             id: textEdit
             anchors.fill: parent
 
-            color: palette.label
+            color: appWindow.palette.label
             font.family: "Roboto"
             font.pixelSize: 6 * settings.pixelDensity
             textMargin: 3 * settings.pixelDensity

@@ -91,11 +91,11 @@ BlankScreen {
                          else
                              qsTr("Undefined")
             descriptionColor: if (status === 1)
-                                  palette.description
+                                  appWindow.palette.description
                               else if (status === 2)
-                                  palette.warning
+                                  appWindow.palette.warning
                               else
-                                  palette.label
+                                  appWindow.palette.label
         }
     }
 
