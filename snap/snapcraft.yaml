@@ -8,7 +8,7 @@ description: |
     - Responsive interface
     - Simple project layout style
     - Syntax highlighting
-    - Debug output overlay
+    - Debug console overlay
     - Runs on desktops as well as mobile devices
 
 confinement: strict
