@@ -1,7 +1,7 @@
 import QtQuick 2.5
 import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.2
-import Qt.WebSockets 1.0
+import QtWebSockets 1.0
 
 Item {
     anchors.fill: parent
