@@ -17,8 +17,7 @@
 ****************************************************************************/
 
 import QtQuick 2.5
-import QtQuick.Controls 1.4
-import QtQuick.Controls.Styles 1.4
+import QtQuick.Controls 2.0
 import QtQuick.Window 2.2
 import Qt.labs.settings 1.0
 import ProjectManager 1.1
@@ -33,12 +32,6 @@ ApplicationWindow {
     visibility: settings.debugMode ? "FullScreen" : "Maximized"
 
     readonly property bool enableDualView: width > height
-
-    style: ApplicationWindowStyle {
-        background: Rectangle {
-            color: palette.background
-        }
-    }
 
     // Loading
     signal loaded()

@@ -17,7 +17,7 @@
 ****************************************************************************/
 
 import QtQuick 2.5
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.2
 import ProjectManager 1.1
 import "../components"
@@ -29,13 +29,9 @@ BlankScreen {
         Qt.createComponent(Qt.resolvedUrl("EditorScreen.qml"),
                            Component.PreferSynchronous);
 
-    Stack.onStatusChanged: {
-        if (Stack.status === Stack.Activating)
+    StackView.onStatusChanged: {
+        if (StackView.status === StackView.Activating)
             listView.model = ProjectManager.projects()
-    }
-
-    Component.onCompleted: {
-        listView.model = ProjectManager.projects()
     }
 
     CToolBar {

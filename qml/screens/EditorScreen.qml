@@ -17,6 +17,7 @@
 ****************************************************************************/
 
 import QtQuick 2.5
+import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.2
 import ProjectManager 1.1
 import "../components"
@@ -32,9 +33,14 @@ BlankScreen {
 
     property alias codeArea : codeArea
     property string fileName: ""
-    onFileNameChanged: {
-        ProjectManager.fileName = fileName
-        codeArea.text = ProjectManager.getFileContent();
+
+    StackView.onStatusChanged: {
+        if (StackView.status === StackView.Activating) {
+            ProjectManager.fileName = fileName
+            codeArea.text = ProjectManager.getFileContent();
+        } else if (StackView.status === StackView.Deactivating) {
+            saveContent()
+        }
     }
 
     CToolBar {
