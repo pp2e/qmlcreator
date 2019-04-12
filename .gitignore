@@ -1,5 +1,6 @@
 *.user
 *.tar.bz2
+build/
 parts/
 stage/
 prime/
