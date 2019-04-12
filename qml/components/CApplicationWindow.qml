@@ -42,7 +42,7 @@ ApplicationWindow {
     onLoaded: {
         // http://doc.qt.io/qt-5/qml-qtquick-window-screen.html
         // The Screen attached object is valid inside Item or Item derived types, after component completion
-        settings.pixelDensity = settings.debugMode ? 6.0 : Screen.logicalPixelDensity
+        // settings.pixelDensity = settings.debugMode ? 6.0 : Screen.logicalPixelDensity
 
         var previousVersion = parseInt(settings.previousVersion.split(".").join(""))
         if (previousVersion === 0)
@@ -89,7 +89,7 @@ ApplicationWindow {
 
         // internal
         property bool debugMode: false
-        property double pixelDensity
+        property double pixelDensity : 3.0
         property string previousVersion: "0.0.0"
         property bool desktopPlatform: Qt.platform.os === "windows" ||
                                        Qt.platform.os === "linux" ||

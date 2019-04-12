@@ -42,7 +42,7 @@ BlankScreen {
         anchors.right: parent.right
 
         text:  textStyle() +
-               Qt.application.name + " " + Qt.application.version + "<br>
+               "QML Creator " + Qt.application.version + "<br>
                Based on Qt Quick (Qt " + qtVersion + ")<br>
                Built on " + buildDateTime + "<br><br>
                Copyright (C) 2019 <a href=\"https://fredl.me/\">Alfred Neumayer</a><br>

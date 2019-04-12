@@ -18,12 +18,25 @@
 
 #include <QGuiApplication>
 #include <QDateTime>
+#include <QDir>
 #include <QQmlApplicationEngine>
 #include <QTranslator>
 #include <QtGlobal>
 #include "MessageHandler.h"
 #include "ProjectManager.h"
 #include "SyntaxHighlighter.h"
+
+inline static void createNecessaryDir(const QString& path) {
+    const QDir configDir = QDir(path);
+    if (!configDir.exists()) {
+        const auto success = configDir.mkpath(configDir.absolutePath());
+        if (success)
+            return;
+
+        qWarning() << "Failed to create" << configDir.absolutePath();
+        return;
+    }
+}
 
 #ifdef Q_OS_ANDROID
 #include <QtAndroidExtras/QtAndroid>
@@ -62,8 +75,18 @@ int main(int argc, char *argv[])
     app.setOrganizationName("wearyinside");
     app.setOrganizationDomain("com.wearyinside.qmlcreator");
 #else
-    app.setApplicationName(QStringLiteral("me.fredl.ghostcloud"));
+    app.setApplicationName(QStringLiteral("me.fredl.qmlcreator"));
 #endif
+
+    const QString configPath =
+            QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) +
+            QDir::separator();
+    const QString cachePath =
+            QStandardPaths::writableLocation(QStandardPaths::CacheLocation) +
+            QDir::separator();
+
+    createNecessaryDir(configPath);
+    createNecessaryDir(cachePath);
 
     QTranslator translator;
     translator.load("qmlcreator_" + QLocale::system().name(), ":/resources/translations");
@@ -73,18 +96,22 @@ int main(int argc, char *argv[])
     qmlRegisterType<SyntaxHighlighter>("SyntaxHighlighter", 1, 1, "SyntaxHighlighter");
 
 #ifdef Q_OS_ANDROID
-    checkAndroidStoragePermissions();
+    while(!checkAndroidStoragePermissions());
 #endif
 
-    QQmlApplicationEngine engine(QUrl("qrc:/qml/main.qml"));
+    QQmlApplicationEngine engine;
 
     const QString qtVersion = QT_VERSION_STR;
     const QString buildDateTime = QStringLiteral("%1 %2").arg(__DATE__, __TIME__);
     engine.rootContext()->setContextProperty("qtVersion", qtVersion);
     engine.rootContext()->setContextProperty("buildDateTime", buildDateTime);
 
+    engine.rootContext()->setContextProperty("configPath", configPath);
+    engine.rootContext()->setContextProperty("cachePath", cachePath);
+
+    engine.load(QUrl("qrc:/qml/main.qml"));
+
     ProjectManager::setQmlEngine(&engine);
     MessageHandler::setQmlEngine(&engine);
-
     return app.exec();
 }
