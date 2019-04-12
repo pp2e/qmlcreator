@@ -52,12 +52,18 @@ bool checkAndroidStoragePermissions() {
 
 int main(int argc, char *argv[])
 {
+    QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+
     qInstallMessageHandler(&MessageHandler::handler);
     QGuiApplication app(argc, argv);
-    app.setApplicationName("QML Creator");
     app.setApplicationVersion("1.3.1");
+#ifndef UBUNTU_CLICK
+    app.setApplicationName("QML Creator");
     app.setOrganizationName("wearyinside");
     app.setOrganizationDomain("com.wearyinside.qmlcreator");
+#else
+    app.setApplicationName(QStringLiteral("me.fredl.ghostcloud"));
+#endif
 
     QTranslator translator;
     translator.load("qmlcreator_" + QLocale::system().name(), ":/resources/translations");
