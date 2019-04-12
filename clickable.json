@@ -1,4 +1,7 @@
 {
   "template": "qmake",
-  "default": "clean build click-build"
+  "default": "clean build click-build",
+  "build_args": [
+    "CONFIG+=click"
+  ]
 }
