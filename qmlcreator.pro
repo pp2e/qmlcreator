@@ -102,6 +102,10 @@ contains(CONFIG, click) {
     apparmor.files += $$PWD/qmlcreator.apparmor
     apparmor.path = /
 
+    # Launcher icon
+    iconfile.files += $$PWD/resources/images/icon512.png
+    iconfile.path = /
+
     # Desktop launcher
     desktop.files += $$PWD/qmlcreator.desktop
     desktop.path = /
@@ -110,5 +114,5 @@ contains(CONFIG, click) {
     runscript.files += $$PWD/run.sh
     runscript.path = /
 
-    INSTALLS += mfile apparmor desktop runscript
+    INSTALLS += mfile apparmor iconfile desktop runscript
 }

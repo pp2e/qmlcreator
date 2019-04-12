@@ -13,7 +13,6 @@
         "content_exchange",
         "content_exchange_source",
         "document_files",
-        "document_files_read",
         "history",
         "keep-display-on",
         "location",
@@ -22,6 +21,12 @@
         "picture_files",
         "sensors",
         "video_files",
+    ],
+    "read_path": [
+        "@{HOME}/Documents/"
+    ],
+    "write_path": [
+        "@{HOME}/Documents/"
     ],
     "policy_version": 16.04
 }
