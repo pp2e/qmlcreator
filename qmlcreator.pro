@@ -2,7 +2,7 @@ QT += \
     core gui qml quick \
     multimedia sql \
     network websockets \
-    xml svg
+    xml svg quickcontrols2
 
 TARGET = qmlcreator
 TEMPLATE = app
@@ -72,6 +72,7 @@ ios {
 }
 
 contains(CONFIG, click) {
+    DEFINES += UBUNTU_CLICK
     # figure out the current build architecture
     CLICK_ARCH=$$system(dpkg-architecture -qDEB_HOST_ARCH)
     # do not remove this line, it is required by the IDE even if you do
