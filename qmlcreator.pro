@@ -73,6 +73,10 @@ ios {
 
 contains(CONFIG, click) {
     DEFINES += UBUNTU_CLICK
+    QT += \
+        sensors bluetooth nfc \
+        positioning location
+
     # figure out the current build architecture
     CLICK_ARCH=$$system(dpkg-architecture -qDEB_HOST_ARCH)
     # do not remove this line, it is required by the IDE even if you do
