@@ -18,6 +18,8 @@
 
 #include "ProjectManager.h"
 
+#include <QDebug>
+
 ProjectManager::ProjectManager(QObject *parent) :
     QObject(parent)
 {
@@ -56,7 +58,7 @@ QStringList ProjectManager::projects()
 void ProjectManager::createProject(QString projectName)
 {
     QDir dir(baseFolderPath(Projects));
-    if (dir.mkdir(projectName))
+    if (dir.mkpath(projectName))
     {
         QFile file(baseFolderPath(Projects) + QDir::separator() + projectName + QDir::separator() + "main.qml");
         if (file.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -67,11 +69,13 @@ void ProjectManager::createProject(QString projectName)
         }
         else
         {
+            qWarning() << "Unable to create file \"main.qml\"";
             emit error(QString("Unable to create file \"main.qml\""));
         }
     }
     else
     {
+        qWarning() << "Failed to create folder" << dir.absolutePath();
         emit error(QString("Unable to create folder \"%1\".").arg(projectName));
     }
 }
@@ -99,7 +103,7 @@ void ProjectManager::restoreExamples()
 
     foreach(QFileInfo folder, folders) {
         QString folderName = folder.fileName();
-        deviceExamplesDir.mkdir(folderName);
+        deviceExamplesDir.mkpath(folderName);
 
         QDir qrcExampleDir(":/qml/examples/" + folderName);
 
@@ -256,7 +260,11 @@ QString ProjectManager::baseFolderPath(BaseFolder folder)
         break;
     }
 
+#ifndef UBUNTU_CLICK
     QString folderPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) +
+#else
+    QString folderPath = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) +
+#endif
                          QDir::separator() +
                          "QML Projects";
 
