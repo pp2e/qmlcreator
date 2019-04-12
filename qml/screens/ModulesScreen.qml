@@ -70,6 +70,7 @@ BlankScreen {
         CBackButton {
             anchors.fill: parent
             text: qsTr("Modules")
+            enableBack: !enableDualView
         }
     }
 

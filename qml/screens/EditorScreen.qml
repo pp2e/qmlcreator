@@ -51,6 +51,7 @@ BlankScreen {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 text: fileName
+                enableBack: !enableDualView
                 targetSplit: appWindow.splitView.rightView
                 onClicked: {
                     saveContent()

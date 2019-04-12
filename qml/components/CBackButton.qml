@@ -23,7 +23,7 @@ Item {
     id: cBackButton
 
     property alias text: buttonLabel.text
-    property bool closeOnly : false
+    property bool enableBack : true
     property var targetSplit : null
     signal clicked()
 
@@ -41,9 +41,7 @@ Item {
         spacing: 3 * settings.pixelDensity
 
         CIcon {
-            text: !closeOnly ?
-                      "\uf104" :
-                      "\uf00d"
+            text: enableBack ? "\uf104" : ""
         }
 
         CLabel {
@@ -57,7 +55,11 @@ Item {
     MouseArea {
         id: mouseArea
         anchors.fill: parent
+        enabled: enableBack
         onClicked: {
+            if (!enableBack)
+                return;
+
             cBackButton.clicked()
 
             if (targetSplit !== undefined &&

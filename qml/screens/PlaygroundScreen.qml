@@ -39,6 +39,7 @@ BlankScreen {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 enabled: !leftView.busy
+                enableBack: !enableDualView
                 text: ProjectManager.fileName
             }
 

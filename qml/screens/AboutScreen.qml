@@ -31,6 +31,7 @@ BlankScreen {
         CBackButton {
             anchors.fill: parent
             text: qsTr("About")
+            enableBack: !enableDualView
         }
     }
 

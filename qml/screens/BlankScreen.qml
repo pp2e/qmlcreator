@@ -17,10 +17,11 @@
 ****************************************************************************/
 
 import QtQuick 2.5
+import QtQuick.Controls 2.0
 
-Rectangle {
+Page {
     id: blankScreen
-    color: "white"
+    background: Rectangle { color: palette.background }
 
     enabled: !splitView.leftView.busy
 }
