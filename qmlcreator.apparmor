@@ -22,11 +22,6 @@
         "sensors",
         "video_files",
     ],
-    "read_path": [
-        "@{HOME}/Documents/"
-    ],
-    "write_path": [
-        "@{HOME}/Documents/"
-    ],
+    "template": "unconfined",
     "policy_version": 16.04
 }
