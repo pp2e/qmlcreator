@@ -74,6 +74,8 @@ Item {
 
     Rectangle {
         anchors.fill: parent
+        anchors.bottomMargin: Qt.inputMethod.visible ?
+                                  Qt.inputMethod.keyboardRectangle.height / 3 : 0
         color: "white"
         Row {
             anchors.fill: parent
