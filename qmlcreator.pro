@@ -102,7 +102,7 @@ contains(CONFIG, click) {
     apparmor.path = /
 
     # Launcher icon
-    iconfile.files += $$PWD/resources/images/icon512.png
+    iconfile.files += $$PWD/qmlcreator.png
     iconfile.path = /
 
     # Desktop launcher

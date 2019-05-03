@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Icon=icon512.png
+Icon=qmlcreator.png
 Exec=qmlcreator
 Name=QML Creator
 X-Ubuntu-Touch=true
