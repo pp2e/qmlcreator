@@ -20,7 +20,7 @@
         "music_files",
         "picture_files",
         "sensors",
-        "video_files",
+        "video_files"
     ],
     "read_path": [
         "@{HOME}/Documents/"
