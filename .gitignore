@@ -1,4 +1,5 @@
-*.user
+*.pro.user
+*.pro.user.*
 *.tar.bz2
 build/
 parts/
