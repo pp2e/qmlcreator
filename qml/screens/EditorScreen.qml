@@ -106,10 +106,6 @@ BlankScreen {
     CCodeArea {
         id: codeArea
 
-        Component.onDestruction: {
-            saveContent();
-        }
-
         anchors.top: toolBar.bottom
         anchors.bottom: parent.bottom
         anchors.left: parent.left
