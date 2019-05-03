@@ -70,12 +70,12 @@ int main(int argc, char *argv[])
     qInstallMessageHandler(&MessageHandler::handler);
     QGuiApplication app(argc, argv);
     app.setApplicationVersion("1.3.1");
-#ifndef UBUNTU_CLICK
+#ifdef UBUNTU_CLICK
+    app.setOrganizationName(QStringLiteral("me.fredl.qmlcreator"));
+#else
     app.setApplicationName("QML Creator");
     app.setOrganizationName("wearyinside");
     app.setOrganizationDomain("com.wearyinside.qmlcreator");
-#else
-    app.setApplicationName(QStringLiteral("me.fredl.qmlcreator"));
 #endif
 
     const QString configPath =

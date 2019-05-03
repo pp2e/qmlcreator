@@ -8,7 +8,6 @@ TARGET = qmlcreator
 TEMPLATE = app
 
 target.path = /usr/bin
-INSTALLS += target
 
 CONFIG += mobility
 MOBILITY =
@@ -114,5 +113,9 @@ contains(CONFIG, click) {
     runscript.files += $$PWD/run.sh
     runscript.path = /
 
+    target.path = /
+
     INSTALLS += mfile apparmor iconfile desktop runscript
 }
+
+INSTALLS += target

@@ -17,11 +17,17 @@
 ****************************************************************************/
 
 import QtQuick 2.5
+import QtQuick.Controls 2.0
 import ProjectManager 1.1
 import "../components"
 
 BlankScreen {
     id: mainMenuScreen
+
+    StackView.onStatusChanged: {
+        if (StackView.status === StackView.Activating)
+            column.setLocked(null)
+    }
 
     property var splitView : null
 
@@ -31,11 +37,12 @@ BlankScreen {
         anchors.right: parent.right
         anchors.top: parent.top
 
-        CLabel {
+        CBackButton {
             anchors.fill: parent
-            anchors.leftMargin: 5 * settings.pixelDensity
             text: appWindow.title
-            font.pixelSize: 10 * settings.pixelDensity
+            enableBack: appWindow.splitView.rightView.depth > 1
+            targetSplit: appWindow.splitView.rightView
+            onClicked: column.setLocked(null)
         }
     }
 
@@ -52,40 +59,66 @@ BlankScreen {
             anchors.left: parent.left
             anchors.right: parent.right
 
+            function setLocked(buttonView) {
+                projectsButton.locked = false
+                examplesButton.locked = false
+                settingsButton.locked = false
+                modulesButton.locked = false
+                aboutButton.locked = false
+                if (buttonView)
+                    buttonView.locked = true
+            }
+
             CNavigationButton {
+                id: projectsButton
                 text: qsTr("PROJECTS")
                 icon: "\uf0f6"
                 onClicked: {
+                    column.setLocked(projectsButton)
                     ProjectManager.baseFolder = ProjectManager.Projects
                     splitView.leftView.push(Qt.resolvedUrl("ProjectsScreen.qml"))
                 }
             }
 
             CNavigationButton {
+                id: examplesButton
                 text: qsTr("EXAMPLES")
                 icon: "\uf1c9"
                 onClicked: {
+                    column.setLocked(examplesButton)
                     ProjectManager.baseFolder = ProjectManager.Examples
                     splitView.leftView.push(Qt.resolvedUrl("ExamplesScreen.qml"))
                 }
             }
 
             CNavigationButton {
+                id: settingsButton
                 text: qsTr("SETTINGS")
                 icon: "\uf0ad"
-                onClicked: splitView.rightView.push(Qt.resolvedUrl("SettingsScreen.qml"))
+                onClicked: {
+                    column.setLocked(settingsButton)
+                    splitView.rightView.push(Qt.resolvedUrl("SettingsScreen.qml"))
+                }
             }
 
             CNavigationButton {
+                id: modulesButton
                 text: qsTr("MODULES")
                 icon: "\uf085"
-                onClicked: splitView.rightView.push(Qt.resolvedUrl("ModulesScreen.qml"))
+                onClicked: {
+                    column.setLocked(modulesButton)
+                    splitView.rightView.push(Qt.resolvedUrl("ModulesScreen.qml"))
+                }
             }
 
             CNavigationButton {
+                id: aboutButton
                 text: qsTr("ABOUT")
                 icon: "\uf0e5"
-                onClicked: splitView.rightView.push(Qt.resolvedUrl("AboutScreen.qml"))
+                onClicked: {
+                    column.setLocked(aboutButton)
+                    splitView.rightView.push(Qt.resolvedUrl("AboutScreen.qml"))
+                }
             }
         }
     }

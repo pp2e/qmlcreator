@@ -27,6 +27,7 @@ Item {
     implicitHeight: 18.5 * settings.pixelDensity
     property alias icon: buttonIcon.text
     property alias text: buttonLabel.text
+    property bool locked : false
 
     signal clicked()
 
@@ -39,7 +40,7 @@ Item {
     Rectangle {
         anchors.fill: parent
         color: palette.button
-        visible: mouseArea.pressed
+        visible: mouseArea.pressed || locked
     }
 
     RowLayout {
@@ -63,6 +64,10 @@ Item {
     MouseArea {
         id: mouseArea
         anchors.fill: parent
-        onClicked: cNavigationButton.clicked()
+        onClicked: {
+            if (locked)
+                return;
+            cNavigationButton.clicked()
+        }
     }
 }
