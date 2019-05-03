@@ -4,24 +4,14 @@
         "audio",
         "connectivity",
         "video",
-        "content_exchange",
         "accounts",
-        "bluetooth",
-        "calendar",
         "camera",
-        "contacts",
         "content_exchange",
         "content_exchange_source",
-        "document_files_read",
-        "document_files",
-        "history",
         "keep-display-on",
         "location",
         "microphone",
-        "music_files",
-        "picture_files",
-        "sensors",
-        "video_files"
+        "sensors"
     ],
     "policy_version": 16.04
 }
