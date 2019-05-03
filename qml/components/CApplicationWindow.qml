@@ -82,14 +82,14 @@ ApplicationWindow {
 
         // configurable
         property string font: "Ubuntu Mono"
-        property int fontSize: 40
+        property int fontSize: 20
         property string palette: "Cute"
         property int indentSize: 4
         property bool debugging: true
 
         // internal
         property bool debugMode: false
-        property double pixelDensity : 3.0
+        property double pixelDensity : 2.5
         property string previousVersion: "0.0.0"
         property bool desktopPlatform: Qt.platform.os === "windows" ||
                                        Qt.platform.os === "linux" ||
