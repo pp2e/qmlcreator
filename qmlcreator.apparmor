@@ -12,6 +12,7 @@
         "contacts",
         "content_exchange",
         "content_exchange_source",
+        "document_files_read",
         "document_files",
         "history",
         "keep-display-on",
@@ -22,6 +23,5 @@
         "sensors",
         "video_files"
     ],
-    "template": "unconfined",
     "policy_version": 16.04
 }
