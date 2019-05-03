@@ -260,11 +260,7 @@ QString ProjectManager::baseFolderPath(BaseFolder folder)
         break;
     }
 
-#ifndef UBUNTU_CLICK
     QString folderPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) +
-#else
-    QString folderPath = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) +
-#endif
                          QDir::separator() +
                          "QML Projects";
 
