@@ -318,6 +318,17 @@ Item {
                     }
                     mouse.accepted = true
                 }
+
+                onWheel: {
+                    const newYPos = flickable.contentY - wheel.angleDelta.y
+                    if (newYPos < 0) {
+                        return
+                    } else if (newYPos + flickable.height >= flickable.contentHeight) {
+                        return
+                    }
+
+                    flickable.contentY = newYPos
+                }
             }
 
             property Item leftSelectionHandle: Item {
