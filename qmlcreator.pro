@@ -2,7 +2,7 @@ QT += \
     core gui qml quick \
     multimedia sql \
     network websockets \
-    xml svg quickcontrols2
+    xml svg
 
 TARGET = qmlcreator
 TEMPLATE = app
