@@ -83,14 +83,6 @@ BlankScreen {
             removeButtonVisible: modelData !== "main.qml"
 
             onClicked: {
-                if (rightView.currentItem.objectName !== undefined) {
-                    if (rightView.currentItem.objectName === "EditorScreen") {
-                        ProjectManager.saveFileContent(rightView.currentItem.codeArea.text)
-                        rightView.currentItem.fileName = modelData
-                        return;
-                    }
-                }
-
                 while (rightView.depth > 1) {
                     rightView.pop()
                 }
