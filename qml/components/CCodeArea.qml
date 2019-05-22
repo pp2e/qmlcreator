@@ -265,6 +265,7 @@ Item {
             }
 
             MouseArea {
+                id: mainMouseArea
                 anchors.fill: parent
 
                 preventStealing: true
@@ -328,6 +329,102 @@ Item {
                     }
 
                     flickable.contentY = newYPos
+                }
+            }
+
+            MultiPointTouchArea {
+                id: touchArea
+                readonly property int mode_scroll : 0;
+                readonly property int mode_position : 1;
+                readonly property int mode_select : 2;
+                property int mode: mode_scroll
+                onModeChanged: {
+                    const startPosition = textEdit.positionAt(touchPoint.x, touchPoint.y)
+
+                    switch (mode) {
+                    case mode_position:
+                        mainMouseArea.startX = touchPoint.x
+                        mainMouseArea.startY = touchPoint.y
+                        textEdit.cursorPosition = startPosition
+                        textEdit.forceActiveFocus()
+
+                        if (!Qt.inputMethod.visible)
+                            Qt.inputMethod.show()
+
+                        return;
+
+                    case mode_select:
+                        var distance = Math.sqrt(Math.pow(touchPoint.x - mainMouseArea.startX, 2) +
+                                                 Math.pow(touchPoint.y - mainMouseArea.startY, 2))
+                        if (distance < textEdit.cursorRectangle.height)
+                        {
+                            if (textEdit.selectedText.length === 0)
+                                textEdit.contextMenu.visible = true
+                        }
+                        textEdit.select(startPosition, startPosition+1)
+                        textEdit.leftSelectionHandle.setPosition()
+                        textEdit.rightSelectionHandle.setPosition()
+                        return;
+                    default:
+                        return;
+                    }
+                }
+
+                anchors.fill: parent
+                mouseEnabled: false
+                touchPoints: [
+                    TouchPoint {
+                        id: touchPoint
+                        property int previousYDelta : 0
+                        property int actualPreviousY : 0
+                        onYChanged: {
+                            const newYPos = flickable.contentY - (y - actualPreviousY)
+                            previousYDelta = newYPos
+
+                            if (newYPos < 0) {
+                                return
+                            } else if (newYPos + flickable.height >= flickable.contentHeight) {
+                                return
+                            }
+
+                            flickable.contentY = newYPos
+                        }
+                    }
+                ]
+                Timer {
+                    id: positionDetectTimer
+                    repeat: false
+                    interval: 1
+                    onTriggered: {
+                        touchArea.mode = touchArea.mode_position
+                    }
+                }
+                Timer {
+                    id: selectionDetectTimer
+                    repeat: false
+                    interval: 1000
+                    onTriggered: {
+                        touchArea.mode = touchArea.mode_select
+                    }
+                }
+
+                onPressed: {
+                    touchPoint.actualPreviousY = 0
+                    positionDetectTimer.start()
+                    selectionDetectTimer.start()
+                }
+
+                onUpdated: {
+                    touchPoint.actualPreviousY = touchPoint.previousY
+                    positionDetectTimer.restart()
+                    selectionDetectTimer.restart()
+                }
+
+                onReleased: {
+                    touchPoint.actualPreviousY = 0
+                    positionDetectTimer.stop()
+                    selectionDetectTimer.stop()
+                    touchArea.mode = touchArea.mode_scroll
                 }
             }
 
