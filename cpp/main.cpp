@@ -99,6 +99,11 @@ int main(int argc, char *argv[])
     while(!checkAndroidStoragePermissions());
 #endif
 
+    uint GRID_UNIT_PX = qgetenv("GRID_UNIT_PX").toUInt();
+    if (GRID_UNIT_PX == 0) {
+        GRID_UNIT_PX = 8;
+    }
+
     QQmlApplicationEngine engine;
 
     const QString qtVersion = QT_VERSION_STR;
@@ -108,6 +113,8 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty("configPath", configPath);
     engine.rootContext()->setContextProperty("cachePath", cachePath);
+
+    engine.rootContext()->setContextProperty("GRID_UNIT_PX", GRID_UNIT_PX);
 
     engine.load(QUrl("qrc:/qml/main.qml"));
 
