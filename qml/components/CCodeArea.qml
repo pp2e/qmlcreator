@@ -354,6 +354,10 @@ Item {
                         return;
 
                     case mode_select:
+                        textEdit.selectWord()
+                        textEdit.leftSelectionHandle.setPosition()
+                        textEdit.rightSelectionHandle.setPosition()
+
                         var distance = Math.sqrt(Math.pow(touchPoint.x - mainMouseArea.startX, 2) +
                                                  Math.pow(touchPoint.y - mainMouseArea.startY, 2))
                         if (distance < textEdit.cursorRectangle.height)
@@ -361,9 +365,7 @@ Item {
                             if (textEdit.selectedText.length === 0)
                                 textEdit.contextMenu.visible = true
                         }
-                        textEdit.select(startPosition, startPosition+1)
-                        textEdit.leftSelectionHandle.setPosition()
-                        textEdit.rightSelectionHandle.setPosition()
+
                         return;
                     default:
                         return;
@@ -375,17 +377,20 @@ Item {
                 touchPoints: [
                     TouchPoint {
                         id: touchPoint
-                        property int previousYDelta : 0
+                        property int actualY : 0
                         property int actualPreviousY : 0
+                        readonly property int moveDelta : (actualY - actualPreviousY)
                         onYChanged: {
-                            const newYPos = flickable.contentY - (y - actualPreviousY)
-                            previousYDelta = newYPos
+                            const newYPos = flickable.contentY - moveDelta
 
                             if (newYPos < 0) {
                                 return
                             } else if (newYPos + flickable.height >= flickable.contentHeight) {
                                 return
                             }
+
+                            if (Math.abs(moveDelta) < 3)
+                                return
 
                             flickable.contentY = newYPos
                         }
@@ -394,7 +399,7 @@ Item {
                 Timer {
                     id: positionDetectTimer
                     repeat: false
-                    interval: 1
+                    interval: 32
                     onTriggered: {
                         touchArea.mode = touchArea.mode_position
                     }
@@ -402,25 +407,29 @@ Item {
                 Timer {
                     id: selectionDetectTimer
                     repeat: false
-                    interval: 1000
+                    interval: 500
                     onTriggered: {
                         touchArea.mode = touchArea.mode_select
                     }
                 }
 
                 onPressed: {
+                    touchPoint.actualY = 0
                     touchPoint.actualPreviousY = 0
                     positionDetectTimer.start()
                     selectionDetectTimer.start()
                 }
 
                 onUpdated: {
+                    touchPoint.actualY = touchPoint.y
                     touchPoint.actualPreviousY = touchPoint.previousY
+                    if (Math.abs(touchPoint.moveDelta) < 3)
+                        return
                     positionDetectTimer.restart()
-                    selectionDetectTimer.restart()
                 }
 
                 onReleased: {
+                    touchPoint.actualY = 0
                     touchPoint.actualPreviousY = 0
                     positionDetectTimer.stop()
                     selectionDetectTimer.stop()
