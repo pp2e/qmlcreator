@@ -372,7 +372,9 @@ Item {
                         id: touchPoint
                         property int actualY : 0
                         property int actualPreviousY : 0
+                        property bool firstTouch : true
                         readonly property int moveDelta : (actualY - actualPreviousY)
+
                         onYChanged: {
                             const newYPos = flickable.contentY - moveDelta
 
@@ -382,13 +384,18 @@ Item {
                                 return
                             }
 
-                            if (Math.abs(moveDelta) < 3)
+                            if (touchArea.touchIsInWiggleRoom())
                                 return
 
                             flickable.contentY = newYPos
                         }
                     }
                 ]
+
+                function touchIsInWiggleRoom() {
+                    return (Math.abs(touchPoint.moveDelta) < 3) && !touchPoint.firstTouch
+                }
+
                 Timer {
                     id: selectionDetectTimer
                     repeat: false
@@ -400,6 +407,7 @@ Item {
                 }
 
                 onPressed: {
+                    touchPoint.firstTouch = false
                     touchPoint.actualY = touchPoint.y
                     touchPoint.actualPreviousY = touchPoint.previousY
                     selectionDetectTimer.start()
@@ -408,8 +416,10 @@ Item {
                 onUpdated: {
                     touchPoint.actualY = touchPoint.y
                     touchPoint.actualPreviousY = touchPoint.previousY
-                    if (Math.abs(touchPoint.moveDelta) < 3)
+                    if (touchIsInWiggleRoom())
                         return
+
+                    touchPoint.firstTouch = true
                     selectionDetectTimer.stop()
                 }
 
