@@ -357,14 +357,7 @@ Item {
                         textEdit.selectWord()
                         textEdit.leftSelectionHandle.setPosition()
                         textEdit.rightSelectionHandle.setPosition()
-
-                        var distance = Math.sqrt(Math.pow(touchPoint.x - mainMouseArea.startX, 2) +
-                                                 Math.pow(touchPoint.y - mainMouseArea.startY, 2))
-                        if (distance < textEdit.cursorRectangle.height)
-                        {
-                            if (textEdit.selectedText.length === 0)
-                                textEdit.contextMenu.visible = true
-                        }
+                        textEdit.contextMenu.visible = true
 
                         return;
                     default:
@@ -397,26 +390,18 @@ Item {
                     }
                 ]
                 Timer {
-                    id: positionDetectTimer
-                    repeat: false
-                    interval: 32
-                    onTriggered: {
-                        touchArea.mode = touchArea.mode_position
-                    }
-                }
-                Timer {
                     id: selectionDetectTimer
                     repeat: false
                     interval: 500
                     onTriggered: {
+                        touchArea.mode = touchArea.mode_position
                         touchArea.mode = touchArea.mode_select
                     }
                 }
 
                 onPressed: {
-                    touchPoint.actualY = 0
-                    touchPoint.actualPreviousY = 0
-                    positionDetectTimer.start()
+                    touchPoint.actualY = touchPoint.y
+                    touchPoint.actualPreviousY = touchPoint.previousY
                     selectionDetectTimer.start()
                 }
 
@@ -425,14 +410,19 @@ Item {
                     touchPoint.actualPreviousY = touchPoint.previousY
                     if (Math.abs(touchPoint.moveDelta) < 3)
                         return
-                    positionDetectTimer.restart()
+                    selectionDetectTimer.stop()
                 }
 
                 onReleased: {
                     touchPoint.actualY = 0
                     touchPoint.actualPreviousY = 0
-                    positionDetectTimer.stop()
+
+                    const positionWasRunning = selectionDetectTimer.running
                     selectionDetectTimer.stop()
+
+                    if (positionWasRunning) {
+                        touchArea.mode = touchArea.mode_position
+                    }
                     touchArea.mode = touchArea.mode_scroll
                 }
             }
