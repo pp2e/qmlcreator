@@ -36,7 +36,7 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
         height: flickableItem.visibleArea.heightRatio * flickableItem.height
-        color: appWindow.palette.scrollBar
+        color: appWindow.colorPalette.scrollBar
     }
 
     MouseArea {

@@ -33,7 +33,7 @@ Rectangle {
      opacity: 0
 
      width: 3 * settings.pixelDensity
-     color: appWindow.palette.scrollBar
+     color: appWindow.colorPalette.scrollBar
 
      Behavior on opacity {
          NumberAnimation {

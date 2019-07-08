@@ -48,7 +48,7 @@ Item {
 
             Rectangle {
                 anchors.fill: parent
-                color: palette.button
+                color: appWindow.colorPalette.button
                 visible: buttonMouseArea.pressed
             }
 
@@ -73,7 +73,7 @@ Item {
 
             Rectangle {
                 anchors.fill: parent
-                color: palette.button
+                color: appWindow.colorPalette.button
                 visible: removeButtonMouseArea.pressed
             }
 

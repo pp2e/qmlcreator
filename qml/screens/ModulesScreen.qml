@@ -23,6 +23,8 @@ import "../components"
 BlankScreen {
     id: modulesScreen
 
+    property var backPressed : function () {}
+
     // http://doc.qt.io/qt-5/modules-qml.html
     ListModel {
         id: modules
@@ -71,6 +73,7 @@ BlankScreen {
             anchors.fill: parent
             text: qsTr("Modules")
             enableBack: !enableDualView
+            onClicked: backPressed()
         }
     }
 
@@ -92,11 +95,11 @@ BlankScreen {
                          else
                              qsTr("Undefined")
             descriptionColor: if (status === 1)
-                                  appWindow.palette.description
+                                  appWindow.colorPalette.description
                               else if (status === 2)
-                                  appWindow.palette.warning
+                                  appWindow.colorPalette.warning
                               else
-                                  appWindow.palette.label
+                                  appWindow.colorPalette.label
         }
     }
 

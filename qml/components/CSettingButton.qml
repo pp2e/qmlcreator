@@ -38,7 +38,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: palette.button
+        color: appWindow.colorPalette.button
         visible: mouseArea.pressed
     }
 
@@ -61,7 +61,7 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
             font.pixelSize: 5 * settings.pixelDensity
-            color: appWindow.palette.description
+            color: appWindow.colorPalette.description
         }
     }
 

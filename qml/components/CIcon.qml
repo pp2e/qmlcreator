@@ -24,5 +24,5 @@ Text {
     font.pixelSize: 10 * settings.pixelDensity
     verticalAlignment: Text.AlignVCenter
     elide: Text.ElideRight
-    color: appWindow.palette.icon
+    color: appWindow.colorPalette.icon
 }

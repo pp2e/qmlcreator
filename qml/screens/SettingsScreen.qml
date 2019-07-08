@@ -22,6 +22,8 @@ import "../components"
 BlankScreen {
     id: mainMenuScreen
 
+    property var backPressed : function () {}
+
     CToolBar {
         id: toolBar
         anchors.left: parent.left
@@ -32,6 +34,7 @@ BlankScreen {
             anchors.fill: parent
             text: qsTr("Settings")
             enableBack: !enableDualView
+            onClicked: backPressed()
         }
     }
 

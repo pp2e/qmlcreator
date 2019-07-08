@@ -34,6 +34,6 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: palette.dialogOverlay
+        color: appWindow.colorPalette.dialogOverlay
     }
 }

@@ -56,7 +56,7 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         radius: height / 2
         width: Math.min(label.contentWidth + 12 * settings.pixelDensity, cTooltip.width - 12 * settings.pixelDensity)
-        color: palette.tooltipBackground
+        color: appWindow.colorPalette.tooltipBackground
     }
 
     CLabel {
@@ -67,6 +67,6 @@ Item {
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
         elide: Text.ElideRight
-        color: palette.tooltipText
+        color: appWindow.colorPalette.tooltipText
     }
 }

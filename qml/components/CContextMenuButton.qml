@@ -28,15 +28,15 @@ Item {
         id: background
         anchors.fill: parent
         color: mouseArea.pressed ?
-                   appWindow.palette.contextMenuButtonPressed :
-                   appWindow.palette.contextMenuButton
+                   appWindow.colorPalette.contextMenuButtonPressed :
+                   appWindow.colorPalette.contextMenuButton
     }
 
     CLabel {
         id: buttonLabel
         anchors.fill: parent
         horizontalAlignment: Text.AlignHCenter
-        color: appWindow.palette.contextMenuButtonText
+        color: appWindow.colorPalette.contextMenuButtonText
     }
 
     MouseArea {

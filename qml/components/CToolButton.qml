@@ -31,7 +31,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: palette.button
+        color: appWindow.colorPalette.button
         visible: mouseArea.pressed
     }
 
@@ -40,7 +40,7 @@ Item {
         width: parent.width * 0.7
         height: width
         radius: width / 2
-        color: palette.button
+        color: appWindow.colorPalette.button
         visible: cToolButton.checked
     }
 

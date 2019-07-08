@@ -30,7 +30,7 @@ Item {
     Rectangle {
         id: background
         anchors.fill: parent
-        color: palette.button
+        color: appWindow.colorPalette.button
         visible: mouseArea.pressed
     }
 

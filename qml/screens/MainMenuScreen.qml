@@ -97,7 +97,12 @@ BlankScreen {
                 icon: "\uf0ad"
                 onClicked: {
                     column.setLocked(settingsButton)
-                    splitView.rightView.push(Qt.resolvedUrl("SettingsScreen.qml"))
+                    splitView.rightView.push(Qt.resolvedUrl("SettingsScreen.qml"),
+                                             {
+                                                 backPressed: function() {
+                                                     column.setLocked(null)
+                                                 }
+                                             })
                 }
             }
 
@@ -107,7 +112,12 @@ BlankScreen {
                 icon: "\uf085"
                 onClicked: {
                     column.setLocked(modulesButton)
-                    splitView.rightView.push(Qt.resolvedUrl("ModulesScreen.qml"))
+                    splitView.rightView.push(Qt.resolvedUrl("ModulesScreen.qml"),
+                                             {
+                                                 backPressed: function() {
+                                                     column.setLocked(null)
+                                                 }
+                                             })
                 }
             }
 
@@ -117,7 +127,12 @@ BlankScreen {
                 icon: "\uf0e5"
                 onClicked: {
                     column.setLocked(aboutButton)
-                    splitView.rightView.push(Qt.resolvedUrl("AboutScreen.qml"))
+                    splitView.rightView.push(Qt.resolvedUrl("AboutScreen.qml"),
+                                             {
+                                                 backPressed: function() {
+                                                     column.setLocked(null)
+                                                 }
+                                             })
                 }
             }
         }

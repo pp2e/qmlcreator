@@ -120,7 +120,7 @@ ApplicationWindow {
         name: settings.palette
     }
 
-    property alias palette: paletteLoader.palette
+    property alias colorPalette: paletteLoader.palette
 
     // Message Handler
 
