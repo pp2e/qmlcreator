@@ -116,6 +116,20 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty("GRID_UNIT_PX", GRID_UNIT_PX);
 
+#if !defined(Q_OS_IOS) && !defined(Q_OS_ANDROID)
+    engine.rootContext()->setContextProperty("platformResizesView", true);
+#else
+    engine.rootContext()->setContextProperty("platformResizesView", false);
+#endif
+
+#if defined(Q_OS_IOS)
+    engine.rootContext()->setContextProperty("platformHasNativeCopyPaste", true);
+    engine.rootContext()->setContextProperty("platformHasNativeDragHandles", true);
+#else
+    engine.rootContext()->setContextProperty("platformHasNativeCopyPaste", false);
+    engine.rootContext()->setContextProperty("platformHasNativeDragHandles", false);
+#endif
+
     engine.load(QUrl("qrc:/qml/main.qml"));
 
     ProjectManager::setQmlEngine(&engine);

@@ -74,7 +74,7 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        anchors.bottomMargin: Qt.inputMethod.visible ?
+        anchors.bottomMargin: Qt.inputMethod.visible && platformResizesView ?
                                   (Qt.inputMethod.keyboardRectangle.height / (GRID_UNIT_PX / 8)) : 0
         color: "white"
         Row {

@@ -314,7 +314,7 @@ Item {
                     var distance = Math.sqrt(Math.pow(mouse.x - startX, 2) + Math.pow(mouse.y - startY, 2))
                     if (distance < textEdit.cursorRectangle.height)
                     {
-                        if (textEdit.selectedText.length === 0)
+                        if (textEdit.selectedText.length === 0 && !platformHasNativeCopyPaste)
                             textEdit.contextMenu.visible = true
                     }
                     mouse.accepted = true
@@ -357,8 +357,9 @@ Item {
                         textEdit.selectWord()
                         textEdit.leftSelectionHandle.setPosition()
                         textEdit.rightSelectionHandle.setPosition()
-                        textEdit.contextMenu.visible = true
-
+                        if (!platformHasNativeCopyPaste) {
+                            textEdit.contextMenu.visible = true
+                        }
                         return;
                     default:
                         return;
@@ -438,7 +439,7 @@ Item {
             }
 
             property Item leftSelectionHandle: Item {
-                width: textEdit.cursorRectangle.height
+                width: platformHasNativeDragHandles ? 0 : textEdit.cursorRectangle.height
                 height: width
                 parent: textEdit
                 visible: textEdit.selectedText !== ""
@@ -498,7 +499,7 @@ Item {
             }
 
             property Item rightSelectionHandle: Item {
-                width: textEdit.cursorRectangle.height
+                width: platformHasNativeDragHandles ? 0 : textEdit.cursorRectangle.height
                 height: width
                 parent: textEdit
                 visible: textEdit.selectedText !== ""
