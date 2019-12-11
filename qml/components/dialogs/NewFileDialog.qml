@@ -35,7 +35,7 @@ BaseDialog {
     DropShadow {
         anchors.fill: contentBackground
         radius: 5 * settings.pixelDensity
-        color: palette.dialogShadow
+        color: colorPalette.dialogShadow
         transparentBorder: true
         fast: true
         source: contentBackground
@@ -46,7 +46,7 @@ BaseDialog {
         width: popupWidth
         height: popupHeight
         anchors.centerIn: parent
-        color: palette.dialogBackground
+        color: colorPalette.dialogBackground
     }
 
     Item {
@@ -60,7 +60,7 @@ BaseDialog {
             height: 22 * settings.pixelDensity
             anchors.left: parent.left
             anchors.right: parent.right
-            color: palette.toolBarBackground
+            color: colorPalette.toolBarBackground
 
             Rectangle {
                 anchors.left: parent.left
@@ -68,7 +68,7 @@ BaseDialog {
                 anchors.bottom: parent.bottom
 
                 height: Math.max(1, Math.round(0.8 * settings.pixelDensity))
-                color: palette.toolBarStripe
+                color: colorPalette.toolBarStripe
             }
 
             CLabel {
@@ -141,7 +141,7 @@ BaseDialog {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     wrapMode: Text.WordWrap
-                    color: palette.warning
+                    color: colorPalette.warning
                     visible: false
                 }
 

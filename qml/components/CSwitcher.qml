@@ -30,9 +30,9 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        color: palette.switcherBackground
+        color: colorPalette.switcherBackground
         border.width: Math.max(1, Math.round(0.3 * settings.pixelDensity))
-        border.color: palette.switcherBorder
+        border.color: colorPalette.switcherBorder
     }
 
     Item {
@@ -53,7 +53,7 @@ Item {
             anchors.bottom: parent.bottom
             width: parent.width * 0.44
 
-            color: palette.switcherHandle
+            color: colorPalette.switcherHandle
 
             Behavior on x {
                 NumberAnimation {
