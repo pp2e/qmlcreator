@@ -68,6 +68,7 @@ ios {
 
     QMAKE_INFO_PLIST = $$PWD/platform-specific/ios/Project-Info.plist
     OTHER_FILES += $$QMAKE_INFO_PLIST
+    xcode_product_bundle_identifier_setting.value = "me.fredl.qmlcreator"
 }
 
 contains(CONFIG, click) {
