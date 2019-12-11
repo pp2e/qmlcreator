@@ -38,6 +38,8 @@
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Application-specific access to the camera.</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchImageFile</key>
