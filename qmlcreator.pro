@@ -51,6 +51,8 @@ android {
 }
 
 ios {
+    QT += 3dcore 3drender 3dinput 3dlogic 3dextras 3danimation
+
     ICON_DATA.files = \
         $$PWD/platform-specific/ios/Icon.png \
         $$PWD/platform-specific/ios/Icon@2x.png \
@@ -65,6 +67,9 @@ ios {
         $$PWD/platform-specific/ios/Def-Portrait.png \
         $$PWD/platform-specific/ios/Def-568h@2x.png
     QMAKE_BUNDLE_DATA += ICON_DATA
+
+    app_launch_screen.files = $$PWD/platform-specific/ios/LaunchScreen.xib
+    QMAKE_BUNDLE_DATA += app_launch_screen
 
     QMAKE_INFO_PLIST = $$PWD/platform-specific/ios/Project-Info.plist
     OTHER_FILES += $$QMAKE_INFO_PLIST
@@ -120,3 +125,6 @@ contains(CONFIG, click) {
 }
 
 INSTALLS += target
+
+DISTFILES += \
+    qml/components/dialogs/NewDirDialog.qml

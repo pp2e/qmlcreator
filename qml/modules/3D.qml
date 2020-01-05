@@ -17,7 +17,7 @@
 ****************************************************************************/
 
 import QtQml 2.2
-import Qt3D 2.0
+import Qt3D.Core 2.0
 
 QtObject {
     property string version: "2.0"

@@ -30,8 +30,10 @@ BlankScreen {
                            Component.PreferSynchronous);
 
     StackView.onStatusChanged: {
-        if (StackView.status === StackView.Activating)
+        if (StackView.status === StackView.Activating) {
+            ProjectManager.subDir = ""
             listView.model = ProjectManager.projects()
+        }
     }
 
     CToolBar {
@@ -84,19 +86,12 @@ BlankScreen {
 
         delegate: CFileButton {
             text: modelData
+            isDir: true
 
             onClicked: {
                 while (rightView.depth > 1) {
                     rightView.pop()
                 }
-
-                /*var editorScreen =
-                        editorScreenComponent.createObject(rightView,
-                                                           {
-                                                               fileName : modelData,
-                                                           });
-                rightView.push(editorScreen)*/
-
 
                 ProjectManager.projectName = modelData
                 leftView.push(Qt.resolvedUrl("FilesScreen.qml"))

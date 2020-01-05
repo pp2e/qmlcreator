@@ -35,6 +35,7 @@ class ProjectManager : public QObject
     Q_ENUMS(BaseFolder)
     Q_PROPERTY(BaseFolder baseFolder READ baseFolder WRITE setBaseFolder NOTIFY baseFolderChanged)
     Q_PROPERTY(QString projectName READ projectName WRITE setProjectName NOTIFY projectNameChanged)
+    Q_PROPERTY(QString subDir READ subDir WRITE setSubDir NOTIFY subDirChanged)
     Q_PROPERTY(QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged)
     Q_PROPERTY(QString fileFormat READ fileFormat NOTIFY fileFormatChanged)
 
@@ -52,12 +53,17 @@ public:
     Q_INVOKABLE bool projectExists(QString projectName);
     Q_INVOKABLE void restoreExamples();
 
+    // current subdir
+    QString subDir();
+    void setSubDir(QString dir);
+
     // current project
     QString projectName();
     void setProjectName(QString projectName);
-    Q_INVOKABLE QStringList files();
+    Q_INVOKABLE QVariantList files();
     Q_INVOKABLE void createFile(QString fileName, QString fileExtension);
     Q_INVOKABLE void removeFile(QString fileName);
+    Q_INVOKABLE void createDir(QString dirName);
     Q_INVOKABLE bool fileExists(QString projectName);
 
     // current file
@@ -84,6 +90,9 @@ private:
     // current project
     QString m_projectName;
 
+    // current sub directory
+    QString m_subdir;
+
     // current file
     QString m_fileName;
     QString m_fileFormat;
@@ -94,6 +103,7 @@ private:
 signals:
     void baseFolderChanged();
     void projectNameChanged();
+    void subDirChanged();
     void fileNameChanged();
     void fileFormatChanged();
     void error(QString description);

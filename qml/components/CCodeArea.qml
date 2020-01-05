@@ -252,7 +252,7 @@ Item {
                     // add custom components
                     var files = ProjectManager.files()
                     for (var i = 0; i < files.length; i++) {
-                        var filename = files[i].split(".")
+                        var filename = files[i].name.split(".")
                         if (filename[0] !== "main") {
                             if (filename[1] === "qml")
                                 syntaxHighlighter.addQmlComponent(filename[0])

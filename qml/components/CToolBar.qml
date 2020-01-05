@@ -23,24 +23,4 @@ Rectangle {
     height: 22 * settings.pixelDensity
     z: 2
     color: appWindow.colorPalette.toolBarBackground
-
-    Rectangle {
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        height: Math.max(1, Math.round(0.8 * settings.pixelDensity))
-        color: appWindow.colorPalette.toolBarStripe
-        z: 2
-    }
-
-    Rectangle {
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.bottom
-        height: 1.8 * settings.pixelDensity
-        gradient: Gradient {
-            GradientStop { position: 0; color: appWindow.colorPalette.toolBarShadowBegin }
-            GradientStop { position: 1; color: appWindow.colorPalette.toolBarShadowEnd }
-        }
-    }
 }

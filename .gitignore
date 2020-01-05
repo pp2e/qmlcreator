@@ -6,3 +6,4 @@ parts/
 stage/
 prime/
 snap/.snapcraft
+.DS_Store

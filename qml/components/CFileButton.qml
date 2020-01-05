@@ -29,6 +29,8 @@ Item {
     property alias text: buttonLabel.text
     property alias removeButtonVisible: removeButton.visible
 
+    property bool isDir : false
+
     signal clicked()
     signal removeClicked()
 
@@ -41,6 +43,17 @@ Item {
     RowLayout {
         anchors.fill: parent
         spacing: 0
+
+        Item {
+            Layout.fillHeight: true
+            Layout.minimumWidth: height
+
+            Image {
+                anchors.centerIn: parent
+                source: cFileButton.isDir ? "qrc:/resources/images/folder.svg" :
+                                            "qrc:/resources/images/file.svg"
+            }
+        }
 
         Item {
             Layout.fillWidth: true

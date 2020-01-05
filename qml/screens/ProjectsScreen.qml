@@ -80,7 +80,9 @@ BlankScreen {
 
         delegate: CFileButton {
             text: modelData
+            isDir: true
             onClicked: {
+                ProjectManager.subDir = ""
                 ProjectManager.projectName = modelData
                 leftView.push(Qt.resolvedUrl("FilesScreen.qml"))
             }

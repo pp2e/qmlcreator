@@ -165,5 +165,9 @@
         <file>qml/modules/XmlListModel.qml</file>
         <file>resources/translations/qmlcreator_ru.qm</file>
         <file>qml/components/CSplitView.qml</file>
+        <file>qml/components/dialogs/NewDirDialog.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>resources/images/file.svg</file>
+        <file>resources/images/folder.svg</file>
     </qresource>
 </RCC>

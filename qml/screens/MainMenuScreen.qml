@@ -69,6 +69,13 @@ BlankScreen {
                     buttonView.locked = true
             }
 
+            function overrideRightView() {
+                if (splitView.rightView.depth > 1) {
+                    while (splitView.rightView.depth > 1)
+                        splitView.rightView.pop()
+                }
+            }
+
             CNavigationButton {
                 id: projectsButton
                 text: qsTr("PROJECTS")
@@ -97,6 +104,7 @@ BlankScreen {
                 icon: "\uf0ad"
                 onClicked: {
                     column.setLocked(settingsButton)
+                    column.overrideRightView()
                     splitView.rightView.push(Qt.resolvedUrl("SettingsScreen.qml"),
                                              {
                                                  backPressed: function() {
@@ -112,6 +120,7 @@ BlankScreen {
                 icon: "\uf085"
                 onClicked: {
                     column.setLocked(modulesButton)
+                    column.overrideRightView()
                     splitView.rightView.push(Qt.resolvedUrl("ModulesScreen.qml"),
                                              {
                                                  backPressed: function() {
@@ -127,6 +136,7 @@ BlankScreen {
                 icon: "\uf0e5"
                 onClicked: {
                     column.setLocked(aboutButton)
+                    column.overrideRightView()
                     splitView.rightView.push(Qt.resolvedUrl("AboutScreen.qml"),
                                              {
                                                  backPressed: function() {
