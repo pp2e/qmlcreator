@@ -17,6 +17,7 @@
 ****************************************************************************/
 
 import QtQuick 2.5
+import QtGraphicalEffects 1.0
 import "../components"
 
 BlankScreen {
@@ -24,26 +25,13 @@ BlankScreen {
 
     property var backPressed : function () {}
 
-    CToolBar {
-        id: toolBar
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-
-        CBackButton {
-            anchors.fill: parent
-            text: qsTr("Settings")
-            enableBack: !enableDualView
-            onClicked: backPressed()
-        }
-    }
-
     CFlickable {
         id: settingsFlickable
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.top: toolBar.bottom
+        anchors.top: parent.top
         anchors.bottom: parent.bottom
+        anchors.topMargin: toolBar.height
         contentHeight: column.height
 
         Column {
@@ -148,6 +136,33 @@ BlankScreen {
                     dialog.open(dialog.types.list, parameters, callback)
                 }
             }
+        }
+    }
+
+    CToolBar {
+        id: toolBar
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+
+        CBackButton {
+            anchors.fill: parent
+            text: qsTr("Settings")
+            enableBack: !enableDualView
+            onClicked: backPressed()
+        }
+    }
+
+    FastBlur {
+        id: fastBlur
+        height: 22 * settings.pixelDensity
+        width: parent.width
+        radius: 40
+        opacity: 0.55
+
+        source: ShaderEffectSource {
+            sourceItem: settingsFlickable
+            sourceRect: Qt.rect(0, -toolBar.height, fastBlur.width, fastBlur.height)
         }
     }
 

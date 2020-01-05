@@ -18,6 +18,7 @@
 
 import QtQuick 2.5
 import QtQuick.Controls 2.0
+import QtGraphicalEffects 1.0
 import ProjectManager 1.1
 import "../components"
 
@@ -31,28 +32,14 @@ BlankScreen {
 
     property var splitView : null
 
-    CToolBar {
-        id: toolBar
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-
-        CBackButton {
-            anchors.fill: parent
-            text: appWindow.title
-            enableBack: appWindow.splitView.rightView.depth > 1
-            targetSplit: appWindow.splitView.rightView
-            onClicked: column.setLocked(null)
-        }
-    }
-
     CFlickable {
         id: menuFlickable
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.top: toolBar.bottom
+        anchors.top: parent.top
         anchors.bottom: parent.bottom
         contentHeight: column.height
+        anchors.topMargin: toolBar.height
 
         Column {
             id: column
@@ -146,6 +133,32 @@ BlankScreen {
                 }
             }
         }
+    }
+
+    CToolBar {
+        id: toolBar
+        anchors.fill: fastBlur
+    }
+
+    FastBlur {
+        id: fastBlur
+        height: 22 * settings.pixelDensity
+        width: parent.width
+        radius: 40
+        opacity: 0.55
+
+        source: ShaderEffectSource {
+            sourceItem: menuFlickable
+            sourceRect: Qt.rect(0, -toolBar.height, fastBlur.width, fastBlur.height)
+        }
+    }
+
+    CBackButton {
+        anchors.fill: toolBar
+        text: appWindow.title
+        enableBack: appWindow.splitView.rightView.depth > 1
+        targetSplit: appWindow.splitView.rightView
+        onClicked: column.setLocked(null)
     }
 
     CScrollBar {

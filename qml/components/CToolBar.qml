@@ -21,6 +21,5 @@ import QtQuick 2.5
 Rectangle {
     id: cToolBar
     height: 22 * settings.pixelDensity
-    z: 2
     color: appWindow.colorPalette.toolBarBackground
 }

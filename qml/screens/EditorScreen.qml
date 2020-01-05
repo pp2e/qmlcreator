@@ -19,6 +19,7 @@
 import QtQuick 2.5
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.2
+import QtGraphicalEffects 1.0
 import ProjectManager 1.1
 import "../components"
 
@@ -41,6 +42,21 @@ BlankScreen {
         } else if (StackView.status === StackView.Deactivating) {
             saveContent()
         }
+    }
+
+
+
+    CCodeArea {
+        id: codeArea
+
+        anchors.top: toolBar.bottom
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+
+        indentSize: settings.indentSize
+
+        text: ""
     }
 
     CToolBar {
@@ -103,16 +119,16 @@ BlankScreen {
         }
     }
 
-    CCodeArea {
-        id: codeArea
+    FastBlur {
+        id: fastBlur
+        height: 22 * settings.pixelDensity
+        width: parent.width
+        radius: 40
+        opacity: 0.55
 
-        anchors.top: toolBar.bottom
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-
-        indentSize: settings.indentSize
-
-        text: ""
+        source: ShaderEffectSource {
+            sourceItem: codeArea
+            sourceRect: Qt.rect(0, -toolBar.height, fastBlur.width, fastBlur.height)
+        }
     }
 }

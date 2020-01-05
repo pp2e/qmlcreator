@@ -18,6 +18,7 @@
 
 import QtQuick 2.5
 import QtQuick.Controls 2.0
+import QtGraphicalEffects 1.0
 import "../components"
 
 BlankScreen {
@@ -63,26 +64,13 @@ BlankScreen {
         ListElement { module: "Qt.labs.settings";        version: ""; status: 0; testComponent: "Settings.qml" }
     }
 
-    CToolBar {
-        id: toolBar
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-
-        CBackButton {
-            anchors.fill: parent
-            text: qsTr("Modules")
-            enableBack: !enableDualView
-            onClicked: backPressed()
-        }
-    }
-
     ListView {
         id: listView
-        anchors.top: toolBar.bottom
+        anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
+        anchors.topMargin: toolBar.height
 
         model: modules
 
@@ -100,6 +88,33 @@ BlankScreen {
                                   appWindow.colorPalette.warning
                               else
                                   appWindow.colorPalette.label
+        }
+    }
+
+    CToolBar {
+        id: toolBar
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+
+        CBackButton {
+            anchors.fill: parent
+            text: qsTr("Modules")
+            enableBack: !enableDualView
+            onClicked: backPressed()
+        }
+    }
+
+    FastBlur {
+        id: fastBlur
+        height: 22 * settings.pixelDensity
+        width: parent.width
+        radius: 40
+        opacity: 0.55
+
+        source: ShaderEffectSource {
+            sourceItem: listView
+            sourceRect: Qt.rect(0, -toolBar.height, fastBlur.width, fastBlur.height)
         }
     }
 

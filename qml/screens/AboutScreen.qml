@@ -17,6 +17,7 @@
 ****************************************************************************/
 
 import QtQuick 2.5
+import QtGraphicalEffects 1.0
 import "../components"
 
 BlankScreen {
@@ -24,25 +25,13 @@ BlankScreen {
 
     property var backPressed : function () {}
 
-    CToolBar {
-        id: toolBar
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-
-        CBackButton {
-            anchors.fill: parent
-            text: qsTr("About")
-            enableBack: !enableDualView
-            onClicked: backPressed()
-        }
-    }
-
     CTextArea {
-        anchors.top: toolBar.bottom
+        id: aboutTextArea
+        anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
+        anchors.topMargin: toolBar.height
 
         text:  textStyle() +
                "QML Creator " + Qt.application.version + "<br>
@@ -67,4 +56,29 @@ BlankScreen {
 
                Qt is a registered trademark of The Qt Company Ltd. and/or its subsidiaries."
     }
-}
+
+        CToolBar {
+            id: toolBar
+            anchors.fill: fastBlur
+        }
+
+        FastBlur {
+            id: fastBlur
+            height: 22 * settings.pixelDensity
+            width: parent.width
+            radius: 40
+            opacity: 0.55
+
+            source: ShaderEffectSource {
+                sourceItem: aboutTextArea
+                sourceRect: Qt.rect(0, -toolBar.height, fastBlur.width, fastBlur.height)
+            }
+        }
+
+        CBackButton {
+            anchors.fill: toolBar
+            text: qsTr("About")
+            enableBack: !enableDualView
+            onClicked: backPressed()
+        }
+    }

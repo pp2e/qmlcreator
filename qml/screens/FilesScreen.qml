@@ -19,6 +19,7 @@
 import QtQuick 2.5
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.2
+import QtGraphicalEffects 1.0
 import ProjectManager 1.1
 import "../components"
 
@@ -49,6 +50,64 @@ BlankScreen {
             dirname = ""
         }
         return dirname
+    }
+
+
+    CListView {
+        id: listView
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.topMargin: toolBar.height
+
+        delegate: CFileButton {
+            text: modelData.name
+            removeButtonVisible: modelData.name !== "main.qml"
+            isDir: modelData.isDir
+
+            onClicked: {
+                var newScreen = null;
+
+                while (rightView.depth > 1) {
+                    rightView.pop()
+                }
+
+                if (modelData.isDir) {
+                    newScreen =
+                            filesScreenComponent.createObject(leftView, {
+                                                                  subPath: subPath + "/" + modelData.name
+                                                              });
+                    leftView.push(newScreen)
+                } else {
+                    newScreen =
+                            editorScreenComponent.createObject(rightView,
+                                                               {
+                                                                   fileName : modelData.name,
+                                                               });
+                    rightView.push(newScreen)
+                }
+
+            }
+
+            onRemoveClicked: {
+                var parameters = {
+                    title: qsTr("Delete the file"),
+                    text: qsTr("Are you sure you want to delete \"%1\"?").arg(modelData.name)
+                }
+
+                var callback = function(value)
+                {
+                    if (value)
+                    {
+                        ProjectManager.removeFile(modelData.name)
+                        listView.model = ProjectManager.files()
+                    }
+                }
+
+                dialog.open(dialog.types.confirmation, parameters, callback)
+            }
+        }
     }
 
     CToolBar {
@@ -115,59 +174,16 @@ BlankScreen {
         }
     }
 
-    CListView {
-        id: listView
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: toolBar.bottom
-        anchors.bottom: parent.bottom
+    FastBlur {
+        id: fastBlur
+        height: 22 * settings.pixelDensity
+        width: parent.width
+        radius: 40
+        opacity: 0.55
 
-        delegate: CFileButton {
-            text: modelData.name
-            removeButtonVisible: modelData.name !== "main.qml"
-            isDir: modelData.isDir
-
-            onClicked: {
-                var newScreen = null;
-
-                while (rightView.depth > 1) {
-                    rightView.pop()
-                }
-
-                if (modelData.isDir) {
-                    newScreen =
-                            filesScreenComponent.createObject(leftView, {
-                                                                  subPath: subPath + "/" + modelData.name
-                                                              });
-                    leftView.push(newScreen)
-                } else {
-                    newScreen =
-                            editorScreenComponent.createObject(rightView,
-                                                               {
-                                                                   fileName : modelData.name,
-                                                               });
-                    rightView.push(newScreen)
-                }
-
-            }
-
-            onRemoveClicked: {
-                var parameters = {
-                    title: qsTr("Delete the file"),
-                    text: qsTr("Are you sure you want to delete \"%1\"?").arg(modelData.name)
-                }
-
-                var callback = function(value)
-                {
-                    if (value)
-                    {
-                        ProjectManager.removeFile(modelData.name)
-                        listView.model = ProjectManager.files()
-                    }
-                }
-
-                dialog.open(dialog.types.confirmation, parameters, callback)
-            }
+        source: ShaderEffectSource {
+            sourceItem: listView
+            sourceRect: Qt.rect(0, -toolBar.height, fastBlur.width, fastBlur.height)
         }
     }
 }
