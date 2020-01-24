@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
 
     qInstallMessageHandler(&MessageHandler::handler);
     QGuiApplication app(argc, argv);
-    app.setApplicationVersion("1.3.1");
+    app.setApplicationVersion("1.4.0");
 #ifdef UBUNTU_CLICK
     app.setOrganizationName(QStringLiteral("me.fredl.qmlcreator"));
 #else
