@@ -18,6 +18,7 @@
 
 import QtQuick 2.5
 import QtQuick.Controls 2.2
+import QtQuick.Controls.Material 2.2
 import "components"
 import "components/dialogs"
 import "screens"
@@ -27,6 +28,14 @@ CApplicationWindow {
     property alias splitView : splitView
     minimumHeight: 100
     minimumWidth: 100
+    readonly property bool isDarkMode : settings.palette == "Dark"
+
+    Material.theme: isDarkMode ?
+                        Material.Dark :
+                        Material.Light
+    Material.accent: isDarkMode ?
+                         Material.Red :
+                         Material.Blue
 
     onBackPressed: {
         if (dialog.visible)

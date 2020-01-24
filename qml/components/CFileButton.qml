@@ -45,17 +45,6 @@ Item {
         spacing: 0
 
         Item {
-            Layout.fillHeight: true
-            Layout.minimumWidth: height
-
-            Image {
-                anchors.centerIn: parent
-                source: cFileButton.isDir ? "qrc:/resources/images/folder.svg" :
-                                            "qrc:/resources/images/file.svg"
-            }
-        }
-
-        Item {
             Layout.fillWidth: true
             Layout.fillHeight: true
 
@@ -65,9 +54,25 @@ Item {
                 visible: buttonMouseArea.pressed
             }
 
+            CIcon {
+                id: typeIcon
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.topMargin: 8
+                anchors.leftMargin: 16
+                anchors.rightMargin: 8
+                anchors.bottomMargin: 8
+                text: cFileButton.isDir ? "\uf07c" :
+                                          "\uf15b"
+            }
+
             CLabel {
                 id: buttonLabel
-                anchors.fill: parent
+                anchors.left: typeIcon.right
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
                 anchors.leftMargin: 5 * settings.pixelDensity
                 anchors.rightMargin: 3 * settings.pixelDensity
             }

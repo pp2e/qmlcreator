@@ -76,19 +76,19 @@ Item {
         anchors.fill: parent
         anchors.bottomMargin: Qt.inputMethod.visible && platformResizesView ?
                                   (Qt.inputMethod.keyboardRectangle.height / (GRID_UNIT_PX / 8)) : 0
-        color: "white"
+        color: appWindow.colorPalette.background
         Row {
             anchors.fill: parent
 
             // Stack view containers
-            Rectangle {
+            Item {
                 id: leftStackContainer
                 clip: true
                 width: enableDualView ? parent.width / 3
                                       : parent.width
                 height: parent.height
             }
-            Rectangle {
+            Item {
                 id: rightStackContainer
                 clip: true
                 width: enableDualView ? (parent.width / 3) * 2
