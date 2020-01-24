@@ -40,6 +40,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Application-specific access to the camera.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Application-specific access to motion sensors.</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchImageFile</key>
