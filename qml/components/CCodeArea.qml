@@ -17,8 +17,10 @@
 ****************************************************************************/
 
 import QtQuick 2.5
+import QtQuick.Controls 2.1
 import ProjectManager 1.1
 import SyntaxHighlighter 1.1
+import LineNumbersHelper 1.1
 
 Item {
     id: cCodeArea
@@ -26,6 +28,8 @@ Item {
     property alias text: textEdit.text
     property alias selectedText: textEdit.selectedText
     property int indentSize: 0
+
+    readonly property bool useNativeTouchHandling : (Qt.platform.os === "ios")
 
     onIndentSizeChanged: {
         var indentString = ""
@@ -59,12 +63,16 @@ Item {
             textEdit.forceActiveFocus()
     }
 
+    LineNumbersHelper {
+        id: lineNumbersHelper
+    }
+
     Rectangle {
         id: lineNumbers
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.left: parent.left
-        width: column.width * 1.2
+        width: column.width //* 1.2
         color: appWindow.colorPalette.lineNumbersBackground
 
         Column {
@@ -73,15 +81,20 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
 
             Repeater {
-                model: textEdit.lineCount
+                id: lineNumberRepeater
+                model: lineNumbersHelper.lineCount
                 delegate: Text {
+                    readonly property bool isCurrentLine :
+                        lineNumbersHelper.isCurrentBlock(index, textEdit.cursorPosition);
+
                     anchors.right: column.right
-                    color: index + 1 === textEdit.currentLine ?
+                    color: isCurrentLine ?
                                appWindow.colorPalette.label :
                                appWindow.colorPalette.lineNumber
+                    height: lineNumbersHelper.height(index)
                     font.family: settings.font
                     font.pixelSize: settings.fontSize
-                    font.bold: index + 1 === textEdit.currentLine
+                    font.bold: isCurrentLine
                     text: index + 1
                 }
             }
@@ -94,8 +107,8 @@ Item {
         anchors.bottom: parent.bottom
         anchors.left: lineNumbers.right
         anchors.right: (scrollBar.visible) ? scrollBar.left : parent.right
-
-        interactive: false
+        interactive: useNativeTouchHandling
+        flickableDirection: Flickable.VerticalFlick
 
         function ensureVisible(cursor)
         {
@@ -123,11 +136,11 @@ Item {
 
             font.family: settings.font
             font.pixelSize: settings.fontSize
-            textMargin: 2 * settings.pixelDensity
+            textMargin: (1.5 * settings.pixelDensity)
             wrapMode: TextEdit.Wrap
             textFormat: TextEdit.PlainText
             inputMethodHints: Qt.ImhNoPredictiveText
-            activeFocusOnPress: false
+            activeFocusOnPress: useNativeTouchHandling
 
             property string indentString: ""
 
@@ -135,6 +148,16 @@ Item {
 
             onContentHeightChanged:
                 flickable.contentHeight = contentHeight
+
+            onWidthChanged: {
+                lineNumberRepeater.model = 0
+                lineNumberRepeater.model = lineNumbersHelper.lineCount
+            }
+
+            onTextChanged: {
+                lineNumberRepeater.model = 0
+                lineNumberRepeater.model = lineNumbersHelper.lineCount
+            }
 
             property bool textChangedManually: false
             property string previousText: ""
@@ -247,6 +270,8 @@ Item {
             }
 
             Component.onCompleted: {
+                oskEventFixer.setupImEventFilter(textEdit)
+                lineNumbersHelper.document = textEdit.textDocument
                 syntaxHighlighter.setHighlighter(textEdit)
                 if (ProjectManager.project !== "") {
                     // add custom components
@@ -267,7 +292,7 @@ Item {
             MouseArea {
                 id: mainMouseArea
                 anchors.fill: parent
-
+                enabled: !useNativeTouchHandling
                 preventStealing: true
 
                 property int startX
@@ -328,6 +353,7 @@ Item {
                         return
                     }
 
+                    flickable.flick(0, 0);
                     flickable.contentY = newYPos
                 }
             }
@@ -338,6 +364,7 @@ Item {
                 readonly property int mode_position : 1;
                 readonly property int mode_select : 2;
                 property int mode: mode_scroll
+                enabled: !useNativeTouchHandling
                 onModeChanged: {
                     const startPosition = textEdit.positionAt(touchPoint.x, touchPoint.y)
 
