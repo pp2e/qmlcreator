@@ -81,7 +81,7 @@ BlankScreen {
             }
 
             CToolButton {
-                visible: codeArea.selectedText.length > 0
+                visible: codeArea.selectedText.length > 0 && !codeArea.useNativeTouchHandling
                 Layout.fillHeight: true
                 icon: "\uf034"
                 tooltipText: qsTr("Select all")
@@ -89,7 +89,7 @@ BlankScreen {
             }
 
             CToolButton {
-                visible: codeArea.selectedText.length > 0
+                visible: codeArea.selectedText.length > 0 && !codeArea.useNativeTouchHandling
                 Layout.fillHeight: true
                 icon: "\uf0c5"
                 tooltipText: qsTr("Copy")
@@ -97,7 +97,7 @@ BlankScreen {
             }
 
             CToolButton {
-                visible: codeArea.selectedText.length > 0
+                visible: codeArea.selectedText.length > 0 && !codeArea.useNativeTouchHandling
                 Layout.fillHeight: true
                 icon: "\uf0c4"
                 tooltipText: qsTr("Cut")
@@ -105,7 +105,8 @@ BlankScreen {
             }
 
             CToolButton {
-                visible: ProjectManager.fileFormat === "qml" && !codeArea.selectedText.length > 0
+                visible: ProjectManager.fileFormat === "qml" &&
+                         (!codeArea.selectedText.length > 0 || codeArea.useNativeTouchHandling)
                 Layout.fillHeight: true
                 icon: "\uf04b"
                 tooltipText: qsTr("Run")
