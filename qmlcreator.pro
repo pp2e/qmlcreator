@@ -19,9 +19,15 @@ HEADERS += \
     cpp/ProjectManager.h \
     cpp/QMLHighlighter.h \
     cpp/SyntaxHighlighter.h \
-    cpp/MessageHandler.h
+    cpp/MessageHandler.h \
+    cpp/components/linenumbershelper.h \
+    cpp/imeventfixer.h \
+    cpp/imfixerinstaller.h
 
 SOURCES += \
+    cpp/components/linenumbershelper.cpp \
+    cpp/imeventfixer.cpp \
+    cpp/imfixerinstaller.cpp \
     cpp/main.cpp \
     cpp/ProjectManager.cpp \
     cpp/QMLHighlighter.cpp \
@@ -68,12 +74,13 @@ ios {
         $$PWD/platform-specific/ios/Def-568h@2x.png
     QMAKE_BUNDLE_DATA += ICON_DATA
 
-    app_launch_screen.files = $$PWD/platform-specific/ios/LaunchScreen.xib
-    QMAKE_BUNDLE_DATA += app_launch_screen
+    launch_xib.files = $$PWD/platform-specific/ios/Launch.xib
+    QMAKE_BUNDLE_DATA += launch_xib
 
     QMAKE_INFO_PLIST = $$PWD/platform-specific/ios/Project-Info.plist
     OTHER_FILES += $$QMAKE_INFO_PLIST
     xcode_product_bundle_identifier_setting.value = "me.fredl.qmlcreator"
+    QMAKE_TARGET_BUNDLE_PREFIX = me.fredl
 }
 
 contains(CONFIG, click) {
@@ -125,6 +132,3 @@ contains(CONFIG, click) {
 }
 
 INSTALLS += target
-
-DISTFILES += \
-    qml/components/dialogs/NewDirDialog.qml
