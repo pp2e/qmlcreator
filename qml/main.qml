@@ -54,6 +54,8 @@ CApplicationWindow {
     CSplitView {
         id: splitView
         anchors.fill: parent
+        anchors.bottomMargin: Qt.inputMethod.visible && platformResizesView ?
+                                  (Qt.inputMethod.keyboardRectangle.height / (GRID_UNIT_PX / 8)) : 0
 
         Component.onCompleted: {
             splitView.leftView.push(initialLeftView)
