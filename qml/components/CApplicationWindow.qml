@@ -29,7 +29,7 @@ ApplicationWindow {
     height: 640
     visible: true
     title: "QML Creator"
-    visibility: settings.debugMode ? "FullScreen" : "Maximized"
+    //visibility: settings.debugMode ? "FullScreen" : "Maximized"
     background: Rectangle { color: appWindow.colorPalette.background }
 
     readonly property bool enableDualView: width > height
