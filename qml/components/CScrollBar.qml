@@ -44,10 +44,12 @@ Rectangle {
      Connections {
          target: flickableItem
 
-         onMovementStarted:
+         function onMovementStarted() {
              cScrollBar.opacity = 1
+         }
 
-         onMovementEnded:
+         function onMovementEnded() {
              cScrollBar.opacity = 0
+         }
      }
  }
