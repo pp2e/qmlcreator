@@ -22,4 +22,5 @@ ListView {
     id: cListView
     clip: true
     pixelAligned: true
+    displayMarginBeginning: 64
 }
