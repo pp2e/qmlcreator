@@ -22,6 +22,7 @@ import ".."
 
 BaseDialog {
     id: confirmationDialog
+    contentItem: mainContent
 
     property alias title: titleLabel.text
     property alias text: message.text
@@ -33,26 +34,22 @@ BaseDialog {
     }
 
     DropShadow {
-        anchors.fill: contentBackground
+        anchors.fill: mainContent
         radius: 5 * settings.pixelDensity
         color: appWindow.colorPalette.dialogShadow
         transparentBorder: true
         fast: true
-        source: contentBackground
+        source: mainContent
+        scale: mainContent.scale
     }
 
     Rectangle {
-        id: contentBackground
+        id: mainContent
         width: popupWidth
         height: popupHeight
         anchors.centerIn: parent
+        clip: true
         color: appWindow.colorPalette.dialogBackground
-    }
-
-    Item {
-        width: popupWidth
-        height: popupHeight
-        anchors.centerIn: parent
 
         Rectangle {
             id: header

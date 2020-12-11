@@ -22,6 +22,7 @@ import ".."
 
 BaseDialog {
     id: fontSizeDialog
+    contentItem: mainContent
 
     property alias title: titleLabel.text
     property string text
@@ -44,20 +45,15 @@ BaseDialog {
         transparentBorder: true
         fast: true
         source: contentBackground
+        scale: mainContent.scale
     }
 
     Rectangle {
-        id: contentBackground
+        id: mainContent
         width: popupWidth
         height: popupHeight
         anchors.centerIn: parent
         color: appWindow.colorPalette.dialogBackground
-    }
-
-    Item {
-        width: popupWidth
-        height: popupHeight
-        anchors.centerIn: parent
 
         Rectangle {
             id: header

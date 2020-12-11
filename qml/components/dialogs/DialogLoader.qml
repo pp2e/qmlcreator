@@ -17,6 +17,7 @@
 ****************************************************************************/
 
 import QtQuick 2.5
+import QtGraphicalEffects 1.0
 
 Loader {
     id: dialogLoader
@@ -52,18 +53,20 @@ Loader {
         source = ""
     }
 
-    onLoaded:
+    onLoaded: {
         item.initialize(parameters)
+        item.visible = true
+    }
 
     Connections {
         target: item
 
-        onProcess: {
+        function onProcess(value) {
             dialogLoader.source = ""
             dialogLoader.callback(value)
         }
 
-        onClose: {
+        function onClose() {
             dialogLoader.source = ""
         }
     }

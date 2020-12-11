@@ -21,9 +21,12 @@ import QtQuick 2.5
 Item {
     id: baseDialog
     anchors.fill: parent
+    visible: false
 
     property int popupWidth: width * 0.82
     property int popupHeight: height * 0.7
+
+    property var contentItem : undefined;
 
     property string title
 
@@ -31,6 +34,32 @@ Item {
 
     signal process(var value)
     signal close()
+
+    onVisibleChanged: {
+        showAnimation.start()
+    }
+
+    ParallelAnimation {
+        id: showAnimation
+
+        NumberAnimation {
+            target: baseDialog
+            property: "opacity"
+            duration: 150
+            easing.type: Easing.Linear
+            from: 0.0
+            to: 1.0
+        }
+
+        NumberAnimation {
+            target: contentItem
+            property: "scale"
+            duration: 150
+            easing.type: Easing.Linear
+            from: 0.9
+            to: 1.0
+        }
+    }
 
     Rectangle {
         anchors.fill: parent
