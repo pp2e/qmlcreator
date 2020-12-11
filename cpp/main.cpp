@@ -25,6 +25,8 @@
 #include "MessageHandler.h"
 #include "ProjectManager.h"
 #include "SyntaxHighlighter.h"
+#include "components/linenumbershelper.h"
+#include "imfixerinstaller.h"
 
 inline static void createNecessaryDir(const QString& path) {
     const QDir configDir = QDir(path);
@@ -94,6 +96,7 @@ int main(int argc, char *argv[])
 
     qmlRegisterSingletonType<ProjectManager>("ProjectManager", 1, 1, "ProjectManager", &ProjectManager::projectManagerProvider);
     qmlRegisterType<SyntaxHighlighter>("SyntaxHighlighter", 1, 1, "SyntaxHighlighter");
+    qmlRegisterType<LineNumbersHelper>("LineNumbersHelper", 1, 1, "LineNumbersHelper");
 
 #ifdef Q_OS_ANDROID
     while(!checkAndroidStoragePermissions());
@@ -116,7 +119,7 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty("GRID_UNIT_PX", GRID_UNIT_PX);
 
-#if !defined(Q_OS_IOS) && !defined(Q_OS_ANDROID)
+#if !defined(Q_OS_ANDROID)
     engine.rootContext()->setContextProperty("platformResizesView", true);
 #else
     engine.rootContext()->setContextProperty("platformResizesView", false);
@@ -125,10 +128,14 @@ int main(int argc, char *argv[])
 #if defined(Q_OS_IOS)
     engine.rootContext()->setContextProperty("platformHasNativeCopyPaste", true);
     engine.rootContext()->setContextProperty("platformHasNativeDragHandles", true);
+    engine.rootContext()->setContextProperty("platformIsIpadOs", true);
 #else
     engine.rootContext()->setContextProperty("platformHasNativeCopyPaste", false);
     engine.rootContext()->setContextProperty("platformHasNativeDragHandles", false);
+    engine.rootContext()->setContextProperty("platformIsIpadOs", false);
 #endif
+
+    engine.rootContext()->setContextProperty("oskEventFixer", new ImFixerInstaller());
 
     engine.load(QUrl("qrc:/qml/main.qml"));
 
