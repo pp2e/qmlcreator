@@ -8,7 +8,7 @@ Item {
     property alias initialLeftItem : leftView.initialItem
     property alias initialRightItem : rightView.initialItem
 
-    readonly property bool enableDualView : width > height
+    readonly property bool enableDualView : appWindow.width > appWindow.height
 
     function popPage()  {
         if (rightView.depth > 1) {
@@ -74,9 +74,8 @@ Item {
 
     Rectangle {
         anchors.fill: parent
-        anchors.bottomMargin: Qt.inputMethod.visible && platformResizesView ?
-                                  (Qt.inputMethod.keyboardRectangle.height / (GRID_UNIT_PX / 8)) : 0
         color: appWindow.colorPalette.background
+
         Row {
             anchors.fill: parent
 
