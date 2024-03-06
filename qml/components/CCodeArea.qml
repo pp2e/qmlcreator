@@ -300,7 +300,7 @@ Item {
                 property int startPosition
                 property int endPosition
 
-                onPressed: {
+                onPressed: mouse => {
                     textEdit.contextMenu.visible = false
 
                     startX = mouse.x
@@ -315,7 +315,7 @@ Item {
                     mouse.accepted = true
                 }
 
-                onPositionChanged: {
+                onPositionChanged: mouse => {
                     if (textEdit.contextMenu.visible)
                     {
                         mouse.accepted = true
@@ -335,7 +335,7 @@ Item {
                     mouse.accepted = true
                 }
 
-                onPressAndHold: {
+                onPressAndHold: mouse => {
                     var distance = Math.sqrt(Math.pow(mouse.x - startX, 2) + Math.pow(mouse.y - startY, 2))
                     if (distance < textEdit.cursorRectangle.height)
                     {
@@ -345,7 +345,7 @@ Item {
                     mouse.accepted = true
                 }
 
-                onWheel: {
+                onWheel: wheel => {
                     const newYPos = flickable.contentY - wheel.angleDelta.y
                     if (newYPos < 0) {
                         return
@@ -504,8 +504,11 @@ Item {
 
                 Connections {
                     target: (leftSelectionMouseArea.pressed) ? null : textEdit
-                    onCursorPositionChanged:
+                    // onCursorPositionChanged:
+                    //     textEdit.leftSelectionHandle.setPosition()
+                    function onCursorPositionChanged() {
                         textEdit.leftSelectionHandle.setPosition()
+                    }
                 }
 
                 Rectangle {
@@ -564,8 +567,11 @@ Item {
 
                 Connections {
                     target: (rightSelectionMouseArea.pressed) ? null : textEdit
-                    onCursorPositionChanged:
+                    // onCursorPositionChanged:
+                    //     textEdit.rightSelectionHandle.setPosition()
+                    function onCursorPositionChanged() {
                         textEdit.rightSelectionHandle.setPosition()
+                    }
                 }
 
                 Rectangle {

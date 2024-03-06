@@ -18,6 +18,8 @@
 
 #include "QMLHighlighter.h"
 
+#include <QFile>
+
 bool QMLHighlighter::m_cacheLoaded = false;
 QSet<QString> QMLHighlighter::m_keywordsCache = QSet<QString>();
 QSet<QString> QMLHighlighter::m_jsIdsCache = QSet<QString>();

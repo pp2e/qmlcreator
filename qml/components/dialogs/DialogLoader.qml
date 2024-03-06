@@ -17,7 +17,7 @@
 ****************************************************************************/
 
 import QtQuick 2.5
-import QtGraphicalEffects 1.0
+// import QtGraphicalEffects 1.0
 
 Loader {
     id: dialogLoader
@@ -32,15 +32,15 @@ Loader {
     QtObject {
         id: dialogTypes
 
-        property string message: "MessageDialog.qml"
-        property string confirmation: "ConfirmationDialog.qml"
-        property string list: "ListDialog.qml"
-        property string fontFamily: "FontFamilyDialog.qml"
-        property string fontSize: "FontSizeDialog.qml"
-        property string indentSize: "IndentSizeDialog.qml"
-        property string newFile: "NewFileDialog.qml"
-        property string newDir: "NewDirDialog.qml"
-        property string newProject: "NewProjectDialog.qml"
+        property string message: "components/dialogs/MessageDialog.qml"
+        property string confirmation: "components/dialogs/ConfirmationDialog.qml"
+        property string list: "components/dialogs/ListDialog.qml"
+        property string fontFamily: "components/dialogs/FontFamilyDialog.qml"
+        property string fontSize: "components/dialogs/FontSizeDialog.qml"
+        property string indentSize: "components/dialogs/IndentSizeDialog.qml"
+        property string newFile: "components/dialogs/NewFileDialog.qml"
+        property string newDir: "components/dialogs/NewDirDialog.qml"
+        property string newProject: "components/dialogs/NewProjectDialog.qml"
     }
 
     function open(type, parameters, callback) {

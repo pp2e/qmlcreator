@@ -19,7 +19,6 @@
 import QtQuick 2.5
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.2
-import QtGraphicalEffects 1.0
 import ProjectManager 1.1
 import "../components"
 
@@ -174,16 +173,7 @@ BlankScreen {
         }
     }
 
-    FastBlur {
-        id: fastBlur
-        height: 22 * settings.pixelDensity
-        width: parent.width
-        radius: 40
-        opacity: 0.55
-
-        source: ShaderEffectSource {
-            sourceItem: listView
-            sourceRect: Qt.rect(0, -toolBar.height, fastBlur.width, fastBlur.height)
-        }
+    CToolBarBlur {
+        sourceItem: listView
     }
 }

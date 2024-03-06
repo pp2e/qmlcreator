@@ -26,8 +26,11 @@ Item {
 
     Connections {
         target: flickableItem.visibleArea
-        onHeightRatioChanged:
+        // onHeightRatioChanged:
+            // cVerticalScrollBar.visible = (flickableItem.visibleArea.heightRatio < 1)
+        function onHeightRatioChanged() {
             cVerticalScrollBar.visible = (flickableItem.visibleArea.heightRatio < 1)
+        }
     }
 
     Rectangle {

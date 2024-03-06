@@ -21,8 +21,7 @@ import QtQuick 2.5
 Item {
     id: cInformationItem
 
-    anchors.left: parent.left
-    anchors.right: parent.right
+    width: parent.width
     implicitHeight: 18.5 * settings.pixelDensity
 
     property alias text: label.text

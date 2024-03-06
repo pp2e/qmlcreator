@@ -95,8 +95,11 @@ BlankScreen {
 
         Connections {
             target: messageHandler
-            onMessageReceived:
+            // onMessageReceived:
+            //     messages.append(message)
+            function onMessageReceived(message) {
                 messages.append(message)
+            }
         }
     }
 

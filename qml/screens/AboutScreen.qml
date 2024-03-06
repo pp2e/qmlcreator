@@ -17,7 +17,6 @@
 ****************************************************************************/
 
 import QtQuick 2.5
-import QtGraphicalEffects 1.0
 import "../components"
 
 BlankScreen {
@@ -59,20 +58,10 @@ BlankScreen {
 
         CToolBar {
             id: toolBar
-            anchors.fill: fastBlur
         }
 
-        FastBlur {
-            id: fastBlur
-            height: 22 * settings.pixelDensity
-            width: parent.width
-            radius: 40
-            opacity: 0.55
-
-            source: ShaderEffectSource {
-                sourceItem: aboutTextArea
-                sourceRect: Qt.rect(0, -toolBar.height, fastBlur.width, fastBlur.height)
-            }
+        CToolBarBlur {
+            sourceItem: aboutTextArea
         }
 
         CBackButton {
