@@ -16,7 +16,7 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.5
+import QtQuick
 import QtQuick.Effects
 import ProjectManager 1.1
 import ".."
@@ -109,8 +109,8 @@ BaseDialog {
                 CTextField {
                     id: fileNameTextField
 
-                    validator: RegExpValidator {
-                        regExp: new RegExp("[a-zA-Z0-9]*")
+                    validator: RegularExpressionValidator {
+                        regularExpression: /[a-zA-Z0-9]*/
                     }
 
                     onTextChanged: {

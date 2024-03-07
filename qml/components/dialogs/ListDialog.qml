@@ -41,12 +41,12 @@ BaseDialog {
     }
 
 		MultiEffect {
-        anchors.fill: mainContent
-				shadowEnabled: true
-				shadowColor: appWindow.colorPalette.dialogShadow
-				shadowBlur: 1
-				blurMax: 5 * settings.pixelDensity 
-				source: mainContent
+            anchors.fill: mainContent
+            shadowEnabled: true
+            shadowColor: appWindow.colorPalette.dialogShadow
+            shadowBlur: 1
+            blurMax: 30 * settings.pixelDensity
+            source: mainContent
 		}
 
     Rectangle {

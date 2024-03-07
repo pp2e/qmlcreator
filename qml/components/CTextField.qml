@@ -65,7 +65,7 @@ Item {
 
         MouseArea {
             anchors.fill: parent
-            onPressed: {
+            onPressed: mouse => {
                 textInput.cursorPosition = textInput.positionAt(mouse.x, mouse.y)
 
                 if (!Qt.inputMethod.visible) {
