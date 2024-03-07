@@ -17,7 +17,7 @@
 ****************************************************************************/
 
 import QtQuick 2.5
-import QtGraphicalEffects 1.0
+import QtQuick.Effects
 import ".."
 
 BaseDialog {
@@ -40,15 +40,14 @@ BaseDialog {
         listView.positionViewAtIndex(currentIndex, ListView.Contain)
     }
 
-    DropShadow {
+		MultiEffect {
         anchors.fill: mainContent
-        radius: 5 * settings.pixelDensity
-        color: appWindow.colorPalette.dialogShadow
-        transparentBorder: true
-        fast: true
-        source: mainContent
-        scale: mainContent
-    }
+				shadowEnabled: true
+				shadowColor: appWindow.colorPalette.dialogShadow
+				shadowBlur: 1
+				blurMax: 5 * settings.pixelDensity 
+				source: mainContent
+		}
 
     Rectangle {
         id: mainContent

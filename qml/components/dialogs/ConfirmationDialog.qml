@@ -17,7 +17,7 @@
 ****************************************************************************/
 
 import QtQuick 2.5
-import QtGraphicalEffects 1.0
+import QtQuick.Effects
 import ".."
 
 BaseDialog {
@@ -33,14 +33,13 @@ BaseDialog {
         }
     }
 
-    DropShadow {
+    MultiEffect {
         anchors.fill: mainContent
-        radius: 5 * settings.pixelDensity
-        color: appWindow.colorPalette.dialogShadow
-        transparentBorder: true
-        fast: true
+        shadowEnabled: true
+        shadowColor: appWindow.colorPalette.dialogShadow
+        shadowBlur: 1
+        blurMax: 30 * settings.pixelDensity
         source: mainContent
-        scale: mainContent.scale
     }
 
     Rectangle {

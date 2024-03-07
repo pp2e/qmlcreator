@@ -17,7 +17,7 @@
 ****************************************************************************/
 
 import QtQuick 2.5
-import QtGraphicalEffects 1.0
+import QtQuick.Effects
 import ".."
 
 BaseDialog {
@@ -38,14 +38,13 @@ BaseDialog {
         fontSizeSlider.value = (currentSize - minSize) / (maxSize - minSize)
     }
 
-    DropShadow {
-        anchors.fill: contentBackground
-        radius: 5 * settings.pixelDensity
-        color: appWindow.colorPalette.dialogShadow
-        transparentBorder: true
-        fast: true
-        source: contentBackground
-        scale: mainContent.scale
+    MultiEffect {
+        anchors.fill: mainContent
+        shadowEnabled: true
+        shadowColor: appWindow.colorPalette.dialogShadow
+        shadowBlur: 1
+        blurMax: 30 * settings.pixelDensity
+        source: mainContent
     }
 
     Rectangle {
