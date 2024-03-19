@@ -1,6 +1,8 @@
 QML Creator - advanced IDE for QML & JavaScript programming
 =========
 
+Now on Qt6!!!!!!!!!!
+
 ![QML](http://i.imgur.com/olMru1v.png)
 
 QML Creator makes developing QML projects on mobile devices convenient.
@@ -9,8 +11,7 @@ It includes all the available Qt Quick modules and many original demo projects.
 
 ## Download
 
-* [Android](https://play.google.com/store/apps/details?id=com.wearyinside.qmlcreator)
-* [iOS](https://itunes.apple.com/us/app/qml-creator/id944301984)
+* Android - Download it from pipeline output!!!!!!!!!!!!!
 
 ## LICENSE
 
