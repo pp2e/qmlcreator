@@ -40,7 +40,7 @@ inline static void createNecessaryDir(const QString& path) {
     }
 }
 
-#ifdef Q_OS_ANDROID
+#ifdef Q_OS_ANDROIDDDDISABLE
 #include <QtAndroidExtras/QtAndroid>
 
 bool checkAndroidStoragePermissions() {
