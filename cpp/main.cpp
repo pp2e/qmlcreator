@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<SyntaxHighlighter>("SyntaxHighlighter", 1, 1, "SyntaxHighlighter");
     qmlRegisterType<LineNumbersHelper>("LineNumbersHelper", 1, 1, "LineNumbersHelper");
 
-#ifdef Q_OS_ANDROID
+#ifdef Q_OS_ANDROIDDDDISABLE
     while(!checkAndroidStoragePermissions());
 #endif
 
