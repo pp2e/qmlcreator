@@ -3,7 +3,7 @@ image: alteved2v/qt6-android-aqt:latest
 # Functions that should be executed before the build script is run
 before_script:
   #- source emsdk_env.sh
-pages:
+build:
   script:
     - mkdir build
     - mkdir public
