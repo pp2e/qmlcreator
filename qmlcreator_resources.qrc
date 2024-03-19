@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/">
+    <qresource prefix="/QmlCreator/">
         <file>qml/components/CApplicationWindow.qml</file>
         <file>qml/components/CBackButton.qml</file>
         <file>qml/components/CCheckBox.qml</file>
@@ -142,7 +142,6 @@
         <file>qml/screens/PlaygroundScreen.qml</file>
         <file>qml/screens/ProjectsScreen.qml</file>
         <file>qml/screens/SettingsScreen.qml</file>
-        <file>qtquickcontrols2.conf</file>
         <file>resources/dictionaries/javascript.txt</file>
         <file>resources/dictionaries/keywords.txt</file>
         <file>resources/dictionaries/properties.txt</file>
@@ -170,5 +169,8 @@
         <file>resources/templates/MainFile.qml</file>
         <file>resources/templates/QmlFile.qml</file>
         <file>resources/translations/qmlcreator_ru.qm</file>
+    </qresource>
+    <qresource>
+        <file>qtquickcontrols2.conf</file>
     </qresource>
 </RCC>
