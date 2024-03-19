@@ -44,6 +44,7 @@ BlankScreen {
         anchors.bottom: parent.bottom
 
         delegate: CFileButton {
+            width: listView.width
             text: modelData
             isDir: true
 

@@ -30,10 +30,10 @@ QMLHighlighter::QMLHighlighter(QTextDocument *parent) : QSyntaxHighlighter(paren
     , m_markCaseSensitivity(Qt::CaseInsensitive)
 {
     if (!m_cacheLoaded) {
-        loadDictionary(":/resources/dictionaries/keywords.txt", m_keywordsCache);
-        loadDictionary(":/resources/dictionaries/javascript.txt", m_jsIdsCache);
-        loadDictionary(":/resources/dictionaries/qml.txt", m_qmlIdsCache);
-        loadDictionary(":/resources/dictionaries/properties.txt", m_propertiesCache);
+        loadDictionary(":/QmlCreator/resources/dictionaries/keywords.txt", m_keywordsCache);
+        loadDictionary(":/QmlCreator/resources/dictionaries/javascript.txt", m_jsIdsCache);
+        loadDictionary(":/QmlCreator/resources/dictionaries/qml.txt", m_qmlIdsCache);
+        loadDictionary(":/QmlCreator/resources/dictionaries/properties.txt", m_propertiesCache);
         m_cacheLoaded = true;
     }
 }

@@ -61,6 +61,7 @@ BlankScreen {
         anchors.topMargin: toolBar.height
 
         delegate: CFileButton {
+            width: listView.width
             text: modelData.name
             removeButtonVisible: modelData.name !== "main.qml"
             isDir: modelData.isDir

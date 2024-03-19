@@ -98,14 +98,14 @@ void ProjectManager::restoreExamples()
     deviceExamplesDir.removeRecursively();
     deviceExamplesDir.mkpath(baseFolderPath(Examples));
 
-    QDir qrcExamplesDir(":/qml/examples");
+    QDir qrcExamplesDir(":/QmlCreator/qml/examples");
     QFileInfoList folders = qrcExamplesDir.entryInfoList(QDir::AllDirs | QDir::NoDotAndDotDot);
 
     foreach(QFileInfo folder, folders) {
         QString folderName = folder.fileName();
         deviceExamplesDir.mkpath(folderName);
 
-        QDir qrcExampleDir(":/qml/examples/" + folderName);
+        QDir qrcExampleDir(":/QmlCreator/qml/examples/" + folderName);
 
         QFileInfoList files = qrcExampleDir.entryInfoList(QDir::Files);
 
@@ -357,7 +357,7 @@ QString ProjectManager::newFileContent(QString fileType)
 
     if (!fileName.isEmpty())
     {
-        QFile file(":/resources/templates/" + fileName);
+        QFile file(":/QmlCreator/resources/templates/" + fileName);
         file.open(QIODevice::ReadOnly | QIODevice::Text);
         QTextStream textStream(&file);
         fileContent = textStream.readAll().trimmed();

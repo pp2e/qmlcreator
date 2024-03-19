@@ -77,7 +77,7 @@ CApplicationWindow {
                 anchors.margins: parent.width / 4
                 visible: splitView.enableDualView
                 fillMode: Image.PreserveAspectFit
-                source: "qrc:/resources/images/icon512.png"
+                source: "qrc:/QmlCreator/resources/images/icon512.png"
             }
         }
     }

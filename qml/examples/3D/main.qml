@@ -44,7 +44,7 @@ Rectangle {
             Entity {
                 components: [
                     Mesh {
-                        source: "qrc:/resources/meshes/logo.obj"
+                        source: "qrc:/QmlCreator/resources/meshes/logo.obj"
                     },
 
                     PhongMaterial {

@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
     createNecessaryDir(cachePath);
 
     QTranslator translator;
-    translator.load("qmlcreator_" + QLocale::system().name(), ":/resources/translations");
+    translator.load("qmlcreator_" + QLocale::system().name(), ":/QmlCreator/resources/translations");
     app.installTranslator(&translator);
 
     qmlRegisterSingletonType<ProjectManager>("ProjectManager", 1, 1, "ProjectManager", &ProjectManager::projectManagerProvider);
@@ -137,7 +137,7 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty("oskEventFixer", new ImFixerInstaller());
 
-    engine.load(QUrl("qrc:/qml/main.qml"));
+    engine.load(QUrl("qrc:/QmlCreator/qml/main.qml"));
 
     ProjectManager::setQmlEngine(&engine);
     MessageHandler::setQmlEngine(&engine);

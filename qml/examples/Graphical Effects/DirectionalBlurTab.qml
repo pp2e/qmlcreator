@@ -11,7 +11,7 @@ Item {
         width: Math.min(parent.width, parent.height) * 0.7
         height: width
         anchors.centerIn: parent
-        source: "qrc:/resources/images/icon512.png"
+        source: "qrc:/QmlCreator/resources/images/icon512.png"
     }
 
     DirectionalBlur {

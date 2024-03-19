@@ -11,7 +11,7 @@ Item {
 
     ImageParticle {
         system: particleSystem
-        source: "qrc:/resources/images/particle2.png"
+        source: "qrc:/QmlCreator/resources/images/particle2.png"
         alpha: 0.7
         color: "#2d7393"
         blueVariation: 0.1

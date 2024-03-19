@@ -22,8 +22,7 @@ import QtQuick.Layouts 1.2
 Item {
     id: cFileButton
 
-    anchors.left: parent.left
-    anchors.right: parent.right
+    width: parent.width
     implicitHeight: 18.5 * settings.pixelDensity
 
     property alias text: buttonLabel.text
