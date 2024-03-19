@@ -16,6 +16,7 @@ pages:
     paths:
       # The folder that contains the files to be exposed at the Page URL
       #- public
+      - build/android-build/build/outputs/apk/debug/android-build-debug.apk
   rules:
     # This ensures that only pushes to the default branch will trigger
     # a pages deploy
