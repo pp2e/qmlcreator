@@ -99,11 +99,9 @@ int main(int argc, char *argv[])
 #if defined(Q_OS_IOS)
     engine.rootContext()->setContextProperty("platformHasNativeCopyPaste", true);
     engine.rootContext()->setContextProperty("platformHasNativeDragHandles", true);
-    engine.rootContext()->setContextProperty("platformIsIpadOs", true);
 #else
     engine.rootContext()->setContextProperty("platformHasNativeCopyPaste", false);
     engine.rootContext()->setContextProperty("platformHasNativeDragHandles", false);
-    engine.rootContext()->setContextProperty("platformIsIpadOs", false);
 #endif
 
     engine.rootContext()->setContextProperty("oskEventFixer", new ImFixerInstaller());
