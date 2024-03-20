@@ -40,31 +40,6 @@ inline static void createNecessaryDir(const QString& path) {
     }
 }
 
-#ifdef Q_OS_ANDROIDDDDISABLE
-#include <QtAndroidExtras/QtAndroid>
-
-bool checkAndroidStoragePermissions() {
-    const auto permissionsRequest = QStringList(
-    { QString("android.permission.READ_EXTERNAL_STORAGE"),
-      QString("android.permission.WRITE_EXTERNAL_STORAGE")});
-
-    if (QtAndroid::checkPermission(permissionsRequest[0])
-            == QtAndroid::PermissionResult::Denied
-            || (QtAndroid::checkPermission(permissionsRequest[1]))
-            == QtAndroid::PermissionResult::Denied) {
-        auto permissionResults
-                = QtAndroid::requestPermissionsSync(permissionsRequest);
-        if ((permissionResults[permissionsRequest[0]]
-             == QtAndroid::PermissionResult::Denied)
-                || (permissionResults[permissionsRequest[1]]
-                    == QtAndroid::PermissionResult::Denied))
-            return false;
-    }
-    return true;
-}
-
-#endif
-
 int main(int argc, char *argv[])
 {
     // QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -97,10 +72,6 @@ int main(int argc, char *argv[])
     qmlRegisterSingletonType<ProjectManager>("ProjectManager", 1, 1, "ProjectManager", &ProjectManager::projectManagerProvider);
     qmlRegisterType<SyntaxHighlighter>("SyntaxHighlighter", 1, 1, "SyntaxHighlighter");
     qmlRegisterType<LineNumbersHelper>("LineNumbersHelper", 1, 1, "LineNumbersHelper");
-
-#ifdef Q_OS_ANDROIDDDDISABLE
-    while(!checkAndroidStoragePermissions());
-#endif
 
     uint GRID_UNIT_PX = qgetenv("GRID_UNIT_PX").toUInt();
     if (GRID_UNIT_PX == 0) {
