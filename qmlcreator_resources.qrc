@@ -44,63 +44,63 @@
         <file>qml/components/palettes/DarkPalette.qml</file>
         <file>qml/components/palettes/LightPalette.qml</file>
         <file>qml/components/palettes/PaletteLoader.qml</file>
-        <file>qml/examples/3D/main.qml</file>
-        <file>qml/examples/Accelerometer/main.qml</file>
-        <file>qml/examples/Ambient Light Sensor/main.qml</file>
-        <file>qml/examples/Analog Clock/Clock.qml</file>
-        <file>qml/examples/Analog Clock/ClockBackground.qml</file>
-        <file>qml/examples/Analog Clock/ClockDigits.qml</file>
-        <file>qml/examples/Analog Clock/ClockHand.qml</file>
-        <file>qml/examples/Analog Clock/main.qml</file>
-        <file>qml/examples/Camera/main.qml</file>
-        <file>qml/examples/Canvas/main.qml</file>
-        <file>qml/examples/Controls/main.qml</file>
-        <file>qml/examples/Debugging/Rect.qml</file>
-        <file>qml/examples/Debugging/main.qml</file>
-        <file>qml/examples/Device Info/main.qml</file>
-        <file>qml/examples/Dialogs/ColorDialogTab.qml</file>
-        <file>qml/examples/Dialogs/MessageDialogTab.qml</file>
-        <file>qml/examples/Dialogs/main.qml</file>
-        <file>qml/examples/Gradient Text/main.qml</file>
-        <file>qml/examples/Graphical Effects/BrightnessContrastTab.qml</file>
-        <file>qml/examples/Graphical Effects/DesaturateTab.qml</file>
-        <file>qml/examples/Graphical Effects/DirectionalBlurTab.qml</file>
-        <file>qml/examples/Graphical Effects/main.qml</file>
-        <file>qml/examples/Joystick/Joystick.qml</file>
-        <file>qml/examples/Joystick/Player.qml</file>
-        <file>qml/examples/Joystick/main.qml</file>
-        <file>qml/examples/Live Webcam/WebcamsModel.qml</file>
-        <file>qml/examples/Live Webcam/main.qml</file>
-        <file>qml/examples/Local Storage/Database.js</file>
-        <file>qml/examples/Local Storage/main.qml</file>
-        <file>qml/examples/Looped List View/DateSelector.qml</file>
-        <file>qml/examples/Looped List View/LoopedListView.qml</file>
-        <file>qml/examples/Looped List View/LoopedListViewDelegate.qml</file>
-        <file>qml/examples/Looped List View/NumberSelector.qml</file>
-        <file>qml/examples/Looped List View/main.qml</file>
-        <file>qml/examples/Map/main.qml</file>
-        <file>qml/examples/Multi-touch/TouchItem.qml</file>
-        <file>qml/examples/Multi-touch/main.qml</file>
-        <file>qml/examples/Particles/main.qml</file>
-        <file>qml/examples/Proximity Sensor/main.qml</file>
-        <file>qml/examples/Repeater/ColorRect.qml</file>
-        <file>qml/examples/Repeater/main.qml</file>
-        <file>qml/examples/Settings/main.qml</file>
-        <file>qml/examples/Shader Effect/main.qml</file>
-        <file>qml/examples/Styles/SBusyIndicatorStyle.qml</file>
-        <file>qml/examples/Styles/SButtonStyle.qml</file>
-        <file>qml/examples/Styles/main.qml</file>
-        <file>qml/examples/Swipe View/LogInScreen.qml</file>
-        <file>qml/examples/Swipe View/RegisterScreen.qml</file>
-        <file>qml/examples/Swipe View/RestorePasswordScreen.qml</file>
-        <file>qml/examples/Swipe View/SwipeScreen.qml</file>
-        <file>qml/examples/Swipe View/SwipeView.qml</file>
-        <file>qml/examples/Swipe View/main.qml</file>
-        <file>qml/examples/Timer/main.qml</file>
-        <file>qml/examples/Torch/main.qml</file>
-        <file>qml/examples/Transform/main.qml</file>
-        <file>qml/examples/WebSocket/main.qml</file>
-        <file>qml/examples/XMLHttpRequest/main.qml</file>
+        <file>examples/3D/main.qml</file>
+        <file>examples/Accelerometer/main.qml</file>
+        <file>examples/Ambient Light Sensor/main.qml</file>
+        <file>examples/Analog Clock/Clock.qml</file>
+        <file>examples/Analog Clock/ClockBackground.qml</file>
+        <file>examples/Analog Clock/ClockDigits.qml</file>
+        <file>examples/Analog Clock/ClockHand.qml</file>
+        <file>examples/Analog Clock/main.qml</file>
+        <file>examples/Camera/main.qml</file>
+        <file>examples/Canvas/main.qml</file>
+        <file>examples/Controls/main.qml</file>
+        <file>examples/Debugging/Rect.qml</file>
+        <file>examples/Debugging/main.qml</file>
+        <file>examples/Device Info/main.qml</file>
+        <file>examples/Dialogs/ColorDialogTab.qml</file>
+        <file>examples/Dialogs/MessageDialogTab.qml</file>
+        <file>examples/Dialogs/main.qml</file>
+        <file>examples/Gradient Text/main.qml</file>
+        <file>examples/Graphical Effects/BrightnessContrastTab.qml</file>
+        <file>examples/Graphical Effects/DesaturateTab.qml</file>
+        <file>examples/Graphical Effects/DirectionalBlurTab.qml</file>
+        <file>examples/Graphical Effects/main.qml</file>
+        <file>examples/Joystick/Joystick.qml</file>
+        <file>examples/Joystick/Player.qml</file>
+        <file>examples/Joystick/main.qml</file>
+        <file>examples/Live Webcam/WebcamsModel.qml</file>
+        <file>examples/Live Webcam/main.qml</file>
+        <file>examples/Local Storage/Database.js</file>
+        <file>examples/Local Storage/main.qml</file>
+        <file>examples/Looped List View/DateSelector.qml</file>
+        <file>examples/Looped List View/LoopedListView.qml</file>
+        <file>examples/Looped List View/LoopedListViewDelegate.qml</file>
+        <file>examples/Looped List View/NumberSelector.qml</file>
+        <file>examples/Looped List View/main.qml</file>
+        <file>examples/Map/main.qml</file>
+        <file>examples/Multi-touch/TouchItem.qml</file>
+        <file>examples/Multi-touch/main.qml</file>
+        <file>examples/Particles/main.qml</file>
+        <file>examples/Proximity Sensor/main.qml</file>
+        <file>examples/Repeater/ColorRect.qml</file>
+        <file>examples/Repeater/main.qml</file>
+        <file>examples/Settings/main.qml</file>
+        <file>examples/Shader Effect/main.qml</file>
+        <file>examples/Styles/SBusyIndicatorStyle.qml</file>
+        <file>examples/Styles/SButtonStyle.qml</file>
+        <file>examples/Styles/main.qml</file>
+        <file>examples/Swipe View/LogInScreen.qml</file>
+        <file>examples/Swipe View/RegisterScreen.qml</file>
+        <file>examples/Swipe View/RestorePasswordScreen.qml</file>
+        <file>examples/Swipe View/SwipeScreen.qml</file>
+        <file>examples/Swipe View/SwipeView.qml</file>
+        <file>examples/Swipe View/main.qml</file>
+        <file>examples/Timer/main.qml</file>
+        <file>examples/Torch/main.qml</file>
+        <file>examples/Transform/main.qml</file>
+        <file>examples/WebSocket/main.qml</file>
+        <file>examples/XMLHttpRequest/main.qml</file>
         <file>qml/main.qml</file>
         <file>qml/modules/3D.qml</file>
         <file>qml/modules/3DInput.qml</file>

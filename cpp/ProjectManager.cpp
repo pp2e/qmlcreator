@@ -98,14 +98,14 @@ void ProjectManager::restoreExamples()
     deviceExamplesDir.removeRecursively();
     deviceExamplesDir.mkpath(baseFolderPath(Examples));
 
-    QDir qrcExamplesDir(":/QmlCreator/qml/examples");
+    QDir qrcExamplesDir(":/QmlCreator/examples");
     QFileInfoList folders = qrcExamplesDir.entryInfoList(QDir::AllDirs | QDir::NoDotAndDotDot);
 
     foreach(QFileInfo folder, folders) {
         QString folderName = folder.fileName();
         deviceExamplesDir.mkpath(folderName);
 
-        QDir qrcExampleDir(":/QmlCreator/qml/examples/" + folderName);
+        QDir qrcExampleDir(":/QmlCreator/examples/" + folderName);
 
         QFileInfoList files = qrcExampleDir.entryInfoList(QDir::Files);
 

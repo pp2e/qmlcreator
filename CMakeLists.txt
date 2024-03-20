@@ -112,63 +112,63 @@ qt_add_qml_module(qmlcreator
     qml/components/CCodeArea.qml
     qml/components/CInformationItem.qml
     qml/components/CTextField.qml
-    qml/examples/3D/main.qml
-    qml/examples/Accelerometer/main.qml
-    qml/examples/Ambient\ Light\ Sensor/main.qml
-    qml/examples/Analog\ Clock/Clock.qml
-    qml/examples/Analog\ Clock/ClockBackground.qml
-    qml/examples/Analog\ Clock/ClockDigits.qml
-    qml/examples/Analog\ Clock/ClockHand.qml
-    qml/examples/Analog\ Clock/main.qml
-    qml/examples/Camera/main.qml
-    qml/examples/Canvas/main.qml
-    qml/examples/Controls/main.qml
-    qml/examples/Debugging/Rect.qml
-    qml/examples/Debugging/main.qml
-    qml/examples/Device\ Info/main.qml
-    qml/examples/Dialogs/ColorDialogTab.qml
-    qml/examples/Dialogs/MessageDialogTab.qml
-    qml/examples/Dialogs/main.qml
-    qml/examples/Gradient\ Text/main.qml
-    qml/examples/Graphical\ Effects/BrightnessContrastTab.qml
-    qml/examples/Graphical\ Effects/DesaturateTab.qml
-    qml/examples/Graphical\ Effects/DirectionalBlurTab.qml
-    qml/examples/Graphical\ Effects/main.qml
-    qml/examples/Joystick/Joystick.qml
-    qml/examples/Joystick/Player.qml
-    qml/examples/Joystick/main.qml
-    qml/examples/Live\ Webcam/WebcamsModel.qml
-    qml/examples/Live\ Webcam/main.qml
-    qml/examples/Local\ Storage/Database.js
-    qml/examples/Local\ Storage/main.qml
-    qml/examples/Looped\ List\ View/DateSelector.qml
-    qml/examples/Looped\ List\ View/LoopedListView.qml
-    qml/examples/Looped\ List\ View/LoopedListViewDelegate.qml
-    qml/examples/Looped\ List\ View/NumberSelector.qml
-    qml/examples/Looped\ List\ View/main.qml
-    qml/examples/Map/main.qml
-    qml/examples/Multi-touch/TouchItem.qml
-    qml/examples/Multi-touch/main.qml
-    qml/examples/Particles/main.qml
-    qml/examples/Proximity\ Sensor/main.qml
-    qml/examples/Repeater/ColorRect.qml
-    qml/examples/Repeater/main.qml
-    qml/examples/Settings/main.qml
-    qml/examples/Shader\ Effect/main.qml
-    qml/examples/Styles/SBusyIndicatorStyle.qml
-    qml/examples/Styles/SButtonStyle.qml
-    qml/examples/Styles/main.qml
-    qml/examples/Swipe\ View/LogInScreen.qml
-    qml/examples/Swipe\ View/RegisterScreen.qml
-    qml/examples/Swipe\ View/RestorePasswordScreen.qml
-    qml/examples/Swipe\ View/SwipeScreen.qml
-    qml/examples/Swipe\ View/SwipeView.qml
-    qml/examples/Swipe\ View/main.qml
-    qml/examples/Timer/main.qml
-    qml/examples/Torch/main.qml
-    qml/examples/Transform/main.qml
-    qml/examples/WebSocket/main.qml
-    qml/examples/XMLHttpRequest/main.qml
+    examples/3D/main.qml
+    examples/Accelerometer/main.qml
+    examples/Ambient\ Light\ Sensor/main.qml
+    examples/Analog\ Clock/Clock.qml
+    examples/Analog\ Clock/ClockBackground.qml
+    examples/Analog\ Clock/ClockDigits.qml
+    examples/Analog\ Clock/ClockHand.qml
+    examples/Analog\ Clock/main.qml
+    examples/Camera/main.qml
+    examples/Canvas/main.qml
+    examples/Controls/main.qml
+    examples/Debugging/Rect.qml
+    examples/Debugging/main.qml
+    examples/Device\ Info/main.qml
+    examples/Dialogs/ColorDialogTab.qml
+    examples/Dialogs/MessageDialogTab.qml
+    examples/Dialogs/main.qml
+    examples/Gradient\ Text/main.qml
+    examples/Graphical\ Effects/BrightnessContrastTab.qml
+    examples/Graphical\ Effects/DesaturateTab.qml
+    examples/Graphical\ Effects/DirectionalBlurTab.qml
+    examples/Graphical\ Effects/main.qml
+    examples/Joystick/Joystick.qml
+    examples/Joystick/Player.qml
+    examples/Joystick/main.qml
+    examples/Live\ Webcam/WebcamsModel.qml
+    examples/Live\ Webcam/main.qml
+    examples/Local\ Storage/Database.js
+    examples/Local\ Storage/main.qml
+    examples/Looped\ List\ View/DateSelector.qml
+    examples/Looped\ List\ View/LoopedListView.qml
+    examples/Looped\ List\ View/LoopedListViewDelegate.qml
+    examples/Looped\ List\ View/NumberSelector.qml
+    examples/Looped\ List\ View/main.qml
+    examples/Map/main.qml
+    examples/Multi-touch/TouchItem.qml
+    examples/Multi-touch/main.qml
+    examples/Particles/main.qml
+    examples/Proximity\ Sensor/main.qml
+    examples/Repeater/ColorRect.qml
+    examples/Repeater/main.qml
+    examples/Settings/main.qml
+    examples/Shader\ Effect/main.qml
+    examples/Styles/SBusyIndicatorStyle.qml
+    examples/Styles/SButtonStyle.qml
+    examples/Styles/main.qml
+    examples/Swipe\ View/LogInScreen.qml
+    examples/Swipe\ View/RegisterScreen.qml
+    examples/Swipe\ View/RestorePasswordScreen.qml
+    examples/Swipe\ View/SwipeScreen.qml
+    examples/Swipe\ View/SwipeView.qml
+    examples/Swipe\ View/main.qml
+    examples/Timer/main.qml
+    examples/Torch/main.qml
+    examples/Transform/main.qml
+    examples/WebSocket/main.qml
+    examples/XMLHttpRequest/main.qml
     qml/modules/3D.qml
     qml/modules/3DInput.qml
     qml/modules/3DRenderer.qml
