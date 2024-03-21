@@ -312,6 +312,14 @@ void ProjectManager::recursiveCopyDir(QDir source, QDir target)
         qDebug() << file << target.absoluteFilePath(file.fileName());
         QFile::copy(source.absoluteFilePath(file.fileName()),
                     target.absoluteFilePath(file.fileName()));
+
+        QFile::setPermissions(target.absoluteFilePath(file.fileName()),
+                                  QFileDevice::ReadOwner | QFileDevice::WriteOwner |
+                                  QFileDevice::ReadUser  | QFileDevice::WriteUser  |
+                                  QFileDevice::ReadGroup | QFileDevice::WriteGroup |
+                                  QFileDevice::ReadOther | QFileDevice::WriteOther
+                                  );
+
     }
 }
 
