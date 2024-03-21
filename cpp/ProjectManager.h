@@ -77,13 +77,15 @@ public:
 
     // singleton type provider function
     static QObject *projectManagerProvider(QQmlEngine *engine, QJSEngine *scriptEngine);
+    
+    // for main.qml selection in main.cpp
+    static QString baseFolderPath(QString folder);
 
 private:
     void recursiveCopyDir(QDir source, QDir target);
     // project management
     // BaseFolder m_baseFolder;
     QString m_baseFolder;
-    QString baseFolderPath(QString folder);
     QString newFileContent(QString fileType);
 
     // current project

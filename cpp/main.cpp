@@ -106,7 +106,11 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty("oskEventFixer", new ImFixerInstaller());
 
-    engine.load(QUrl("qrc:/QmlCreator/qml/main.qml"));
+    // Load user's custom main.qml if we can
+    if (QFile(ProjectManager::baseFloderPath("QmlCreator") + "/main.qml").exists());
+        engine.load(QUrl(ProjectManager::baseFloderPath("QmlCreator") + "/main.qml"));
+    else
+        engine.load(QUrl("qrc:/QmlCreator/qml/main.qml"));
 
     ProjectManager::setQmlEngine(&engine);
     MessageHandler::setQmlEngine(&engine);
