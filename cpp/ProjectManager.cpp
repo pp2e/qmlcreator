@@ -23,16 +23,17 @@
 ProjectManager::ProjectManager(QObject *parent) :
     QObject(parent)
 {
-    QDir().mkpath(baseFolderPath(Projects));
-    QDir().mkpath(baseFolderPath(Examples));
+    QDir().mkpath(baseFolderPath("Projects"));
+    QDir().mkpath(baseFolderPath("Examples"));
+    QDir().mkpath(baseFolderPath("QmlCreator"));
 }
 
-ProjectManager::BaseFolder ProjectManager::baseFolder()
+QString ProjectManager::baseFolder()
 {
     return m_baseFolder;
 }
 
-void ProjectManager::setBaseFolder(BaseFolder baseFolder)
+void ProjectManager::setBaseFolder(QString baseFolder)
 {
     if (m_baseFolder != baseFolder)
     {
@@ -57,10 +58,10 @@ QStringList ProjectManager::projects()
 
 void ProjectManager::createProject(QString projectName)
 {
-    QDir dir(baseFolderPath(Projects));
+    QDir dir(baseFolderPath("Projects"));
     if (dir.mkpath(projectName))
     {
-        QFile file(baseFolderPath(Projects) + QDir::separator() + projectName + QDir::separator() + "main.qml");
+        QFile file(baseFolderPath("Projects") + QDir::separator() + projectName + QDir::separator() + "main.qml");
         if (file.open(QIODevice::WriteOnly | QIODevice::Text))
         {
             QString fileContent = "// Project \"" + projectName + "\"\n" + newFileContent("main");
@@ -88,39 +89,22 @@ void ProjectManager::removeProject(QString projectName)
 
 bool ProjectManager::projectExists(QString projectName)
 {
-    QFileInfo checkFile(baseFolderPath(Projects) + QDir::separator() + projectName);
+    QFileInfo checkFile(baseFolderPath("Projects") + QDir::separator() + projectName);
     return checkFile.exists();
 }
 
 void ProjectManager::restoreExamples()
 {
-    QDir deviceExamplesDir(baseFolderPath(Examples));
+    QDir deviceExamplesDir(baseFolderPath(m_baseFolder));
     deviceExamplesDir.removeRecursively();
-    deviceExamplesDir.mkpath(baseFolderPath(Examples));
 
-    QDir qrcExamplesDir(":/QmlCreator/examples");
-    QFileInfoList folders = qrcExamplesDir.entryInfoList(QDir::AllDirs | QDir::NoDotAndDotDot);
+    QDir qrcExamplesDir;
+    if (m_baseFolder == "Examples")
+        qrcExamplesDir = QDir(":/QmlCreator/examples");
+    else if (m_baseFolder == "QmlCreator")
+        qrcExamplesDir = QDir(":/QmlCreator/qml");
 
-    foreach(QFileInfo folder, folders) {
-        QString folderName = folder.fileName();
-        deviceExamplesDir.mkpath(folderName);
-
-        QDir qrcExampleDir(":/QmlCreator/examples/" + folderName);
-
-        QFileInfoList files = qrcExampleDir.entryInfoList(QDir::Files);
-
-        foreach(QFileInfo file, files) {
-            QString fileName = file.fileName();
-            QFile::copy(file.absoluteFilePath(), baseFolderPath(Examples) + QDir::separator() + folderName + QDir::separator() + fileName);
-
-            QFile::setPermissions(baseFolderPath(Examples) + QDir::separator() + folderName + QDir::separator() + fileName,
-                                  QFileDevice::ReadOwner | QFileDevice::WriteOwner |
-                                  QFileDevice::ReadUser  | QFileDevice::WriteUser  |
-                                  QFileDevice::ReadGroup | QFileDevice::WriteGroup |
-                                  QFileDevice::ReadOther | QFileDevice::WriteOther
-                                  );
-        }
-    }
+    recursiveCopyDir(qrcExamplesDir, deviceExamplesDir);
 }
 
 QString ProjectManager::projectName()
@@ -312,20 +296,27 @@ QObject *ProjectManager::projectManagerProvider(QQmlEngine *engine, QJSEngine *s
     return projectManager;
 }
 
-QString ProjectManager::baseFolderPath(BaseFolder folder)
+void ProjectManager::recursiveCopyDir(QDir source, QDir target)
 {
-    QString folderName;
+    target.mkpath(".");
 
-    switch (folder)
-    {
-    case Projects:
-        folderName = "Projects";
-        break;
-    case Examples:
-        folderName = "Examples";
-        break;
+    QFileInfoList folders = source.entryInfoList(QDir::AllDirs | QDir::NoDotAndDotDot);
+    for (QFileInfo folder : folders) {
+        QDir source2(folder.filePath());
+        QDir target2(target.absoluteFilePath(folder.fileName()));
+        recursiveCopyDir(source2, target2);
     }
 
+    QFileInfoList files = source.entryInfoList(QDir::Files);
+    for (QFileInfo file : files) {
+        qDebug() << file << target.absoluteFilePath(file.fileName());
+        QFile::copy(source.absoluteFilePath(file.fileName()),
+                    target.absoluteFilePath(file.fileName()));
+    }
+}
+
+QString ProjectManager::baseFolderPath(QString folder)
+{
 #ifndef UBUNTU_CLICK
     QString folderPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) +
 #else
@@ -334,9 +325,9 @@ QString ProjectManager::baseFolderPath(BaseFolder folder)
                          QDir::separator() +
                          "QML Projects";
 
-    if (!folderName.isEmpty())
+    if (!folder.isEmpty())
     {
-        folderPath += QDir::separator() + folderName;
+        folderPath += QDir::separator() + folder;
     }
 
     return folderPath;

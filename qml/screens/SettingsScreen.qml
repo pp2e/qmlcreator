@@ -119,6 +119,15 @@ BlankScreen {
             }
 
             CSettingButton {
+                text: qsTr("Allow edit UI")
+                description: settings.allowEditUI ? qsTr("Enabled") : qsTr("Disabled")
+
+                onClicked: {
+                    settings.allowEditUI = !settings.allowEditUI
+                }
+            }
+
+            CSettingButton {
                 text: qsTr("Palette")
                 description: settings.palette
                 onClicked: {

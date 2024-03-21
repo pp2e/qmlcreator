@@ -32,8 +32,7 @@ class ProjectManager : public QObject
 {
     Q_OBJECT
 
-    Q_ENUMS(BaseFolder)
-    Q_PROPERTY(BaseFolder baseFolder READ baseFolder WRITE setBaseFolder NOTIFY baseFolderChanged)
+    Q_PROPERTY(QString baseFolder READ baseFolder WRITE setBaseFolder NOTIFY baseFolderChanged)
     Q_PROPERTY(QString projectName READ projectName WRITE setProjectName NOTIFY projectNameChanged)
     Q_PROPERTY(QString subDir READ subDir WRITE setSubDir NOTIFY subDirChanged)
     Q_PROPERTY(QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged)
@@ -42,11 +41,9 @@ class ProjectManager : public QObject
 public:
     explicit ProjectManager(QObject *parent = 0);
 
-    enum BaseFolder { Projects, Examples };
-
     // project management
-    BaseFolder baseFolder();
-    void setBaseFolder(BaseFolder baseFolder);
+    QString baseFolder();
+    void setBaseFolder(QString baseFolder);
     Q_INVOKABLE QStringList projects();
     Q_INVOKABLE void createProject(QString projectName);
     Q_INVOKABLE void removeProject(QString projectName);
@@ -82,9 +79,11 @@ public:
     static QObject *projectManagerProvider(QQmlEngine *engine, QJSEngine *scriptEngine);
 
 private:
+    void recursiveCopyDir(QDir source, QDir target);
     // project management
-    BaseFolder m_baseFolder;
-    QString baseFolderPath(BaseFolder folder);
+    // BaseFolder m_baseFolder;
+    QString m_baseFolder;
+    QString baseFolderPath(QString folder);
     QString newFileContent(QString fileType);
 
     // current project

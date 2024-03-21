@@ -88,6 +88,7 @@ ApplicationWindow {
         property string palette: "Cute"
         property int indentSize: 4
         property bool debugging: true
+        property bool allowEditUI: false
 
         // internal
         property bool debugMode: false
@@ -106,6 +107,7 @@ ApplicationWindow {
         property alias palette: settings.palette
         property alias indentSize: settings.indentSize
         property alias debugging: settings.debugging
+        property alias allowEditUI: settings.allowEditUI
     }
 
     Settings {
