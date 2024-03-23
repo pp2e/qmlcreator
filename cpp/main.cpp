@@ -96,7 +96,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("platformResizesView", false);
 #endif
 
-#if defined(Q_OS_IOS)
+#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     engine.rootContext()->setContextProperty("platformHasNativeCopyPaste", true);
     engine.rootContext()->setContextProperty("platformHasNativeDragHandles", true);
 #else
