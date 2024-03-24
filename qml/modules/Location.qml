@@ -16,7 +16,7 @@
 **
 ****************************************************************************/
 
-import QtQml 2.2
+import QtQml
 import QtLocation 5.3
 
 QtObject {

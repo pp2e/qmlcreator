@@ -16,7 +16,7 @@
 **
 ****************************************************************************/
 
-import QtQml 2.2
+import QtQml
 import QtMultimedia 5.5
 
 QtObject {

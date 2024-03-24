@@ -16,12 +16,12 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.5
-import QtQuick.Controls 2.0
-import QtQuick.Window 2.2
-// import Qt.labs.settings 1.0
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Window
+// import Qt.labs.settings
 import QtCore
-import ProjectManager 1.1
+import ProjectManager
 import "palettes"
 
 ApplicationWindow {

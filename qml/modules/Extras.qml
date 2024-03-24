@@ -16,7 +16,7 @@
 **
 ****************************************************************************/
 
-import QtQml 2.2
+import QtQml
 import QtQuick.Extras 1.4
 
 QtObject {

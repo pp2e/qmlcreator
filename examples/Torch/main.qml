@@ -1,6 +1,6 @@
-import QtQuick 2.5
-import QtMultimedia 5.4
-import QtQuick.Window 2.2
+import QtQuick
+import QtMultimedia
+import QtQuick.Window
 
 Item {
     anchors.fill: parent

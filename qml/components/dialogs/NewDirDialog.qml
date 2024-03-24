@@ -18,7 +18,7 @@
 
 import QtQuick
 import QtQuick.Effects
-import ProjectManager 1.1
+import ProjectManager
 import ".."
 
 BaseDialog {

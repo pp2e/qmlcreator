@@ -16,7 +16,7 @@
 **
 ****************************************************************************/
 
-import QtQml 2.2
+import QtQml
 import QtQml.Models 2.2
 
 QtObject {

@@ -16,8 +16,8 @@
 **
 ****************************************************************************/
 
-import QtQml 2.2
-import QtQuick.Controls.Styles 1.4
+import QtQml
+import QtQuick.Controls.Styles
 
 QtObject {
     property string version: "1.4"

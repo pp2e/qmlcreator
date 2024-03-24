@@ -16,8 +16,8 @@
 **
 ****************************************************************************/
 
-import QtQml 2.2
-import Qt.labs.settings 1.0
+import QtQml
+import Qt.labs.settings
 
 QtObject {
     property string version: "1.0"

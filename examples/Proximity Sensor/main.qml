@@ -1,6 +1,6 @@
-import QtQuick 2.5
-import QtSensors 5.1
-import QtQuick.Window 2.2
+import QtQuick
+import QtSensors
+import QtQuick.Window
 
 Item {
     anchors.fill: parent

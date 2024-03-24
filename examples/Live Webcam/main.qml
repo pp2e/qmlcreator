@@ -1,7 +1,7 @@
-import QtQuick 2.5
-import QtQuick.Controls 2.0
-import QtQuick.Layouts 1.2
-import QtMultimedia 5.4
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import QtMultimedia
 
 /*
     This example was working fine in Qt 5.4.1

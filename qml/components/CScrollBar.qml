@@ -16,8 +16,8 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.5
-import QtQml 2.2
+import QtQuick
+import QtQml
 
 Rectangle {
      id: cScrollBar

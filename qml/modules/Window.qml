@@ -16,8 +16,8 @@
 **
 ****************************************************************************/
 
-import QtQml 2.2
-import QtQuick.Window 2.2
+import QtQml
+import QtQuick.Window
 
 QtObject {
     property string version: "2.2"

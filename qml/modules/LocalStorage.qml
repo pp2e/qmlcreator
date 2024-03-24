@@ -16,7 +16,7 @@
 **
 ****************************************************************************/
 
-import QtQml 2.2
+import QtQml
 import QtQuick.LocalStorage 2.0
 
 QtObject {

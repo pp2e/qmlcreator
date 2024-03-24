@@ -1,5 +1,5 @@
-import QtQuick 2.5
-import QtQuick.Controls 2.2
+import QtQuick
+import QtQuick.Controls
 
 Item {
     property alias leftView : leftView

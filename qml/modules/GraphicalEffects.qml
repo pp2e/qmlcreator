@@ -16,8 +16,8 @@
 **
 ****************************************************************************/
 
-import QtQml 2.2
-import QtGraphicalEffects 1.0
+import QtQml
+import QtGraphicalEffects
 
 QtObject {
     property string version: "1.0"

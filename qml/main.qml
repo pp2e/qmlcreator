@@ -16,9 +16,9 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.5
-import QtQuick.Controls 2.2
-import QtQuick.Controls.Material 2.2
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
 import "components"
 import "components/dialogs"
 import "screens"

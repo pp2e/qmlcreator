@@ -1,6 +1,6 @@
-import QtQuick 2.5
-import QtQuick.Window 2.2
-import QtSensors 5.1
+import QtQuick
+import QtQuick.Window
+import QtSensors
 
 Item {
     id: accelerometerExample

@@ -1,6 +1,6 @@
-import QtQuick 2.5
-import QtQuick.Controls 2.0
-import QtQuick.Dialogs 1.3
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Dialogs
 
 Item {
     anchors.fill: parent

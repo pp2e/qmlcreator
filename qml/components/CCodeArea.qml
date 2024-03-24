@@ -16,11 +16,11 @@
 **
 ****************************************************************************/
 
-import QtQuick 2.5
-import QtQuick.Controls 2.1
-import ProjectManager 1.1
-import SyntaxHighlighter 1.1
-import LineNumbersHelper 1.1
+import QtQuick
+import QtQuick.Controls
+import ProjectManager
+import SyntaxHighlighter
+import LineNumbersHelper
 
 Item {
     id: cCodeArea
