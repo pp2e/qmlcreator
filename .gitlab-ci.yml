@@ -29,8 +29,8 @@ pages:
     - cmake --build ./build
     # Should exist better way to do this
     - ls build
-    - cp build/appstupidNotes.js build/appstupidNotes.wasm build/qtloader.js build/qtlogo.svg public/
-    - cp build/appstupidNotes.html public/index.html
+    - cp build/qmlcreator.js build/qmlcreator.wasm build/qtloader.js build/qtlogo.svg public/
+    - cp build/qmlcreator.html public/index.html
     #- cp favicon.ico public/favicon.ico
 
   artifacts:
