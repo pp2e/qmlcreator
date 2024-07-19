@@ -8,4 +8,15 @@ jobs:
   build-ios:
     runs-on: macos-latest
     steps:
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        version: 6.7.*
+        host: 'macos'
+        target: 'ios'
+        arch: 'ios'
+        dir: '${{ github.workspace }}/example/'
+        install-deps: 'true'
+      
     - run: echo gol
+    - run: ls *
