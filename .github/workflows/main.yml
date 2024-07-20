@@ -17,7 +17,7 @@ jobs:
         host: 'mac'
         target: 'ios'
         arch: 'ios'
-        tools: 'tools_ninja, tools_cmake'
+        tools: 'tools_ninja tools_cmake'
         dir: '${{ runner.temp }}'
         install-deps: 'true'
         cache: true
