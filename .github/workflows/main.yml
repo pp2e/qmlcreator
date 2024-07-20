@@ -37,7 +37,8 @@ jobs:
 
     - name: Build
       run: |
-        ls /Users/runner/work/_temp/Qt/6.7.2/
+        export QT_HOST_PATH=/Users/runner/work/_temp/Qt/6.7.2/macos/
+        ls /Users/runner/work/_temp/Qt/6.7.2/*
         ninja --version
         cmake -B ./build -GNinja
         cmake --build ./build
