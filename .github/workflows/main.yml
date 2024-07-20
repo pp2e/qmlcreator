@@ -9,6 +9,18 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
+
+    - name: Install Host Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        version: 6.7.*
+        host: 'mac'
+        target: 'desktop'
+        arch: 'clang_64'
+        tools: 'tools_ninja tools_cmake'
+        dir: '${{ runner.temp }}'
+        install-deps: 'true'
+        cache: true
           
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
@@ -17,7 +29,6 @@ jobs:
         host: 'mac'
         target: 'ios'
         arch: 'ios'
-        tools: 'tools_ninja tools_cmake'
         dir: '${{ runner.temp }}'
         install-deps: 'true'
         cache: true
