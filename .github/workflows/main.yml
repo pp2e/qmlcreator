@@ -39,6 +39,6 @@ jobs:
       run: |
         export QT_HOST_PATH=/Users/runner/work/_temp/Qt/6.7.2/macos/
         ls /Users/runner/work/_temp/Qt/6.7.2/*
-        ${{ env.QT_ROOT_DIR }}/bin/cmake-qt -B ./build -GNinja
+        ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B ./build -GNinja
         cmake --build ./build
     - run: ls ./build
