@@ -17,9 +17,12 @@ jobs:
         host: 'mac'
         target: 'ios'
         arch: 'ios'
-        dir: '${{ github.workspace }}/example/'
+        dir: '${{ runner.temp }}'
         install-deps: 'true'
         cache: true
       
-    - run: echo gol
-    - run: ls *
+    - name: Build
+      run: |
+        cmake -B ./build -GNinja
+        cmake --build ./build
+    - run: ls ./build
