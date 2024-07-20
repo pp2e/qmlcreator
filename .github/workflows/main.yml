@@ -42,3 +42,9 @@ jobs:
         ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B ./build -GNinja
         cmake --build ./build
     - run: ls ./build
+
+    - name: Save APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: qmlcreator.app
+        path: ./build/*.app
