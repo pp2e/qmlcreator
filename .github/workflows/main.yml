@@ -37,8 +37,7 @@ jobs:
 
     - name: Build
       run: |
-        ls /Users/runner/work/_temp/Qt/Tools/*
-        ls /Users/runner/work/_temp/Qt/Tools/Ninja/*
+        ls /Users/runner/work/_temp/Qt/6.7.2/
         ninja --version
         cmake -B ./build -GNinja
         cmake --build ./build
