@@ -8,6 +8,8 @@ jobs:
   build-ios:
     runs-on: macos-latest
     steps:
+    - uses: actions/checkout@v2
+          
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
       with:
