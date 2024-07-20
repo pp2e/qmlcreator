@@ -33,6 +33,8 @@ jobs:
         install-deps: 'true'
         cache: true
       
+    - run: echo /Users/runner/work/_temp/Qt/Tools/Ninja >> $GITHUB_PATH
+
     - name: Build
       run: |
         ls /Users/runner/work/_temp/Qt/Tools/*
