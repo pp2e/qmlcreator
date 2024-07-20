@@ -43,7 +43,7 @@ jobs:
         cd build
         ls
         xcodebuild build -project qmlcreator.xcodeproj -configuration Release -destination "generic/platform=iOS" CODE_SIGNING_ALLOWED=NO -scheme qmlcreator -archivePath qmlcreator.xcarchive archive
-        -configuration Debug -destination "generic/platform=iOS"-configuration Debug -destination "generic/platform=iOS"
+
     - name: Package
       run: |
         mkdir Payload
