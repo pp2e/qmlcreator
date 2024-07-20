@@ -17,6 +17,7 @@ jobs:
         arch: 'ios'
         dir: '${{ github.workspace }}/example/'
         install-deps: 'true'
+        cache: true
       
     - run: echo gol
     - run: ls *
