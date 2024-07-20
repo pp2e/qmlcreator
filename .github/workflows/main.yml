@@ -35,6 +35,7 @@ jobs:
       
     - name: Build
       run: |
+        ninja --version
         cmake -B ./build -GNinja
         cmake --build ./build
     - run: ls ./build
