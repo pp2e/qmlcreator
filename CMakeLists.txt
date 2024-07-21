@@ -37,9 +37,9 @@ if (IOS)
         platform-specific/ios/Icon-76.png
         platform-specific/ios/Icon-76@2x.png
     )
-    target_sources(qmlcreator ${app_icons})
+    target_sources(qmlcreator PRIVATE ${app_icons})
     set_source_files_properties(${app_icons} PROPERTIES
-    MACOSX_PACKAGE_LOCATION
+        MACOSX_PACKAGE_LOCATION Resources
     )
     set_target_properties(
         qmlcreator
