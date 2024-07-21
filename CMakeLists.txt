@@ -26,6 +26,29 @@ qt_add_executable(qmlcreator
     cpp/QMLHighlighter.cpp
 )
 
+if (IOS)
+    set(app_icons
+        platform-specific/ios/Icon.png
+        platform-specific/ios/Icon@2x.png
+        platform-specific/ios/Icon-60.png
+        platform-specific/ios/Icon-60@2x.png
+        platform-specific/ios/Icon-72.png
+        platform-specific/ios/Icon-72@2x.png
+        platform-specific/ios/Icon-76.png
+        platform-specific/ios/Icon-76@2x.png
+    )
+    target_sources(qmlcreator ${app_icons})
+    set_source_files_properties(${app_icons} PROPERTIES
+    MACOSX_PACKAGE_LOCATION
+    )
+    set_target_properties(
+        qmlcreator
+        PROPERTIES
+        MACOSX_BUNDLE TRUE
+        MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/platform-specific/ios/Project-Info.plist
+    )
+endif()
+
 qt_add_qml_module(qmlcreator
     URI QmlCreator
     QML_FILES
