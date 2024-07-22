@@ -83,7 +83,7 @@ BlankScreen {
                     newScreen =
                             editorScreenComponent.createObject(rightView,
                                                                {
-                                                                   fileName : subPath + "/" + modelData.name,
+                                                                   filePath : subPath + "/" + modelData.name,
                                                                });
                     rightView.push(newScreen)
                 }
@@ -150,7 +150,7 @@ BlankScreen {
                 var callback = function(value)
                 {
                     ProjectManager.createFile(subPath + "/" + value.fileName, value.fileExtension)
-                    listView.model = ProjectManager.files()
+                    listView.model = ProjectManager.files(subPath)
                 }
 
                 dialog.open(dialog.types.newFile, parameters, callback)
@@ -168,7 +168,7 @@ BlankScreen {
                 var callback = function(value)
                 {
                     ProjectManager.createDir(subPath + "/" + value.dirName)
-                    listView.model = ProjectManager.files()
+                    listView.model = ProjectManager.files(subPath)
                 }
 
                 dialog.open(dialog.types.newDir, parameters, callback)

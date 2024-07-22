@@ -34,6 +34,17 @@ BlankScreen {
     property alias codeArea : codeArea
     property string filePath: ""
 
+    function getDirName(path) {
+        var dirname = ""
+        var dirs = path.split("/")
+        if(dirs.length > 0) {
+            dirname = dirs[dirs.length - 1]
+        } else {
+            dirname = ""
+        }
+        return dirname
+    }
+
     StackView.onStatusChanged: {
         if (StackView.status === StackView.Activating) {
             // ProjectManager.fileName = fileName
@@ -68,7 +79,7 @@ BlankScreen {
             CBackButton {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                text: filePath
+                text: getDirName(filePath)
                 enableBack: !enableDualView
                 targetSplit: appWindow.splitView.rightView
                 onClicked: {
@@ -110,7 +121,13 @@ BlankScreen {
                     ProjectManager.saveFileContent(filePath, codeArea.text)
                     ProjectManager.clearComponentCache()
                     Qt.inputMethod.hide()
-                    rightView.push(Qt.resolvedUrl("PlaygroundScreen.qml"))
+                    var playgroundScreenComponent = Qt.createComponent(Qt.resolvedUrl("PlaygroundScreen.qml"),
+                                       Component.PreferSynchronous);
+                    var newScreen = playgroundScreenComponent.createObject(rightView,
+                                                               {
+                                                                   filePath : filePath,
+                                                               });
+                    rightView.push(newScreen)
                 }
             }
         }
