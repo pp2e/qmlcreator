@@ -7,20 +7,16 @@
 	<key>CFBundleExecutable</key>
 	<string>qmlcreator</string>
 	<key>CFBundleIconFile</key>
-	<string>Icon.png</string>
+	<string>Icon.tiff</string>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>Icon.png</string>
-		<string>Icon@2x.png</string>
-		<string>Icon-60.png</string>
-		<string>Icon-60@2x.png</string>
+		<string>Icon.tiff</string>
+		<string>Icon-60.tiff</string>
 	</array>
 	<key>CFBundleIconFiles~ipad</key>
 	<array>
-		<string>Icon-72.png</string>
-		<string>Icon-72@2x.png</string>
-		<string>Icon-76.png</string>
-		<string>Icon-76@2x.png</string>
+		<string>Icon-72.tiff</string>
+		<string>Icon-76.tiff</string>
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>io.github.pp2e.qmlcreator</string>
