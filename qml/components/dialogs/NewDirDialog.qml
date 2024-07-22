@@ -27,6 +27,8 @@ BaseDialog {
 
     property alias title: titleLabel.text
 
+    property string path: ""
+
     function initialize(parameters) {
         for (var attr in parameters) {
             newDirDialog[attr] = parameters[attr]
@@ -163,7 +165,7 @@ BaseDialog {
                 }
                 else
                 {
-                    if (ProjectManager.fileExists(dirName))
+                    if (ProjectManager.fileExists(path + "/" + dirName))
                     {
                         warningLabel.text = qsTr("A file or directory with that name already exists")
                         warningLabel.visible = true

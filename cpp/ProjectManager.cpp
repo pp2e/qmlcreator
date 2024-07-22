@@ -121,24 +121,24 @@ void ProjectManager::setProjectName(QString projectName)
     }
 }
 
-QString ProjectManager::subDir()
-{
-    return m_subdir;
-}
+// QString ProjectManager::subDir()
+// {
+//     return m_subdir;
+// }
 
-void ProjectManager::setSubDir(QString dir)
-{
-    if (m_subdir != dir)
-    {
-        m_subdir = dir;
-        emit subDirChanged();
-    }
-}
+// void ProjectManager::setSubDir(QString dir)
+// {
+//     if (m_subdir != dir)
+//     {
+//         m_subdir = dir;
+//         emit subDirChanged();
+//     }
+// }
 
-QVariantList ProjectManager::files()
+QVariantList ProjectManager::files(QString subdir)
 {
     QDir dir(baseFolderPath(m_baseFolder) +
-             QDir::separator() + m_projectName + QDir::separator() + m_subdir);
+             QDir::separator() + m_projectName + QDir::separator() + subdir);
     QVariantList projectFiles;
     QFileInfoList files = dir.entryInfoList(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot);
 
@@ -167,7 +167,7 @@ void ProjectManager::createFile(QString fileName, QString fileExtension)
 {
     QFile file(baseFolderPath(m_baseFolder) +
                QDir::separator() + m_projectName +
-               QDir::separator() + m_subdir +
+               // QDir::separator() + m_subdir +
                QDir::separator() + fileName + "." + fileExtension);
     if (file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
@@ -185,7 +185,7 @@ void ProjectManager::removeFile(QString fileName)
     const QString filePath =
             baseFolderPath(m_baseFolder) +
             QDir::separator() + m_projectName +
-            QDir::separator() + m_subdir +
+            // QDir::separator() + m_subdir +
             QDir::separator() + fileName;
     qDebug() << "Removing" << filePath;
 
@@ -202,74 +202,70 @@ void ProjectManager::createDir(QString dirName)
     const QString fullPath =
             baseFolderPath(m_baseFolder) +
             QDir::separator() + m_projectName +
-            QDir::separator() + m_subdir +
+            // QDir::separator() + m_subdir +
             QDir::separator() + dirName;
     qDebug() << "Creating dir" << fullPath;
     QDir().mkpath(fullPath);
 }
 
-bool ProjectManager::fileExists(QString fileName)
+bool ProjectManager::fileExists(QString filePath)
 {
     QFileInfo checkFile(baseFolderPath(m_baseFolder) +
                         QDir::separator() + m_projectName +
-                        QDir::separator() + m_subdir +
-                        QDir::separator() + fileName);
+                        QDir::separator() + filePath);
     return checkFile.exists();
 }
 
-QString ProjectManager::fileName()
-{
-    return m_fileName;
-}
+// QString ProjectManager::fileName()
+// {
+//     return m_fileName;
+// }
 
-QString ProjectManager::fileFormat()
-{
-    return m_fileFormat;
-}
+// QString ProjectManager::fileFormat()
+// {
+//     return m_fileFormat;
+// }
 
-void ProjectManager::setFileName(QString fileName)
-{
-    if (m_fileName != fileName)
-    {
-        QFileInfo fileInfo(baseFolderPath(m_baseFolder) +
-                           QDir::separator() + m_projectName +
-                           QDir::separator() + m_subdir +
-                           QDir::separator() + fileName);
+// void ProjectManager::setFileName(QString fileName)
+// {
+//     if (m_fileName != fileName)
+//     {
+//         QFileInfo fileInfo(baseFolderPath(m_baseFolder) +
+//                            QDir::separator() + m_projectName +
+//                            QDir::separator() + m_subdir +
+//                            QDir::separator() + fileName);
 
-        m_fileName = fileName;
-        m_fileFormat = fileInfo.suffix();
+//         m_fileName = fileName;
+//         m_fileFormat = fileInfo.suffix();
 
-        emit fileNameChanged();
-        emit fileFormatChanged();
-    }
-}
+//         emit fileNameChanged();
+//         emit fileFormatChanged();
+//     }
+// }
 
-QString ProjectManager::getFilePath()
+QString ProjectManager::getFilePath(QString filePath)
 {
     return "file:///" + baseFolderPath(m_baseFolder) +
             QDir::separator() + m_projectName +
-            QDir::separator() + m_subdir +
-            QDir::separator() + m_fileName;
+            QDir::separator() + filePath;
 }
 
-QString ProjectManager::getFileContent()
+QString ProjectManager::getFileContent(QString filePath)
 {
     QFile file(baseFolderPath(m_baseFolder) +
                QDir::separator() + m_projectName +
-               QDir::separator() + m_subdir +
-               QDir::separator() + m_fileName);
+               QDir::separator() + filePath);
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream textStream(&file);
     QString fileContent = textStream.readAll().trimmed();
     return fileContent;
 }
 
-void ProjectManager::saveFileContent(QString content)
+void ProjectManager::saveFileContent(QString filePath, QString content)
 {
     QFile file(baseFolderPath(m_baseFolder) +
                QDir::separator() + m_projectName +
-               QDir::separator() + m_subdir +
-               QDir::separator() + m_fileName);
+               QDir::separator() + filePath);
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream textStream(&file);
     textStream<<content;

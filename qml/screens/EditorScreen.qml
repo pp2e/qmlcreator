@@ -27,17 +27,17 @@ BlankScreen {
     objectName: "EditorScreen"
 
     function saveContent() {
-        ProjectManager.fileName = fileName
-        ProjectManager.saveFileContent(codeArea.text)
+        // ProjectManager.fileName = fileName
+        ProjectManager.saveFileContent(filePath, codeArea.text)
     }
 
     property alias codeArea : codeArea
-    property string fileName: ""
+    property string filePath: ""
 
     StackView.onStatusChanged: {
         if (StackView.status === StackView.Activating) {
-            ProjectManager.fileName = fileName
-            codeArea.text = ProjectManager.getFileContent();
+            // ProjectManager.fileName = fileName
+            codeArea.text = ProjectManager.getFileContent(filePath);
         } else if (StackView.status === StackView.Deactivating) {
             saveContent()
         }
@@ -68,7 +68,7 @@ BlankScreen {
             CBackButton {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                text: fileName
+                text: filePath
                 enableBack: !enableDualView
                 targetSplit: appWindow.splitView.rightView
                 onClicked: {
@@ -101,13 +101,13 @@ BlankScreen {
             }
 
             CToolButton {
-                visible: ProjectManager.fileFormat === "qml" &&
+                visible: filePath.endsWith(".qml") &&
                          (!codeArea.selectedText.length > 0 || codeArea.useNativeTouchHandling)
                 Layout.fillHeight: true
                 icon: "\uf04b"
                 tooltipText: qsTr("Run")
                 onClicked: {
-                    ProjectManager.saveFileContent(codeArea.text)
+                    ProjectManager.saveFileContent(filePath, codeArea.text)
                     ProjectManager.clearComponentCache()
                     Qt.inputMethod.hide()
                     rightView.push(Qt.resolvedUrl("PlaygroundScreen.qml"))

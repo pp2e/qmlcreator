@@ -27,6 +27,8 @@ BaseDialog {
 
     property alias title: titleLabel.text
 
+    property string path: ""
+
     function initialize(parameters) {
         for (var attr in parameters) {
             newFileDialog[attr] = parameters[attr]
@@ -183,7 +185,7 @@ BaseDialog {
                 }
                 else
                 {
-                    if (ProjectManager.fileExists(fileName + "." + fileExtension))
+                    if (ProjectManager.fileExists(path + "/" + fileName + "." + fileExtension))
                     {
                         warningLabel.text = qsTr("The file already exists")
                         warningLabel.visible = true

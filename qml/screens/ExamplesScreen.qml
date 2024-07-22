@@ -31,7 +31,7 @@ BlankScreen {
 
     StackView.onStatusChanged: {
         if (StackView.status === StackView.Activating) {
-            ProjectManager.subDir = ""
+            // ProjectManager.subDir = ""
             listView.model = ProjectManager.projects()
         }
     }

@@ -25,6 +25,19 @@ BlankScreen {
     id: playgroundScreen
     enabled: true
 
+    property string filePath: ""
+
+    function getDirName(path) {
+        var dirname = ""
+        var dirs = path.split("/")
+        if(dirs.length > 0) {
+            dirname = dirs[dirs.length - 1]
+        } else {
+            dirname = ""
+        }
+        return dirname
+    }
+
     CToolBar {
         id: toolBar
         anchors.left: parent.left
@@ -40,7 +53,7 @@ BlankScreen {
                 Layout.fillHeight: true
                 enabled: !leftView.busy
                 enableBack: !enableDualView
-                text: ProjectManager.fileName
+                text: getDirName(filePath)
             }
 
             CToolButton {
@@ -104,7 +117,7 @@ BlankScreen {
     }
 
     Component.onCompleted: {
-        var componentUrl = ProjectManager.getFilePath()
+        var componentUrl = ProjectManager.getFilePath(filePath)
         var playComponent = Qt.createComponent(componentUrl, Component.PreferSynchronous, playgroundScreen)
         if (playComponent.status === Component.Error)
         {

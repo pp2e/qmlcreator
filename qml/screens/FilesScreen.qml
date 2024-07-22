@@ -35,8 +35,8 @@ BlankScreen {
 
     StackView.onStatusChanged: {
         if (StackView.status === StackView.Activating) {
-            ProjectManager.subDir = projectsScreen.subPath
-            listView.model = ProjectManager.files()
+            // ProjectManager.subDir = projectsScreen.subPath
+            listView.model = ProjectManager.files(projectsScreen.subPath)
         }
     }
 
@@ -83,7 +83,7 @@ BlankScreen {
                     newScreen =
                             editorScreenComponent.createObject(rightView,
                                                                {
-                                                                   fileName : modelData.name,
+                                                                   fileName : subPath + "/" + modelData.name,
                                                                });
                     rightView.push(newScreen)
                 }
@@ -100,7 +100,7 @@ BlankScreen {
                 {
                     if (value)
                     {
-                        ProjectManager.removeFile(modelData.name)
+                        ProjectManager.removeFile(subPath + "/" + modelData.name)
                         listView.model = ProjectManager.files()
                     }
                 }
@@ -143,12 +143,13 @@ BlankScreen {
             text: qsTr("New file...")
             onTriggered: {
                 var parameters = {
-                    title: qsTr("New file")
+                    title: qsTr("New file"),
+                    path: subPath,
                 }
 
                 var callback = function(value)
                 {
-                    ProjectManager.createFile(value.fileName, value.fileExtension)
+                    ProjectManager.createFile(subPath + "/" + value.fileName, value.fileExtension)
                     listView.model = ProjectManager.files()
                 }
 
@@ -160,12 +161,13 @@ BlankScreen {
             text: qsTr("New directory...")
             onTriggered: {
                 var parameters = {
-                    title: qsTr("New directory")
+                    title: qsTr("New directory"),
+                    path: subPath,
                 }
 
                 var callback = function(value)
                 {
-                    ProjectManager.createDir(value.dirName)
+                    ProjectManager.createDir(subPath + "/" + value.dirName)
                     listView.model = ProjectManager.files()
                 }
 

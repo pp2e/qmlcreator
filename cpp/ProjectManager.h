@@ -34,9 +34,9 @@ class ProjectManager : public QObject
 
     Q_PROPERTY(QString baseFolder READ baseFolder WRITE setBaseFolder NOTIFY baseFolderChanged)
     Q_PROPERTY(QString projectName READ projectName WRITE setProjectName NOTIFY projectNameChanged)
-    Q_PROPERTY(QString subDir READ subDir WRITE setSubDir NOTIFY subDirChanged)
-    Q_PROPERTY(QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged)
-    Q_PROPERTY(QString fileFormat READ fileFormat NOTIFY fileFormatChanged)
+    // Q_PROPERTY(QString subDir READ subDir WRITE setSubDir NOTIFY subDirChanged)
+    // Q_PROPERTY(QString fileName READ fileName WRITE setFileName NOTIFY fileNameChanged)
+    // Q_PROPERTY(QString fileFormat READ fileFormat NOTIFY fileFormatChanged)
 
 public:
     explicit ProjectManager(QObject *parent = 0);
@@ -50,26 +50,26 @@ public:
     Q_INVOKABLE bool projectExists(QString projectName);
     Q_INVOKABLE void restoreExamples();
 
-    // current subdir
-    QString subDir();
-    void setSubDir(QString dir);
+    // // current subdir
+    // QString subDir();
+    // void setSubDir(QString dir);
 
     // current project
     QString projectName();
     void setProjectName(QString projectName);
-    Q_INVOKABLE QVariantList files();
+    Q_INVOKABLE QVariantList files(QString subdir);
     Q_INVOKABLE void createFile(QString fileName, QString fileExtension);
     Q_INVOKABLE void removeFile(QString fileName);
     Q_INVOKABLE void createDir(QString dirName);
-    Q_INVOKABLE bool fileExists(QString projectName);
+    Q_INVOKABLE bool fileExists(QString filePath);
 
-    // current file
-    QString fileName();
-    QString fileFormat();
-    void setFileName(QString fileName);
-    Q_INVOKABLE QString getFilePath();
-    Q_INVOKABLE QString getFileContent();
-    Q_INVOKABLE void saveFileContent(QString content);
+    // // current file
+    // QString fileName();
+    // QString fileFormat();
+    // void setFileName(QString fileName);
+    Q_INVOKABLE QString getFilePath(QString filePath);
+    Q_INVOKABLE QString getFileContent(QString filePath);
+    Q_INVOKABLE void saveFileContent(QString filePath, QString content);
 
     // QML engine stuff
     static void setQmlEngine(QQmlApplicationEngine *engine);
@@ -91,12 +91,12 @@ private:
     // current project
     QString m_projectName;
 
-    // current sub directory
-    QString m_subdir;
+    // // current sub directory
+    // QString m_subdir;
 
     // current file
-    QString m_fileName;
-    QString m_fileFormat;
+    // QString m_fileName;
+    // QString m_fileFormat;
 
     // QML engine stuff
     static QQmlApplicationEngine *m_qmlEngine;
@@ -104,9 +104,9 @@ private:
 signals:
     void baseFolderChanged();
     void projectNameChanged();
-    void subDirChanged();
-    void fileNameChanged();
-    void fileFormatChanged();
+    // void subDirChanged();
+    // void fileNameChanged();
+    // void fileFormatChanged();
     void error(QString description);
 };
 
