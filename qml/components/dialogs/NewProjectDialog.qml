@@ -170,7 +170,7 @@ BaseDialog {
                 }
                 else
                 {
-                    if (ProjectManager.projectExists(projectName))
+                    if (ProjectManager.projectExists("Projects", projectName))
                     {
                         warningLabel.text = qsTr("The project already exists")
                         warningLabel.visible = true

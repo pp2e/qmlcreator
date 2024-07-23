@@ -49,6 +49,7 @@ BlankScreen {
             function setLocked(buttonView) {
                 projectsButton.locked = false
                 examplesButton.locked = false
+                edituiButton.locked = false
                 settingsButton.locked = false
                 modulesButton.locked = false
                 aboutButton.locked = false
@@ -81,7 +82,10 @@ BlankScreen {
                 onClicked: {
                     column.setLocked(examplesButton)
                     ProjectManager.baseFolder = "Examples"
-                    splitView.leftView.push(Qt.resolvedUrl("ExamplesScreen.qml"))
+                    splitView.leftView.push(Qt.resolvedUrl("ExamplesScreen.qml"),
+                                            {
+                                                subPath: "Examples"
+                                            })
                 }
             }
 
@@ -90,9 +94,12 @@ BlankScreen {
                 text: qsTr("QML CREATOR")
                 icon: "\uf0a0"
                 onClicked: {
-                    column.setLocked(examplesButton)
+                    column.setLocked(edituiButton)
                     ProjectManager.baseFolder = "QmlCreator"
-                    splitView.leftView.push(Qt.resolvedUrl("ExamplesScreen.qml"))
+                    splitView.leftView.push(Qt.resolvedUrl("ExamplesScreen.qml"),
+                                            {
+                                                subPath: "QmlCreator"
+                                            })
                 }
             }
 

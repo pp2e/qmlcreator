@@ -24,6 +24,10 @@ qt_add_executable(qmlcreator
     cpp/imfixerinstaller.cpp
     cpp/imfixerinstaller.h
     cpp/QMLHighlighter.cpp
+
+    # New original code from alteve4d
+    cpp/screeninsets.h
+    cpp/screeninsets.cpp
 )
 
 if (IOS)

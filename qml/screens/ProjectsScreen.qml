@@ -27,11 +27,11 @@ BlankScreen {
 
     StackView.onStatusChanged: {
         if (StackView.status === StackView.Activating)
-            listView.model = ProjectManager.projects()
+            listView.model = ProjectManager.files("Projects")
     }
 
     Component.onCompleted: {
-        listView.model = ProjectManager.projects()
+        listView.model = ProjectManager.files("Projects")
     }
 
     CListView {
@@ -48,8 +48,11 @@ BlankScreen {
             isDir: true
             onClicked: {
                 // ProjectManager.subDir = ""
-                ProjectManager.projectName = modelData
-                leftView.push(Qt.resolvedUrl("FilesScreen.qml"))
+                // ProjectManager.projectName = modelData
+                leftView.push(Qt.resolvedUrl("FilesScreen.qml"),
+                              {
+                                  subPath: modelData
+                              })
             }
             onRemoveClicked: {
                 var parameters = {
@@ -61,7 +64,7 @@ BlankScreen {
                 {
                     if (value)
                     {
-                        ProjectManager.removeProject(modelData)
+                        ProjectManager.removeProject("Projects", modelData)
                         listView.model = ProjectManager.projects()
                     }
                 }
@@ -95,8 +98,8 @@ BlankScreen {
 
                     var callback = function(value)
                     {
-                        ProjectManager.createProject(value)
-                        listView.model = ProjectManager.projects()
+                        ProjectManager.createProject("Projects", value)
+                        listView.model = ProjectManager.files("Projects")
                     }
 
                     dialog.open(dialog.types.newProject, parameters, callback)

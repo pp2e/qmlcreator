@@ -49,7 +49,7 @@ ApplicationWindow {
         var previousVersion = parseInt(settings.previousVersion.split(".").join(""))
         if (previousVersion === 0)
         { // first run
-            ProjectManager.restoreExamples()
+            ProjectManager.restoreExamples("Examples")
             settings.previousVersion = Qt.application.version
         }
         else
@@ -68,7 +68,7 @@ ApplicationWindow {
                 var callback = function(value)
                 {
                     if (value)
-                        ProjectManager.restoreExamples()
+                        ProjectManager.restoreExamples("Examples")
 
                     settings.previousVersion = Qt.application.version
                 }
