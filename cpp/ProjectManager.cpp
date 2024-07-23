@@ -137,7 +137,7 @@ void ProjectManager::restoreExamples(QString path)
 
 QVariantList ProjectManager::files(QString subdir)
 {
-    QDir dir(subdir);
+    QDir dir(baseFolderPath(subdir));
     QVariantList projectFiles;
     QFileInfoList files = dir.entryInfoList(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot);
 
@@ -164,7 +164,7 @@ QVariantList ProjectManager::files(QString subdir)
 
 void ProjectManager::createFile(QString fileName, QString fileExtension)
 {
-    QFile file(fileName + "." + fileExtension);
+    QFile file(baseFolderPath(fileName) + "." + fileExtension);
     if (file.open(QIODevice::WriteOnly | QIODevice::Text))
     {
         QTextStream textStream(&file);
@@ -178,7 +178,7 @@ void ProjectManager::createFile(QString fileName, QString fileExtension)
 
 void ProjectManager::removeFile(QString fileName)
 {
-    const QString filePath = fileName;
+    const QString filePath = baseFolderPath(fileName);
     qDebug() << "Removing" << filePath;
 
     const bool isDir = QFileInfo(filePath).isDir();
@@ -191,14 +191,14 @@ void ProjectManager::removeFile(QString fileName)
 
 void ProjectManager::createDir(QString dirName)
 {
-    const QString fullPath = dirName;
+    const QString fullPath = baseFolderPath(dirName);
     qDebug() << "Creating dir" << fullPath;
     QDir().mkpath(fullPath);
 }
 
 bool ProjectManager::fileExists(QString filePath)
 {
-    QFileInfo checkFile(filePath);
+    QFileInfo checkFile(baseFolderPath(filePath));
     return checkFile.exists();
 }
 
