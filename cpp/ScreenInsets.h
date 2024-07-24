@@ -13,7 +13,7 @@ class ScreenInsets : public QObject
     Q_PROPERTY(int left READ left)
     Q_PROPERTY(int right READ right)
 
-    Q_PROPERTY(QQuickWindow *window WRITE setWindow)
+    Q_PROPERTY(QQuickWindow *window WRITE setWindow REQUIRED)
 
 public:
     explicit ScreenInsets(QQuickWindow *window = nullptr);

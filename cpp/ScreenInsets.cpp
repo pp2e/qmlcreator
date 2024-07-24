@@ -12,7 +12,9 @@ ScreenInsets::ScreenInsets(QQuickWindow *window)
 
 int ScreenInsets::top() {
 #ifdef Q_OS_IOS
+    if (m_window == nullptr) return -1;
     QPlatformWindow *pWindow = m_window->handle();
+    if (pWindow == nullptr) return -2;
     QMargins margins = pWindow->safeAreaMargins();
     return margins.top();
 #else
