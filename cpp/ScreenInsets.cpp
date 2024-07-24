@@ -2,7 +2,7 @@
 
 
 #ifdef Q_OS_IOS
-#include <qpa/platformwindow.h>
+#include <qpa/qplatformwindow.h>
 #endif
 
 ScreenInsets::ScreenInsets(QQuickWindow *window)
