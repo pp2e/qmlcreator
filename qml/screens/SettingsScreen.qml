@@ -18,6 +18,7 @@
 
 import QtQuick
 import "../components"
+import ProjectManager
 
 BlankScreen {
     id: mainMenuScreen
@@ -142,6 +143,46 @@ BlankScreen {
                     }
 
                     dialog.open(dialog.types.list, parameters, callback)
+                }
+            }
+            
+            CSettingButton {
+                text: qsTr("Restore the examples")
+                onClicked: {
+                    var parameters = {
+                        title: qsTr("Restore the examples"),
+                        text: qsTr("Press OK to delete all the edits you have made in the Examples section.")
+                    }
+
+                    var callback = function(value)
+                    {
+                        if (value)
+                        {
+                            ProjectManager.restoreExamples("Examples")
+                        }
+                    }
+
+                    dialog.open(dialog.types.confirmation, parameters, callback)
+                }
+            }
+            
+            CSettingButton {
+                text: qsTr("Restore QmlCreator files")
+                onClicked: {
+                    var parameters = {
+                        title: qsTr("Restore QmlCreator files"),
+                        text: qsTr("Press OK to delete all the edits you have made in QmlCreator ui.")
+                    }
+
+                    var callback = function(value)
+                    {
+                        if (value)
+                        {
+                            ProjectManager.restoreExamples("QmlCreator")
+                        }
+                    }
+
+                    dialog.open(dialog.types.confirmation, parameters, callback)
                 }
             }
         }

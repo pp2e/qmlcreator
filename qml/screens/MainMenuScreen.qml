@@ -85,7 +85,7 @@ BlankScreen {
                 onClicked: {
                     column.setLocked(examplesButton)
                     // ProjectManager.baseFolder = "Examples"
-                    splitView.leftView.push(Qt.resolvedUrl("ExamplesScreen.qml"),
+                    splitView.leftView.push(Qt.resolvedUrl("FilesScreen.qml"),
                                             {
                                                 subPath: "Examples"
                                             })
@@ -99,7 +99,7 @@ BlankScreen {
                 onClicked: {
                     column.setLocked(edituiButton)
                     // ProjectManager.baseFolder = "QmlCreator"
-                    splitView.leftView.push(Qt.resolvedUrl("ExamplesScreen.qml"),
+                    splitView.leftView.push(Qt.resolvedUrl("FilesScreen.qml"),
                                             {
                                                 subPath: "QmlCreator"
                                             })
