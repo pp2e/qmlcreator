@@ -72,7 +72,7 @@ BlankScreen {
                 {
                     if (value)
                     {
-                        ProjectManager.removeProject(subPath, modelData.name)
+                        ProjectManager.removeFile(subPath + "/" + modelData.name)
                         listView.model = ProjectManager.files(subPath)
                     }
                 }

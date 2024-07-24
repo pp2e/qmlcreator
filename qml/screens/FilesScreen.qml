@@ -112,9 +112,6 @@ BlankScreen {
 
     CToolBar {
         id: toolBar
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
 
         RowLayout {
             anchors.fill: parent
@@ -172,6 +169,24 @@ BlankScreen {
                 }
 
                 dialog.open(dialog.types.newDir, parameters, callback)
+            }
+        }
+
+        MenuItem {
+            text: qsTr("New project...")
+            onTriggered: {
+                var parameters = {
+                    title: qsTr("New project"),
+                    path: subPath,
+                }
+
+                var callback = function(value)
+                {
+                    ProjectManager.createProject(subPath, value)
+                    listView.model = ProjectManager.files(subPath)
+                }
+
+                dialog.open(dialog.types.newProject, parameters, callback)
             }
         }
     }

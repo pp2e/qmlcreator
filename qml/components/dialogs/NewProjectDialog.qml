@@ -27,6 +27,8 @@ BaseDialog {
 
     property alias title: titleLabel.text
 
+    property string path: ""
+
     function initialize(parameters) {
         for (var attr in parameters) {
             newProjectDialog[attr] = parameters[attr]
@@ -170,7 +172,7 @@ BaseDialog {
                 }
                 else
                 {
-                    if (ProjectManager.projectExists("Projects", projectName))
+                    if (ProjectManager.fileExists(path + "/" + projectName))
                     {
                         warningLabel.text = qsTr("The project already exists")
                         warningLabel.visible = true

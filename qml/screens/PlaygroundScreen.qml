@@ -40,9 +40,6 @@ BlankScreen {
 
     CToolBar {
         id: toolBar
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
 
         RowLayout {
             anchors.fill: parent

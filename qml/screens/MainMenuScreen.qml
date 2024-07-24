@@ -70,8 +70,11 @@ BlankScreen {
                 icon: "\uf0f6"
                 onClicked: {
                     column.setLocked(projectsButton)
-                    ProjectManager.baseFolder = "Projects"
-                    splitView.leftView.push(Qt.resolvedUrl("ProjectsScreen.qml"))
+                    // ProjectManager.baseFolder = "Projects"
+                    splitView.leftView.push(Qt.resolvedUrl("FilesScreen.qml"),
+                                            {
+                                                subPath: "Projects"
+                                            })
                 }
             }
 
@@ -81,7 +84,7 @@ BlankScreen {
                 icon: "\uf1c9"
                 onClicked: {
                     column.setLocked(examplesButton)
-                    ProjectManager.baseFolder = "Examples"
+                    // ProjectManager.baseFolder = "Examples"
                     splitView.leftView.push(Qt.resolvedUrl("ExamplesScreen.qml"),
                                             {
                                                 subPath: "Examples"
@@ -95,7 +98,7 @@ BlankScreen {
                 icon: "\uf0a0"
                 onClicked: {
                     column.setLocked(edituiButton)
-                    ProjectManager.baseFolder = "QmlCreator"
+                    // ProjectManager.baseFolder = "QmlCreator"
                     splitView.leftView.push(Qt.resolvedUrl("ExamplesScreen.qml"),
                                             {
                                                 subPath: "QmlCreator"

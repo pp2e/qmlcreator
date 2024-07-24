@@ -81,17 +81,17 @@ void ProjectManager::createProject(QString path, QString projectName)
     }
 }
 
-void ProjectManager::removeProject(QString path, QString projectName)
-{
-    QDir dir(baseFolderPath(path) + QDir::separator() + projectName);
-    dir.removeRecursively();
-}
+// void ProjectManager::removeProject(QString path, QString projectName)
+// {
+//     QDir dir(baseFolderPath(path) + QDir::separator() + projectName);
+//     dir.removeRecursively();
+// }
 
-bool ProjectManager::projectExists(QString path, QString projectName)
-{
-    QFileInfo checkFile(baseFolderPath(path) + QDir::separator() + projectName);
-    return checkFile.exists();
-}
+// bool ProjectManager::projectExists(QString path, QString projectName)
+// {
+//     QFileInfo checkFile(baseFolderPath(path) + QDir::separator() + projectName);
+//     return checkFile.exists();
+// }
 
 void ProjectManager::restoreExamples(QString path)
 {

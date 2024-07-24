@@ -46,8 +46,8 @@ public:
     // void setBaseFolder(QString baseFolder);
     // Q_INVOKABLE QStringList projects();
     Q_INVOKABLE void createProject(QString path, QString projectName);
-    Q_INVOKABLE void removeProject(QString path, QString projectName);
-    Q_INVOKABLE bool projectExists(QString path, QString projectName);
+    // Q_INVOKABLE void removeProject(QString path, QString projectName);
+    // Q_INVOKABLE bool projectExists(QString path, QString projectName);
     Q_INVOKABLE void restoreExamples(QString path);
 
     // // current subdir
