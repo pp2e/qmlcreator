@@ -38,7 +38,7 @@ CApplicationWindow {
                          Material.Red :
                          Material.Blue
 
-    ScreenInsets {
+    property var insets: ScreenInsets {
         window: appWindow
         Component.onCompleted: console.log(top)
     }
