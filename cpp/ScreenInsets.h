@@ -8,10 +8,10 @@ class ScreenInsets : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(int top READ top)
-    Q_PROPERTY(int bottom READ bottom)
-    Q_PROPERTY(int left READ left)
-    Q_PROPERTY(int right READ right)
+    Q_PROPERTY(int top READ top NOTIFY insetsChanged)
+    Q_PROPERTY(int bottom READ bottom NOTIFY insetsChanged)
+    Q_PROPERTY(int left READ left NOTIFY insetsChanged)
+    Q_PROPERTY(int right READ right NOTIFY insetsChanged)
 
     Q_PROPERTY(QQuickWindow *window WRITE setWindow REQUIRED)
 
@@ -27,6 +27,9 @@ public:
 
 private:
     QQuickWindow *m_window;
+    
+signals:
+    void insetsChanged();
 };
 
 #endif // SCREENINSETS_H
