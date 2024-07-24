@@ -26,8 +26,8 @@ qt_add_executable(qmlcreator
     cpp/QMLHighlighter.cpp
 
     # New original code from alteve4d
-    cpp/screeninsets.h
-    cpp/screeninsets.cpp
+    cpp/ScreenInsets.h
+    cpp/ScreenInsets.cpp
 )
 
 if (IOS)
@@ -51,6 +51,7 @@ if (IOS)
         MACOSX_BUNDLE TRUE
         MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/platform-specific/ios/Project-Info.plist
     )
+    target_link_libraries(qmlcreator Qt6::GuiPrivate)
 endif()
 
 qt_add_qml_module(qmlcreator

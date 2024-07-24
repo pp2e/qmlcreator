@@ -19,6 +19,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Controls.Material
+import ScreenInsets
 import "components"
 import "components/dialogs"
 import "screens"
@@ -36,6 +37,11 @@ CApplicationWindow {
     Material.accent: isDarkMode ?
                          Material.Red :
                          Material.Blue
+
+    ScreenInsets {
+        window: appWindow
+        Component.onCompleted: console.log(top)
+    }
 
     onBackPressed: {
         if (dialog.visible)

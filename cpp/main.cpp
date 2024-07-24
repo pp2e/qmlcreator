@@ -27,6 +27,7 @@
 #include "SyntaxHighlighter.h"
 #include "components/linenumbershelper.h"
 #include "imfixerinstaller.h"
+#include "ScreenInsets.h"
 
 inline static void createNecessaryDir(const QString& path) {
     const QDir configDir = QDir(path);
@@ -72,6 +73,7 @@ int main(int argc, char *argv[])
     qmlRegisterSingletonType<ProjectManager>("ProjectManager", 1, 1, "ProjectManager", &ProjectManager::projectManagerProvider);
     qmlRegisterType<SyntaxHighlighter>("SyntaxHighlighter", 1, 1, "SyntaxHighlighter");
     qmlRegisterType<LineNumbersHelper>("LineNumbersHelper", 1, 1, "LineNumbersHelper");
+    qmlRegisterType<ScreenInsets>("ScreenInsets", 1, 0, "ScreenInsets");
 
     uint GRID_UNIT_PX = qgetenv("GRID_UNIT_PX").toUInt();
     if (GRID_UNIT_PX == 0) {

@@ -18,7 +18,7 @@
 
 #include "ProjectManager.h"
 
-#include <QDebug>
+// #include <QDebug>
 
 ProjectManager::ProjectManager(QObject *parent) :
     QObject(parent)
@@ -142,7 +142,7 @@ QVariantList ProjectManager::files(QString subdir)
     QFileInfoList files = dir.entryInfoList(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot);
 
     foreach(QFileInfo file, files) {
-        qDebug() << file.absolutePath();
+        // qDebug() << file.absolutePath();
         if (!file.isDir() && (file.suffix() == "qml" || file.suffix() == "js"))
         {
             QVariantMap fileEntry;
@@ -179,7 +179,7 @@ void ProjectManager::createFile(QString fileName, QString fileExtension)
 void ProjectManager::removeFile(QString fileName)
 {
     const QString filePath = baseFolderPath(fileName);
-    qDebug() << "Removing" << filePath;
+    // qDebug() << "Removing" << filePath;
 
     const bool isDir = QFileInfo(filePath).isDir();
     if (isDir) {
@@ -192,7 +192,7 @@ void ProjectManager::removeFile(QString fileName)
 void ProjectManager::createDir(QString dirName)
 {
     const QString fullPath = baseFolderPath(dirName);
-    qDebug() << "Creating dir" << fullPath;
+    // qDebug() << "Creating dir" << fullPath;
     QDir().mkpath(fullPath);
 }
 
