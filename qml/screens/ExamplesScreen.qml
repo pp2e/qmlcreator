@@ -47,8 +47,8 @@ BlankScreen {
 
         delegate: CFileButton {
             width: listView.width
-            text: modelData
-            isDir: true
+            text: modelData.name
+            isDir: modelData.isDir
 
             onClicked: {
                 while (rightView.depth > 1) {
@@ -58,7 +58,7 @@ BlankScreen {
                 // ProjectManager.projectName = modelData
                 leftView.push(Qt.resolvedUrl("FilesScreen.qml"),
                               {
-                                  subPath: modelData
+                                  subPath: subPath + "/" + modelData.name
                               })
             }
 
