@@ -15,6 +15,7 @@ int ScreenInsets::top() {
     // if window is not ready
     if (m_window == nullptr) return 0;
     QPlatformWindow *pWindow = m_window->handle();
+    if (pWindow == nullptr) return -1;
     QMargins margins = pWindow->safeAreaMargins();
     return margins.top();
 #else
