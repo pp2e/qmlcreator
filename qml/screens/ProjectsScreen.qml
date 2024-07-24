@@ -57,15 +57,15 @@ BlankScreen {
             onRemoveClicked: {
                 var parameters = {
                     title: qsTr("Delete the project"),
-                    text: qsTr("Are you sure you want to delete \"%1\"?").arg(modelData)
+                    text: qsTr("Are you sure you want to delete \"%1\"?").arg(modelData.name)
                 }
 
                 var callback = function(value)
                 {
                     if (value)
                     {
-                        ProjectManager.removeProject("Projects", modelData)
-                        listView.model = ProjectManager.projects()
+                        ProjectManager.removeProject("Projects", modelData.name)
+                        listView.model = ProjectManager.files("Projects")
                     }
                 }
 
