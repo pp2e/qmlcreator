@@ -194,4 +194,8 @@ BlankScreen {
     CToolBarBlur {
         sourceItem: listView
     }
+
+    CScrollBar {
+        flickableItem: listView
+    }
 }
