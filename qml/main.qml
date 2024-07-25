@@ -29,6 +29,7 @@ CApplicationWindow {
     property alias splitView : splitView
     minimumHeight: 100
     minimumWidth: 100
+    flags: Qt.Window | Qt.MaximizeUsingFullscreenGeometryHint
     readonly property bool isDarkMode : settings.palette == "Dark"
 
     Material.theme: isDarkMode ?
@@ -40,7 +41,6 @@ CApplicationWindow {
 
     property var insets: ScreenInsets {
         window: appWindow
-        Component.onCompleted: console.log(top)
     }
 
     onBackPressed: {

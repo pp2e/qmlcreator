@@ -20,7 +20,14 @@ import QtQuick
 
 Rectangle {
     id: cToolBar
-    height: 22 * settings.pixelDensity
+    height: 22 * settings.pixelDensity + appWindow.insets.top
     width: parent.width
     color: appWindow.colorPalette.toolBarBackground
+    default property alias data: childHolder.data
+    
+    Item {
+        id: childHolder
+        anchors.fill: parent
+        anchors.topMargin: appWindow.insets.top
+    }
 }

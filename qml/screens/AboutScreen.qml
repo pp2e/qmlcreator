@@ -58,16 +58,16 @@ BlankScreen {
 
         CToolBar {
             id: toolBar
+
+            CBackButton {
+                anchors.fill: parent
+                text: qsTr("About")
+                enableBack: !enableDualView
+                onClicked: backPressed()
+            }
         }
 
         CToolBarBlur {
             sourceItem: aboutTextArea
-        }
-
-        CBackButton {
-            anchors.fill: toolBar
-            text: qsTr("About")
-            enableBack: !enableDualView
-            onClicked: backPressed()
         }
     }

@@ -60,6 +60,11 @@ int ScreenInsets::right() {
 }
 
 void ScreenInsets::setWindow(QQuickWindow *window) {
+    if (m_window)
+        disconnect(m_window, &QWindow::activeChanged,
+                   this, &ScreenInsets::insetsChanged);
     m_window = window;
+    connect(m_window, &QWindow::activeChanged,
+            this, &ScreenInsets::insetsChanged);
     emit insetsChanged();
 }

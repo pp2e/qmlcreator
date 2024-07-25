@@ -158,18 +158,18 @@ BlankScreen {
 
     CToolBar {
         id: toolBar
+        
+        CBackButton {
+            anchors.fill: parent
+            text: appWindow.title
+            enableBack: appWindow.splitView.rightView.depth > 1
+            targetSplit: appWindow.splitView.rightView
+            onClicked: column.setLocked(null)
+        }
     }
 
     CToolBarBlur {
         sourceItem: menuFlickable
-    }
-
-    CBackButton {
-        anchors.fill: toolBar
-        text: appWindow.title
-        enableBack: appWindow.splitView.rightView.depth > 1
-        targetSplit: appWindow.splitView.rightView
-        onClicked: column.setLocked(null)
     }
 
     CScrollBar {
