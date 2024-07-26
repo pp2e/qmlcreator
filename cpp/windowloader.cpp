@@ -41,6 +41,7 @@ void WindowLoader::loadWindow() {
         return;
     }
 
+    m_engine.clearComponentCache();
     QQmlComponent *component = new QQmlComponent(&m_engine, QUrl(m_source), &m_engine);
     if (component->isLoading())
         QObject::connect(component, &QQmlComponent::statusChanged,
