@@ -46,16 +46,11 @@ CApplicationWindow {
 
     onBackPressed: {
         if (dialog.visible)
-        {
             dialog.close()
-        }
+        else if (splitView.leftView.depth > 1 || splitView.rightView.depth > 1)
+            splitView.popPage()
         else
-        {
-            if (splitView.leftView.depth > 1 || splitView.rightView.depth > 1)
-                splitView.popPage()
-            else
-                Qt.quit()
-        }
+            Qt.quit()
     }
 
     WindowLoader {
@@ -73,8 +68,7 @@ CApplicationWindow {
             splitView.rightView.push(initialRightView)
         }
 
-        MainMenuScreen
-        {
+        MainMenuScreen {
             id: initialLeftView
             splitView: splitView
         }

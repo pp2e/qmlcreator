@@ -30,6 +30,8 @@
 #include "ScreenInsets.h"
 #include "windowloader.h"
 
+#include <QLoggingCategory>
+
 inline static void createNecessaryDir(const QString& path) {
     const QDir configDir = QDir(path);
     if (!configDir.exists()) {

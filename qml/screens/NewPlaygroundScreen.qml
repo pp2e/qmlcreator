@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 import ProjectManager
 import "../components"
@@ -12,7 +13,15 @@ BlankScreen {
         return path.slice(lastSlash+1);
     }
 
-    Component.onCompleted: windowLoader.source = ProjectManager.getFilePath(filePath)
+    StackView.onStatusChanged: {
+        if (StackView.status === StackView.Activating) {
+            windowLoader.source = ProjectManager.getFilePath(filePath)
+            windowContainer.window = windowLoader.window
+        }
+        else if (StackView.status === StackView.Deactivating) {
+            windowLoader.source = ""
+        }
+    }
 
     CToolBar {
         id: toolBar
@@ -29,21 +38,14 @@ BlankScreen {
                 text: getDirName(filePath)
                 onClicked: windowLoader.source = ""
             }
-
-            MouseArea {
-                width: 40
-                Layout.fillHeight: true
-                onClicked: windowLoader.source = ""
-            }
         }
     }
 
     WindowContainer {
+        id: windowContainer
         anchors.top: toolBar.bottom
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        window: windowLoader.window
-        onWidthChanged: console.log(window)
     }
 }
