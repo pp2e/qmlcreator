@@ -15,7 +15,7 @@ int ScreenInsets::top() {
     // if window is not ready
     if (m_window == nullptr) return 0;
     QPlatformWindow *pWindow = m_window->handle();
-    if (pWindow == nullptr) return -1;
+    if (pWindow == nullptr) return 0;
     QMargins margins = pWindow->safeAreaMargins();
     return margins.top();
 #else
@@ -28,6 +28,7 @@ int ScreenInsets::bottom() {
     // if window is not ready
     if (m_window == nullptr) return 0;
     QPlatformWindow *pWindow = m_window->handle();
+    if (pWindow == nullptr) return 0;
     QMargins margins = pWindow->safeAreaMargins();
     return margins.bottom();
 #else
@@ -40,6 +41,7 @@ int ScreenInsets::left() {
     // if window is not ready
     if (m_window == nullptr) return 0;
     QPlatformWindow *pWindow = m_window->handle();
+    if (pWindow == nullptr) return 0;
     QMargins margins = pWindow->safeAreaMargins();
     return margins.left();
 #else
@@ -52,6 +54,7 @@ int ScreenInsets::right() {
     // if window is not ready
     if (m_window == nullptr) return 0;
     QPlatformWindow *pWindow = m_window->handle();
+    if (pWindow == nullptr) return 0;
     QMargins margins = pWindow->safeAreaMargins();
     return margins.right();
 #else
@@ -61,10 +64,10 @@ int ScreenInsets::right() {
 
 void ScreenInsets::setWindow(QQuickWindow *window) {
     if (m_window)
-        disconnect(m_window, &QWindow::activeChanged,
+        disconnect(m_window, &QWindow::widthChanged,
                    this, &ScreenInsets::insetsChanged);
     m_window = window;
-    connect(m_window, &QWindow::activeChanged,
+    connect(m_window, &QWindow::widthChanged,
             this, &ScreenInsets::insetsChanged);
     emit insetsChanged();
 }

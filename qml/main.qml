@@ -20,6 +20,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Controls.Material
 import ScreenInsets
+import WindowLoader
 import "components"
 import "components/dialogs"
 import "screens"
@@ -55,6 +56,10 @@ CApplicationWindow {
             else
                 Qt.quit()
         }
+    }
+
+    WindowLoader {
+        id: windowLoader
     }
 
     CSplitView {

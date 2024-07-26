@@ -121,7 +121,7 @@ BlankScreen {
                     ProjectManager.saveFileContent(filePath, codeArea.text)
                     ProjectManager.clearComponentCache()
                     Qt.inputMethod.hide()
-                    var playgroundScreenComponent = Qt.createComponent(Qt.resolvedUrl("PlaygroundScreen.qml"),
+                    var playgroundScreenComponent = Qt.createComponent(Qt.resolvedUrl("NewPlaygroundScreen.qml"),
                                        Component.PreferSynchronous);
                     var newScreen = playgroundScreenComponent.createObject(rightView,
                                                                {

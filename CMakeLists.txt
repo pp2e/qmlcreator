@@ -28,6 +28,8 @@ qt_add_executable(qmlcreator
     # New original code from alteve4d
     cpp/ScreenInsets.h
     cpp/ScreenInsets.cpp
+    cpp/windowloader.h
+    cpp/windowloader.cpp
 )
 
 if (IOS)
@@ -56,8 +58,8 @@ endif()
 
 qt_add_qml_module(qmlcreator
     URI QmlCreator
-    QML_FILES
 
+    RESOURCES
     resources/dictionaries/javascript.txt
     resources/dictionaries/keywords.txt
     resources/dictionaries/properties.txt
@@ -95,6 +97,8 @@ qt_add_qml_module(qmlcreator
     resources/translations/qmlcreator_fr.ts
     resources/translations/qmlcreator_ru.qm
     resources/translations/qmlcreator_ru.ts
+
+    QML_FILES
 
     qml/components/dialogs/BaseDialog.qml
     qml/components/dialogs/ConfirmationDialog.qml
@@ -232,12 +236,14 @@ qt_add_qml_module(qmlcreator
     qml/screens/MainMenuScreen.qml
     qml/screens/EditorScreen.qml
     qml/screens/FilesScreen.qml
-    qml/screens/ProjectsScreen.qml
     qml/screens/SettingsScreen.qml
-    qml/screens/ExamplesScreen.qml
     qml/screens/PlaygroundScreen.qml
     qml/screens/ModulesScreen.qml
     qml/main.qml
+
+    QML_FILES
+    # New original qml code from altevedev
+    qml/screens/NewPlaygroundScreen.qml
 )
 
 target_link_libraries(qmlcreator PRIVATE Qt6::Quick)
