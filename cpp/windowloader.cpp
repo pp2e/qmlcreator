@@ -66,7 +66,7 @@ void WindowLoader::createWindow(QQmlComponent *component) {
         QQuickItem *item = qobject_cast<QQuickItem*>(object);
         m_window = new QQuickWindow();
         item->setParentItem(m_window->contentItem());
-    }
+    } else m_window->hide(); // Dont show window in window manager if "visible: true" is set
 
     emit windowChanged();
 }
