@@ -24,6 +24,17 @@ void WindowLoader::setSource(const QString &newSource) {
     emit sourceChanged();
 }
 
+QColor WindowLoader::color() const {
+    return m_color;
+}
+
+void WindowLoader::setColor(const QColor color) {
+    if (m_color == color) return;
+
+    m_color = color;
+    emit colorChanged();
+}
+
 QQuickWindow *WindowLoader::window() const {
     return m_window;
 }
@@ -66,6 +77,7 @@ void WindowLoader::createWindow(QQmlComponent *component) {
         QQuickItem *item = qobject_cast<QQuickItem*>(object);
         m_window = new QQuickWindow();
         item->setParentItem(m_window->contentItem());
+        m_window->setColor(m_color);
     } else m_window->hide(); // Dont show window in window manager if "visible: true" is set
 
     emit windowChanged();

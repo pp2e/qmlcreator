@@ -5,6 +5,8 @@ import ProjectManager
 import "../components"
 
 BlankScreen {
+    id: playgroundScreen
+
     property string filePath: ""
 
     function getDirName(path) {
@@ -19,6 +21,7 @@ BlankScreen {
             windowContainer.window = windowLoader.window
         }
         else if (StackView.status === StackView.Deactivating) {
+            logWindow.hide()
             windowLoader.source = ""
         }
     }
@@ -38,6 +41,15 @@ BlankScreen {
                 text: getDirName(filePath)
                 onClicked: windowLoader.source = ""
             }
+
+            CToolButton {
+                icon: "\uf188"
+                tooltipText: settings.debugging ? qsTr("Disable debugging") : qsTr("Enable debugging")
+                checked: settings.debugging
+                onClicked: {
+                    settings.debugging = !settings.debugging
+                }
+            }
         }
     }
 
@@ -47,5 +59,35 @@ BlankScreen {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
+    }
+
+    Window {
+        id: logWindow
+        visible: settings.debugging
+        color: "transparent"
+        parent: playgroundScreen
+        width: playgroundScreen.width
+        height: playgroundScreen.height - toolBar.height
+        y: toolBar.height
+
+        flags: Qt.WindowTransparentForInput
+
+        TextEdit {
+            id: messages
+            width: parent.width
+            height: parent.height
+            color: appWindow.colorPalette.editorNormal
+            opacity: 0.3
+            font.pixelSize: 6 * settings.pixelDensity
+            wrapMode: TextEdit.Wrap
+            readOnly: true
+        }
+
+        Connections {
+            target: messageHandler
+            function onMessageReceived(message) {
+                messages.append(message)
+            }
+        }
     }
 }

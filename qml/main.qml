@@ -55,6 +55,7 @@ CApplicationWindow {
 
     WindowLoader {
         id: windowLoader
+        color: appWindow.colorPalette.background
     }
 
     CSplitView {
