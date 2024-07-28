@@ -89,6 +89,7 @@ ApplicationWindow {
         property int indentSize: 4
         property bool debugging: true
         property bool allowEditUI: false
+        property bool useNewPlayground: true
 
         // internal
         property bool debugMode: false
@@ -108,6 +109,7 @@ ApplicationWindow {
         property alias indentSize: settings.indentSize
         property alias debugging: settings.debugging
         property alias allowEditUI: settings.allowEditUI
+        property alias useNewPlayground: settings.useNewPlayground 
     }
 
     Settings {

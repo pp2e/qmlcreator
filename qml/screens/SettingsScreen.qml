@@ -127,6 +127,15 @@ BlankScreen {
                     settings.allowEditUI = !settings.allowEditUI
                 }
             }
+            
+            CSettingButton {
+                text: qsTr("Use new playground")
+                description: settings.useNewPlayground ? qsTr("Enabled") : qsTr("Disabled")
+
+                onClicked: {
+                    settings.useNewPlayground = !settings.useNewPlayground
+                }
+            }
 
             CSettingButton {
                 text: qsTr("Palette")
