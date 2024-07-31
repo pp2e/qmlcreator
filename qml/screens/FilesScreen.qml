@@ -31,7 +31,9 @@ BlankScreen {
     readonly property Component filesScreenComponent :
         Qt.createComponent(Qt.resolvedUrl("FilesScreen.qml"),
                            Component.PreferSynchronous);
+    
     property string subPath : ""
+    property alias listFooter: listView.footer
 
     StackView.onStatusChanged: {
         if (StackView.status === StackView.Activating) {

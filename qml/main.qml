@@ -65,13 +65,63 @@ CApplicationWindow {
                                   (Qt.inputMethod.keyboardRectangle.height / (GRID_UNIT_PX / 8)) : 0
 
         Component.onCompleted: {
-            splitView.leftView.push(initialLeftView)
+            splitView.leftView.push(Qt.resolvedUrl("screens/FilesScreen.qml"), {listFooter: mainMenuFooter})
             splitView.rightView.push(initialRightView)
         }
+        
+        Component {
+            id: mainMenuFooter
+            Column {
+                id: column
+                width: parent.width
+                
+                CNavigationButton {
+                    id: settingsButton
+                    text: qsTr("SETTINGS")
+                    icon: "\uf0ad"
+                    onClicked: {
+                        //column.setLocked(settingsButton)
+                        //column.overrideRightView()
+                        splitView.rightView.push(Qt.resolvedUrl("screens/SettingsScreen.qml"),
+                                             {
+                                                 backPressed: function() {
+                                                     column.setLocked(null)
+                                                 }
+                                             })
+                    }
+                }
 
-        MainMenuScreen {
-            id: initialLeftView
-            splitView: splitView
+                CNavigationButton {
+                    id: modulesButton
+                    text: qsTr("MODULES")
+                    icon: "\uf085"
+                    onClicked: {
+                        //column.setLocked(modulesButton)
+                        //column.overrideRightView()
+                        splitView.rightView.push(Qt.resolvedUrl("screens/ModulesScreen.qml"),
+                                             {
+                                                 backPressed: function() {
+                                                     column.setLocked(null)
+                                                 }
+                                             })
+                    }
+                }
+                CNavigationButton {
+                    id: aboutButton
+                    text: qsTr("ABOUT")
+                    icon: "\uf0e5"
+                    onClicked: {
+                        //column.setLocked(aboutButton)
+                        //column.overrideRightView()
+                        splitView.rightView.push(Qt.resolvedUrl("screens/AboutScreen.qml"),
+                                             {
+                                                 backPressed: function() {
+                                                     column.setLocked(null)
+                                                 }
+                                             })
+                    }
+                }
+            }
         }
 
         Rectangle {
