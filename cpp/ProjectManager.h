@@ -59,7 +59,7 @@ public:
     static QObject *projectManagerProvider(QQmlEngine *engine, QJSEngine *scriptEngine);
     
     // for main.qml selection in main.cpp
-    static QString baseFolderPath(QString folder);
+    Q_INVOKABLE static QString baseFolderPath(QString folder);
 
 private:
     void recursiveCopyDir(QDir source, QDir target);

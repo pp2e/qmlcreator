@@ -21,6 +21,7 @@ import QtQuick.Controls
 import QtQuick.Controls.Material
 import ScreenInsets
 import WindowLoader
+import ProjectManager
 import "components"
 import "components/dialogs"
 import "screens"
