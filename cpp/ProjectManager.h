@@ -41,9 +41,9 @@ public:
 
     // current project
     Q_INVOKABLE QVariantList files(QString subdir);
-    Q_INVOKABLE void createFile(QString fileName, QString fileExtension);
-    Q_INVOKABLE void removeFile(QString fileName);
-    Q_INVOKABLE void createDir(QString dirName);
+    Q_INVOKABLE void createFile(QString filePath, QString fileExtension);
+    Q_INVOKABLE void removeFile(QString filePath);
+    Q_INVOKABLE void createDir(QString dirPath);
     Q_INVOKABLE bool fileExists(QString filePath);
 
     // // current file

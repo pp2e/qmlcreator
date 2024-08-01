@@ -65,7 +65,9 @@ CApplicationWindow {
                                   (Qt.inputMethod.keyboardRectangle.height / (GRID_UNIT_PX / 8)) : 0
 
         Component.onCompleted: {
-            splitView.leftView.push(Qt.resolvedUrl("screens/FilesScreen.qml"), {listFooter: mainMenuFooter})
+            splitView.leftView.push(Qt.resolvedUrl("screens/FilesScreen.qml"),
+                                   {listFooter: mainMenuFooter,
+                                    subPath: ProjectManager.baseFolderPath("")})
             splitView.rightView.push(initialRightView)
         }
         
