@@ -93,7 +93,7 @@ void ProjectManager::createFile(QString filePath, QString fileExtension)
     }
     else
     {
-        emit error(QString("Unable to create file \"%1.%2\"").arg(fileName, fileExtension));
+        emit error(QString("Unable to create file \"%1.%2\"").arg(filePath, fileExtension));
     }
 }
 
