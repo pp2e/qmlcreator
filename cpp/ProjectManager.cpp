@@ -198,8 +198,7 @@ QString ProjectManager::baseFolderPath(QString folder)
     QString folderPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
 #else
     QString folderPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) +
-                         QDir::separator() +
-                         "QML Projects";
+                         QDir::separator() + "QML Projects";
 #endif
 
     if (!folder.isEmpty())
