@@ -192,13 +192,15 @@ void ProjectManager::recursiveCopyDir(QDir source, QDir target)
 
 QString ProjectManager::baseFolderPath(QString folder)
 {
-#ifndef UBUNTU_CLICK
-    QString folderPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) +
+#if defined(UBUNTU_CLICK)
+    QString folderPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+#elif defined(Q_OS_IOS)
+    QString folderPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
 #else
-    QString folderPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) +
-#endif
+    QString folderPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) +
                          QDir::separator() +
                          "QML Projects";
+#endif
 
     if (!folder.isEmpty())
     {
