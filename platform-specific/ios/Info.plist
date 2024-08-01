@@ -41,7 +41,7 @@
 	<key>UIFileSharingEnabled</key>
         <true/>
 	<key>UILaunchStoryboardName</key>
-        <string>Launch</string>
+        <string>LaunchScreen</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

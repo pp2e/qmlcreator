@@ -74,21 +74,10 @@ QVariantList ProjectManager::files(QString subdir)
     QFileInfoList files = dir.entryInfoList(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot);
 
     foreach(QFileInfo file, files) {
-        // qDebug() << file.absolutePath();
-        if (!file.isDir() && (file.suffix() == "qml" || file.suffix() == "js"))
-        {
-            QVariantMap fileEntry;
-            QString fileName = file.fileName();
-            fileEntry.insert("name", fileName);
-            fileEntry.insert("isDir", false);
-            projectFiles.push_back(fileEntry);
-        } else if (file.isDir()) {
-            QVariantMap dirEntry;
-            QString fileName = file.fileName();
-            dirEntry.insert("name", fileName);
-            dirEntry.insert("isDir", true);
-            projectFiles.push_back(dirEntry);
-        }
+        QVariantMap entry;
+        entry.insert("name", file.fileName());
+        entry.insert("isDir", file.isDir());
+        projectFiles.push_back(entry);
     }
 
     return projectFiles;
@@ -111,7 +100,6 @@ void ProjectManager::createFile(QString fileName, QString fileExtension)
 void ProjectManager::removeFile(QString fileName)
 {
     const QString filePath = baseFolderPath(fileName);
-    // qDebug() << "Removing" << filePath;
 
     const bool isDir = QFileInfo(filePath).isDir();
     if (isDir) {
@@ -124,7 +112,6 @@ void ProjectManager::removeFile(QString fileName)
 void ProjectManager::createDir(QString dirName)
 {
     const QString fullPath = baseFolderPath(dirName);
-    // qDebug() << "Creating dir" << fullPath;
     QDir().mkpath(fullPath);
 }
 
@@ -190,7 +177,6 @@ void ProjectManager::recursiveCopyDir(QDir source, QDir target)
 
     QFileInfoList files = source.entryInfoList(QDir::Files);
     for (QFileInfo file : files) {
-        // qDebug() << file << target.absoluteFilePath(file.fileName());
         QFile::copy(source.absoluteFilePath(file.fileName()),
                     target.absoluteFilePath(file.fileName()));
 

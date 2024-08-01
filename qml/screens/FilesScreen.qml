@@ -122,7 +122,7 @@ BlankScreen {
             CBackButton {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                text: subPath == "" ? ProjectManager.projectName : getDirName(subPath)
+                text: getDirName(subPath)
             }
 
             CToolButton {

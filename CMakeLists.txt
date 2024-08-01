@@ -51,7 +51,7 @@ if (IOS)
         qmlcreator
         PROPERTIES
         MACOSX_BUNDLE TRUE
-        MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/platform-specific/ios/Project-Info.plist
+        MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/platform-specific/ios/Info.plist
     )
     target_link_libraries(qmlcreator PRIVATE Qt6::GuiPrivate)
 endif()
