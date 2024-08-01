@@ -270,7 +270,7 @@ Item {
             }
 
             Component.onCompleted: {
-                oskEventFixer.setupImEventFilter(textEdit)
+                // oskEventFixer.setupImEventFilter(textEdit)
                 lineNumbersHelper.document = textEdit.textDocument
                 syntaxHighlighter.setHighlighter(textEdit)
                 // if (ProjectManager.project !== "") {
