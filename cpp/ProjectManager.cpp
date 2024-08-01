@@ -63,6 +63,8 @@ void ProjectManager::restoreExamples(QString path)
         qrcExamplesDir = QDir(":/QmlCreator/examples");
     else if (path == baseFolderPath("QmlCreator"))
         qrcExamplesDir = QDir(":/QmlCreator/qml");
+    else
+        emit error(QString("Nothing to restore for \"%1\"").arg(path));
 
     recursiveCopyDir(qrcExamplesDir, deviceExamplesDir);
 }
