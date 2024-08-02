@@ -167,7 +167,7 @@ BlankScreen {
                     {
                         if (value)
                         {
-                            ProjectManager.restoreExamples("Examples")
+                            ProjectManager.restoreExamples(ProjectManager.baseFolderPath("Examples"))
                         }
                     }
 
@@ -187,7 +187,7 @@ BlankScreen {
                     {
                         if (value)
                         {
-                            ProjectManager.restoreExamples("QmlCreator")
+                            ProjectManager.restoreExamples(ProjectManager.baseFolderPath("QmlCreator"))
                         }
                     }
 
