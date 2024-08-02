@@ -65,7 +65,7 @@ BlankScreen {
         delegate: CFileButton {
             width: listView.width
             text: modelData.name
-            removeButtonVisible: modelData.name !== "main.qml"
+            // removeButtonVisible: modelData.name !== "main.qml"
             isDir: modelData.isDir
 
             onClicked: {
