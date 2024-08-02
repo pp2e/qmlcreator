@@ -72,28 +72,23 @@ Item {
         }
     }
 
-    Rectangle {
+    Row {
         anchors.fill: parent
-        color: appWindow.colorPalette.background
 
-        Row {
-            anchors.fill: parent
-
-            // Stack view containers
-            Item {
-                id: leftStackContainer
-                clip: true
-                width: enableDualView ? parent.width / 3
-                                      : parent.width
-                height: parent.height
-            }
-            Item {
-                id: rightStackContainer
-                clip: true
-                width: enableDualView ? (parent.width / 3) * 2
-                                      : parent.width
-                height: parent.height
-            }
+        // Stack view containers
+        Item {
+            id: leftStackContainer
+            clip: true
+            width: enableDualView ? parent.width / 3
+                                  : parent.width
+            height: parent.height
+        }
+        Item {
+            id: rightStackContainer
+            clip: true
+            width: enableDualView ? (parent.width / 3) * 2
+                                  : parent.width
+            height: parent.height
         }
     }
 }

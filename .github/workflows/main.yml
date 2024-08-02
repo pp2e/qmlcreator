@@ -33,15 +33,13 @@ jobs:
         install-deps: 'true'
         cache: true
       
-    - run: echo /Users/runner/work/_temp/Qt/Tools/Ninja >> $GITHUB_PATH
+    - run: echo ${{ env.QT_ROOT_DIR }}/../../Tools/Ninja >> $GITHUB_PATH
 
     - name: Build
       run: |
-        export QT_HOST_PATH=/Users/runner/work/_temp/Qt/6.7.2/macos/
-        ls /Users/runner/work/_temp/Qt/6.7.2/*
+        export QT_HOST_PATH=/${{ env.QT_ROOT_DIR }}/../macos/
         ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B ./build
         cd build
-        ls
         xcodebuild build -project qmlcreator.xcodeproj -configuration Release -destination "generic/platform=iOS" CODE_SIGNING_ALLOWED=NO -scheme qmlcreator -archivePath qmlcreator.xcarchive archive
 
     - name: Package
@@ -54,5 +52,5 @@ jobs:
     - name: Save APK
       uses: actions/upload-artifact@v4
       with:
-        name: qmlcreator.app
+        name: qmlcreator
         path: ./build/qmlcreator.xcarchive/Products/Applications/*.ipa

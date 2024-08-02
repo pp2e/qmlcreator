@@ -26,7 +26,6 @@
 #include "ProjectManager.h"
 #include "SyntaxHighlighter.h"
 #include "components/linenumbershelper.h"
-#include "imfixerinstaller.h"
 #include "ScreenInsets.h"
 #include "windowloader.h"
 
@@ -109,8 +108,6 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("platformHasNativeCopyPaste", false);
     engine.rootContext()->setContextProperty("platformHasNativeDragHandles", false);
 #endif
-
-    engine.rootContext()->setContextProperty("oskEventFixer", new ImFixerInstaller());
 
     // Load user's custom main.qml if we can
     if (QFile(ProjectManager::baseFolderPath("QmlCreator") + "/main.qml").exists())

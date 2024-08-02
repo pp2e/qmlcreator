@@ -106,10 +106,9 @@ CApplicationWindow {
             }
         }
 
-        Rectangle {
+        Item {
             id: initialRightView
-            color: splitView.enableDualView ?
-                       appWindow.colorPalette.background : "transparent"
+
             Image {
                 anchors.fill: parent
                 anchors.margins: parent.width / 4
