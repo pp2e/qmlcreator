@@ -80,7 +80,7 @@ BlankScreen {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 text: getDirName(filePath)
-                enableBack: !enableDualView
+                //enableBack: !enableDualView
                 targetSplit: appWindow.splitView.rightView
                 onClicked: {
                     saveContent()
