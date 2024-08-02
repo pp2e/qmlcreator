@@ -19,11 +19,8 @@ qt_add_executable(qmlcreator
     cpp/QMLHighlighter.h
     cpp/SyntaxHighlighter.cpp
     cpp/SyntaxHighlighter.h
-    cpp/imeventfixer.cpp
-    cpp/imeventfixer.h
-    cpp/imfixerinstaller.cpp
-    cpp/imfixerinstaller.h
     cpp/QMLHighlighter.cpp
+    cpp/QMLHighlighter.h
 
     # New original code from alteve4d
     cpp/ScreenInsets.h
@@ -36,8 +33,10 @@ if (IOS)
     set(app_icons
         platform-specific/ios/Icon.png
         platform-specific/ios/Icon@2x.png
+        platform-specific/ios/Icon@3x.png
         platform-specific/ios/Icon-60.png
         platform-specific/ios/Icon-60@2x.png
+        platform-specific/ios/Icon-60@3x.png
         platform-specific/ios/Icon-72.png
         platform-specific/ios/Icon-72@2x.png
         platform-specific/ios/Icon-76.png
