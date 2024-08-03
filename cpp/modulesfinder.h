@@ -6,11 +6,14 @@
 class ModulesFinder : public QObject
 {
     Q_OBJECT
+
+    Q_PROPERTY(QStringList modules READ modules CONSTANT)
+
 public:
     explicit ModulesFinder(QObject *parent = nullptr);
 
-    Q_PROPERTY(QStringList modules READ modules CONSTANT)
     QStringList modules();
+    Q_INVOKABLE QStringList importPaths();
 };
 
 #endif // MODULESFINDER_H

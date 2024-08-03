@@ -37,3 +37,7 @@ QStringList ModulesFinder::modules() {
     }
     return modules;
 }
+
+QStringList ModulesFinder::importPaths() {
+    return qmlEngine(this)->importPathList();
+}
