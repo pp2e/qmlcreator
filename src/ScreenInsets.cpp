@@ -62,6 +62,10 @@ int ScreenInsets::right() {
 #endif
 }
 
+QQuickWindow *ScreenInsets::window() {
+    return m_window;
+}
+
 void ScreenInsets::setWindow(QQuickWindow *window) {
     if (m_window)
         disconnect(m_window, &QWindow::widthChanged,

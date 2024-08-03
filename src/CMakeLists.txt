@@ -23,16 +23,16 @@ qt_add_executable(qmlcreator
 
 if (IOS)
     set(app_icons
-        platform-specific/ios/Icon.png
-        platform-specific/ios/Icon@2x.png
-        platform-specific/ios/Icon@3x.png
-        platform-specific/ios/Icon-60.png
-        platform-specific/ios/Icon-60@2x.png
-        platform-specific/ios/Icon-60@3x.png
-        platform-specific/ios/Icon-72.png
-        platform-specific/ios/Icon-72@2x.png
-        platform-specific/ios/Icon-76.png
-        platform-specific/ios/Icon-76@2x.png
+        ${CMAKE_SOURCE_DIR}/platform-specific/ios/Icon.png
+        ${CMAKE_SOURCE_DIR}/platform-specific/ios/Icon@2x.png
+        ${CMAKE_SOURCE_DIR}/platform-specific/ios/Icon@3x.png
+        ${CMAKE_SOURCE_DIR}/platform-specific/ios/Icon-60.png
+        ${CMAKE_SOURCE_DIR}/platform-specific/ios/Icon-60@2x.png
+        ${CMAKE_SOURCE_DIR}/platform-specific/ios/Icon-60@3x.png
+        ${CMAKE_SOURCE_DIR}/platform-specific/ios/Icon-72.png
+        ${CMAKE_SOURCE_DIR}/platform-specific/ios/Icon-72@2x.png
+        ${CMAKE_SOURCE_DIR}/platform-specific/ios/Icon-76.png
+        ${CMAKE_SOURCE_DIR}/platform-specific/ios/Icon-76@2x.png
     )
     target_sources(qmlcreator PRIVATE ${app_icons})
     set_source_files_properties(${app_icons} PROPERTIES
@@ -42,7 +42,7 @@ if (IOS)
         qmlcreator
         PROPERTIES
         MACOSX_BUNDLE TRUE
-        MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/platform-specific/ios/Info.plist
+        MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/platform-specific/ios/Info.plist
     )
     target_link_libraries(qmlcreator PRIVATE Qt6::GuiPrivate)
 endif()

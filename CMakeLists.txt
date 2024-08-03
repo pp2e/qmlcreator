@@ -8,6 +8,6 @@ find_package(Qt6 REQUIRED COMPONENTS Quick)
 
 qt_standard_project_setup()
 
-qt_policy(QTP0001)
+qt_policy(SET QTP0001 NEW)
 
 add_subdirectory(src)
