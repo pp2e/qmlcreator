@@ -68,17 +68,18 @@ void WindowLoader::createWindow(QQmlComponent *component) {
         emit windowChanged();
         return;
     }
-
-    QObject *object = component->create();
+    // If component is window we need to hide it, if not we will undo that later
+    QObject *object = component->createWithInitialProperties({{"visible", false}});
     m_window = qobject_cast<QQuickWindow*>(object);
 
     // if root item is not window
     if (!m_window) {
         QQuickItem *item = qobject_cast<QQuickItem*>(object);
+        item->setVisible(true);
         m_window = new QQuickWindow();
         item->setParentItem(m_window->contentItem());
         m_window->setColor(m_color);
-    } else m_window->hide(); // Dont show window in window manager if "visible: true" is set
+    }
 
     emit windowChanged();
 }
