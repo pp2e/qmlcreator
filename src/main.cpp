@@ -25,7 +25,7 @@
 #include "MessageHandler.h"
 #include "ProjectManager.h"
 #include "SyntaxHighlighter.h"
-#include "components/linenumbershelper.h"
+#include "linenumbershelper.h"
 #include "ScreenInsets.h"
 #include "modulesfinder.h"
 #include "windowloader.h"
