@@ -27,6 +27,7 @@
 #include "SyntaxHighlighter.h"
 #include "components/linenumbershelper.h"
 #include "ScreenInsets.h"
+#include "modulesfinder.h"
 #include "windowloader.h"
 
 #include <QLoggingCategory>
@@ -77,6 +78,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<LineNumbersHelper>("LineNumbersHelper", 1, 1, "LineNumbersHelper");
     qmlRegisterType<ScreenInsets>("ScreenInsets", 1, 0, "ScreenInsets");
     qmlRegisterType<WindowLoader>("WindowLoader", 1, 0, "WindowLoader");
+    qmlRegisterType<ModulesFinder>("ModulesFinder", 1, 0, "ModulesFinder");
 
     uint GRID_UNIT_PX = qgetenv("GRID_UNIT_PX").toUInt();
     if (GRID_UNIT_PX == 0) {

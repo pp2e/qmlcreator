@@ -27,11 +27,10 @@ BlankScreen {
 
     CFlickable {
         id: settingsFlickable
+        anchors.top: toolBar.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.top: parent.top
         anchors.bottom: parent.bottom
-        anchors.topMargin: toolBar.height
         contentHeight: column.height
 
         Column {

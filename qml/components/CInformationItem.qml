@@ -53,7 +53,7 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
             font.pixelSize: 5 * settings.pixelDensity
-            color: palette.description
+            color: appWindow.colorPalette.description
         }
     }
 }

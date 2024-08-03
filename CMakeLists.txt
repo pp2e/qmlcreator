@@ -27,6 +27,8 @@ qt_add_executable(qmlcreator
     cpp/ScreenInsets.cpp
     cpp/windowloader.h
     cpp/windowloader.cpp
+    cpp/modulesfinder.h
+    cpp/modulesfinder.cpp
 )
 
 if (IOS)
@@ -97,52 +99,6 @@ qt_add_qml_module(qmlcreator
     resources/translations/qmlcreator_ru.qm
     resources/translations/qmlcreator_ru.ts
 
-    QML_FILES
-
-    qml/components/dialogs/BaseDialog.qml
-    qml/components/dialogs/ConfirmationDialog.qml
-    qml/components/dialogs/DialogLoader.qml
-    qml/components/dialogs/FontFamilyDialog.qml
-    qml/components/dialogs/FontSizeDialog.qml
-    qml/components/dialogs/IndentSizeDialog.qml
-    qml/components/dialogs/ListDialog.qml
-    qml/components/dialogs/MessageDialog.qml
-    qml/components/dialogs/NewDirDialog.qml
-    qml/components/dialogs/NewFileDialog.qml
-    qml/components/dialogs/NewProjectDialog.qml
-    qml/components/palettes/BasePalette.qml
-    qml/components/palettes/CutePalette.qml
-    qml/components/palettes/DarkPalette.qml
-    qml/components/palettes/LightPalette.qml
-    qml/components/palettes/PaletteLoader.qml
-    qml/components/CBackButton.qml
-    qml/components/CCheckBox.qml
-    qml/components/CContextMenuButton.qml
-    qml/components/CDialogButton.qml
-    qml/components/CEditorScrollBar.qml
-    qml/components/CFileButton.qml
-    qml/components/CFlickable.qml
-    qml/components/CHorizontalSeparator.qml
-    qml/components/CIcon.qml
-    qml/components/CLabel.qml
-    qml/components/CListView.qml
-    qml/components/CNavigationButton.qml
-    qml/components/CScrollBar.qml
-    qml/components/CSettingButton.qml
-    qml/components/CSlider.qml
-    qml/components/CSplitView.qml
-    qml/components/CSwitcher.qml
-    qml/components/CTextArea.qml
-    qml/components/CToolButton.qml
-    qml/components/CTooltip.qml
-    qml/components/CVerticalSeparator.qml
-    qml/components/CApplicationWindow.qml
-    qml/components/CToolBarBlur.qml
-    qml/components/CToolBar.qml
-    qml/components/CNavigationScrollBar.qml
-    qml/components/CCodeArea.qml
-    qml/components/CInformationItem.qml
-    qml/components/CTextField.qml
     examples/3D/main.qml
     examples/Accelerometer/main.qml
     examples/Ambient\ Light\ Sensor/main.qml
@@ -200,39 +156,54 @@ qt_add_qml_module(qmlcreator
     examples/Transform/main.qml
     examples/WebSocket/main.qml
     examples/XMLHttpRequest/main.qml
-    qml/modules/3D.qml
-    qml/modules/3DInput.qml
-    qml/modules/3DRenderer.qml
-    qml/modules/AudioEngine.qml
-    qml/modules/Bluetooth.qml
-    qml/modules/Canvas3D.qml
-    qml/modules/Controls.qml
-    qml/modules/Dialogs.qml
-    qml/modules/Extras.qml
-    qml/modules/FolderListModel.qml
-    qml/modules/GraphicalEffects.qml
-    qml/modules/Layouts.qml
-    qml/modules/LocalStorage.qml
-    qml/modules/Location.qml
-    qml/modules/Models.qml
-    qml/modules/Multimedia.qml
-    qml/modules/Nfc.qml
-    qml/modules/Particles.qml
-    qml/modules/Positioning.qml
-    qml/modules/Qml.qml
-    qml/modules/Quick.qml
-    qml/modules/Scene3D.qml
-    qml/modules/Sensors.qml
-    qml/modules/Settings.qml
-    qml/modules/Styles.qml
-    qml/modules/Test.qml
-    qml/modules/WebSockets.qml
-    qml/modules/WebView.qml
-    qml/modules/Window.qml
-    qml/modules/XmlListModel.qml
+
+    QML_FILES
+    qml/components/dialogs/BaseDialog.qml
+    qml/components/dialogs/ConfirmationDialog.qml
+    qml/components/dialogs/DialogLoader.qml
+    qml/components/dialogs/FontFamilyDialog.qml
+    qml/components/dialogs/FontSizeDialog.qml
+    qml/components/dialogs/IndentSizeDialog.qml
+    qml/components/dialogs/ListDialog.qml
+    qml/components/dialogs/MessageDialog.qml
+    qml/components/dialogs/NewDirDialog.qml
+    qml/components/dialogs/NewFileDialog.qml
+    qml/components/dialogs/NewProjectDialog.qml
+    qml/components/palettes/BasePalette.qml
+    qml/components/palettes/CutePalette.qml
+    qml/components/palettes/DarkPalette.qml
+    qml/components/palettes/LightPalette.qml
+    qml/components/palettes/PaletteLoader.qml
+    qml/components/CBackButton.qml
+    qml/components/CCheckBox.qml
+    qml/components/CContextMenuButton.qml
+    qml/components/CDialogButton.qml
+    qml/components/CEditorScrollBar.qml
+    qml/components/CFileButton.qml
+    qml/components/CFlickable.qml
+    qml/components/CHorizontalSeparator.qml
+    qml/components/CIcon.qml
+    qml/components/CLabel.qml
+    qml/components/CListView.qml
+    qml/components/CNavigationButton.qml
+    qml/components/CScrollBar.qml
+    qml/components/CSettingButton.qml
+    qml/components/CSlider.qml
+    qml/components/CSplitView.qml
+    qml/components/CSwitcher.qml
+    qml/components/CTextArea.qml
+    qml/components/CToolButton.qml
+    qml/components/CTooltip.qml
+    qml/components/CVerticalSeparator.qml
+    qml/components/CApplicationWindow.qml
+    qml/components/CToolBarBlur.qml
+    qml/components/CToolBar.qml
+    qml/components/CNavigationScrollBar.qml
+    qml/components/CCodeArea.qml
+    qml/components/CInformationItem.qml
+    qml/components/CTextField.qml
     qml/screens/BlankScreen.qml
     qml/screens/AboutScreen.qml
-    qml/screens/MainMenuScreen.qml
     qml/screens/EditorScreen.qml
     qml/screens/FilesScreen.qml
     qml/screens/SettingsScreen.qml

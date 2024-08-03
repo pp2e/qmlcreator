@@ -26,11 +26,10 @@ BlankScreen {
 
     CTextArea {
         id: aboutTextArea
-        anchors.top: parent.top
+        anchors.top: toolBar.bottom
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.topMargin: toolBar.height
 
         text:  textStyle() +
                "QML Creator " + Qt.application.version + "<br>
