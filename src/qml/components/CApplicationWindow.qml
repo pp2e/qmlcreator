@@ -126,32 +126,32 @@ ApplicationWindow {
     property ListModel editorFonts: ListModel {
         ListElement {
             name: "Ubuntu Mono"
-            source: "qrc:/QmlCreator/resources/fonts/editor/ubuntumono.ttf"
+            source: "qrc:/qt/qml/QmlCreator/resources/fonts/editor/ubuntumono.ttf"
         }
 
         ListElement {
             name: "DejaVu Sans Mono"
-            source: "qrc:/QmlCreator/resources/fonts/editor/dejavusansmono.ttf"
+            source: "qrc:/qt/qml/QmlCreator/resources/fonts/editor/dejavusansmono.ttf"
         }
 
         ListElement {
             name: "Liberation Mono"
-            source: "qrc:/QmlCreator/resources/fonts/editor/liberationmono.ttf"
+            source: "qrc:/qt/qml/QmlCreator/resources/fonts/editor/liberationmono.ttf"
         }
 
         ListElement {
             name: "Droid Sans Mono"
-            source: "qrc:/QmlCreator/resources/fonts/editor/droidsansmono.ttf"
+            source: "qrc:/qt/qml/QmlCreator/resources/fonts/editor/droidsansmono.ttf"
         }
 
         ListElement {
             name: "Fira Mono"
-            source: "qrc:/QmlCreator/resources/fonts/editor/firamono.ttf"
+            source: "qrc:/qt/qml/QmlCreator/resources/fonts/editor/firamono.ttf"
         }
 
         ListElement {
             name: "Source Code Pro"
-            source: "qrc:/QmlCreator/resources/fonts/editor/sourcecodepro.ttf"
+            source: "qrc:/qt/qml/QmlCreator/resources/fonts/editor/sourcecodepro.ttf"
         }
 
         function getCurrentIndex() {
@@ -177,22 +177,22 @@ ApplicationWindow {
     // UI Fonts
 
     FontLoader {
-        source: "qrc:/QmlCreator/resources/fonts/ui/robotoregular.ttf"
+        source: "qrc:/qt/qml/QmlCreator/resources/fonts/ui/robotoregular.ttf"
     }
 
     FontLoader {
-        source: "qrc:/QmlCreator/resources/fonts/ui/robotoitalic.ttf"
+        source: "qrc:/qt/qml/QmlCreator/resources/fonts/ui/robotoitalic.ttf"
     }
 
     FontLoader {
-        source: "qrc:/QmlCreator/resources/fonts/ui/robotobold.ttf"
+        source: "qrc:/qt/qml/QmlCreator/resources/fonts/ui/robotobold.ttf"
     }
 
     FontLoader {
-        source: "qrc:/QmlCreator/resources/fonts/ui/robotobolditalic.ttf"
+        source: "qrc:/qt/qml/QmlCreator/resources/fonts/ui/robotobolditalic.ttf"
     }
 
     FontLoader {
-        source: "qrc:/QmlCreator/resources/fonts/ui/fontawesome.ttf"
+        source: "qrc:/qt/qml/QmlCreator/resources/fonts/ui/fontawesome.ttf"
     }
 }

@@ -122,7 +122,7 @@ BlankScreen {
             CBackButton {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                enableBack: leftView.depth  > 1
+                enableBack: leftView.depth > 1
                 targetSplit: leftView
                 text: getDirName(subPath)
             }

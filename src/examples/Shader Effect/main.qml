@@ -10,7 +10,7 @@ Item {
         height: width
         visible: false
 
-        source: "qrc:/QmlCreator/resources/images/icon512.png"
+        source: "qrc:/qt/qml/QmlCreator/resources/images/icon512.png"
     }
 
     ShaderEffect {

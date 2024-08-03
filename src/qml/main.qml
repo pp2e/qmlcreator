@@ -77,6 +77,15 @@ CApplicationWindow {
             Column {
                 id: column
                 width: parent.width
+
+                // CNavigationButton {
+                //     id: qrcButton
+                //     text: qsTr("qrc:/")
+                //     icon: "\uf0ad"
+                //     onClicked: {
+                //         splitView.leftView.push(Qt.resolvedUrl("screens/FilesScreen.qml"), {subPath: ":/"})
+                //     }
+                // }
                 
                 CNavigationButton {
                     id: settingsButton
@@ -114,7 +123,7 @@ CApplicationWindow {
                 anchors.margins: parent.width / 4
                 visible: splitView.enableDualView
                 fillMode: Image.PreserveAspectFit
-                source: "qrc:/QmlCreator/resources/images/icon512.png"
+                source: "qrc:/qt/qml/QmlCreator/resources/images/icon512.png"
             }
         }
     }

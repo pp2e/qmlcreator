@@ -8,7 +8,7 @@ Item {
         width: Math.min(parent.width, parent.height) * 0.7
         height: width
         anchors.centerIn: parent
-        source: "qrc:/QmlCreator/resources/images/icon512.png"
+        source: "qrc:/qt/qml/QmlCreator/resources/images/icon512.png"
 
         property double xRotation: (mouseArea.mouseX / mouseArea.width - 0.5) * 60
         property double yRotation: -(mouseArea.mouseY / mouseArea.height - 0.5) * 60

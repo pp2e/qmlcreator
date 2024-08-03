@@ -60,9 +60,9 @@ void ProjectManager::restoreExamples(QString path)
 
     QDir qrcExamplesDir;
     if (path == baseFolderPath("Examples"))
-        qrcExamplesDir = QDir(":/QmlCreator/examples");
+        qrcExamplesDir = QDir(":/qt/qml/QmlCreator/examples");
     else if (path == baseFolderPath("QmlCreator"))
-        qrcExamplesDir = QDir(":/QmlCreator/qml");
+        qrcExamplesDir = QDir(":/qt/qml/QmlCreator/qml");
     else
         return;
 
@@ -223,7 +223,7 @@ QString ProjectManager::newFileContent(QString fileType)
 
     if (!fileName.isEmpty())
     {
-        QFile file(":/QmlCreator/resources/templates/" + fileName);
+        QFile file(":/qt/qml/QmlCreator/resources/templates/" + fileName);
         file.open(QIODevice::ReadOnly | QIODevice::Text);
         QTextStream textStream(&file);
         fileContent = textStream.readAll().trimmed();

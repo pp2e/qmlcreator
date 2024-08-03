@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
     if (QFile(ProjectManager::baseFolderPath("QmlCreator") + "/main.qml").exists())
         engine.load(QUrl(ProjectManager::baseFolderPath("QmlCreator") + "/main.qml"));
     else
-        engine.load(QUrl("qrc:/QmlCreator/qml/main.qml"));
+        engine.load(QUrl("qrc:/qt/qml/QmlCreator/qml/main.qml"));
 
     ProjectManager::setQmlEngine(&engine);
     MessageHandler::setQmlEngine(&engine);
