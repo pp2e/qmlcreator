@@ -34,7 +34,7 @@ jobs:
         cache: true
 
     - name: Configure
-        run: |
+      run: |
         export QT_HOST_PATH=/${{ env.QT_ROOT_DIR }}/../macos/
         ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B ./build
 
