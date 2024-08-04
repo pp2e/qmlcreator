@@ -32,15 +32,15 @@ jobs:
         dir: '${{ runner.temp }}'
         install-deps: 'true'
         cache: true
-      
-    - run: echo ${{ env.QT_ROOT_DIR }}/../../Tools/Ninja >> $GITHUB_PATH
 
-    - name: Build
-      run: |
+    - name: Configure
+        run: |
         export QT_HOST_PATH=/${{ env.QT_ROOT_DIR }}/../macos/
         ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B ./build
-        cd build
-        xcodebuild build -project qmlcreator.xcodeproj -configuration Release -destination "generic/platform=iOS" CODE_SIGNING_ALLOWED=NO -scheme qmlcreator -archivePath qmlcreator.xcarchive archive
+
+    - name: Build
+      run: xcodebuild build -project qmlcreator.xcodeproj -configuration Release -destination "generic/platform=iOS" CODE_SIGNING_ALLOWED=NO -scheme qmlcreator -archivePath qmlcreator.xcarchive archive
+      working-directory: build
 
     - name: Package
       run: |

@@ -34,7 +34,9 @@ void recSearchQmldir(QString path, QStringList &names, int depth = 0) {
 QStringList ModulesFinder::modules() {
     QQmlEngine *engine = qmlEngine(this);
     QStringList modules;
-    for (const QString &dir : engine->importPathList()) {
+    for (QString dir : engine->importPathList()) {
+        if (dir.startsWith("qrc:/"))
+            dir = dir.sliced(3);
         recSearchQmldir(dir, modules);
     }
     return modules;
