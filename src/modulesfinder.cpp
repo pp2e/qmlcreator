@@ -8,10 +8,8 @@ ModulesFinder::ModulesFinder(QObject *parent)
     : QObject{parent} {}
 
 void recSearchQmldir(QString path, QStringList &names, int depth = 0) {
-    qDebug() << path;
     QString qmldirPath = path + QDir::separator() + "qmldir";
     if (QFileInfo::exists(qmldirPath)) {
-        qDebug() << "found qmldir";
         QFile qmldir(qmldirPath);
         qmldir.open(QIODevice::ReadOnly);
         // TODO: probably can not read all file
