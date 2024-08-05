@@ -52,7 +52,7 @@ jobs:
     - name: Save APK
       uses: actions/upload-artifact@v4
       with:
-        name: qmlcreator
+        name: qmlcreator-ipa
         path: build/qmlcreator.xcarchive/Products/Applications/*.ipa
 
 
@@ -99,5 +99,5 @@ jobs:
     - name: Save APK
       uses: actions/upload-artifact@v4
       with:
-        name: qmlcreator
+        name: qmlcreator-apk
         path: build/src/android-build/*.apk
