@@ -8,7 +8,7 @@ jobs:
   build-ios:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Install Host Qt
       uses: jurplel/install-qt-action@v4
@@ -59,7 +59,7 @@ jobs:
   build-apk:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Install Host Qt
       uses: jurplel/install-qt-action@v4
