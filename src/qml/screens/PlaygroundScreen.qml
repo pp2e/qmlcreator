@@ -48,8 +48,8 @@ BlankScreen {
             CBackButton {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                enabled: !leftView.busy
-                enableBack: !enableDualView
+                //enabled: !leftView.busy
+                //enableBack: !enableDualView
                 text: getDirName(filePath)
             }
 

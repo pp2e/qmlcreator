@@ -11,7 +11,7 @@ ScreenInsets::ScreenInsets(QQuickWindow *window)
 {}
 
 int ScreenInsets::top() {
-#ifdef Q_OS_IOS
+#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     // if window is not ready
     if (m_window == nullptr) return 0;
     QPlatformWindow *pWindow = m_window->handle();
@@ -24,7 +24,7 @@ int ScreenInsets::top() {
 }
 
 int ScreenInsets::bottom() {
-#ifdef Q_OS_IOS
+#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     // if window is not ready
     if (m_window == nullptr) return 0;
     QPlatformWindow *pWindow = m_window->handle();
@@ -37,7 +37,7 @@ int ScreenInsets::bottom() {
 }
 
 int ScreenInsets::left() {
-#ifdef Q_OS_IOS
+#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     // if window is not ready
     if (m_window == nullptr) return 0;
     QPlatformWindow *pWindow = m_window->handle();
@@ -50,7 +50,7 @@ int ScreenInsets::left() {
 }
 
 int ScreenInsets::right() {
-#ifdef Q_OS_IOS
+#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     // if window is not ready
     if (m_window == nullptr) return 0;
     QPlatformWindow *pWindow = m_window->handle();
