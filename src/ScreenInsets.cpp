@@ -20,7 +20,7 @@ int ScreenInsets::top() {
     if (pWindow == nullptr) return 0;
     QMargins margins = pWindow->safeAreaMargins();
     return margins.top();
-#elseif defined(Q_OS_ANDROID)
+#elif defined(Q_OS_ANDROID)
     // thanks
     // https://bugfreeblog.duckdns.org/2023/01/qt-qml-cutouts.html
     QJniObject activity = QNativeInterface::QAndroidApplication::context();
@@ -35,7 +35,7 @@ int ScreenInsets::top() {
 }
 
 int ScreenInsets::bottom() {
-#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
+#if defined(Q_OS_IOS)
     // if window is not ready
     if (m_window == nullptr) return 0;
     QPlatformWindow *pWindow = m_window->handle();
@@ -48,7 +48,7 @@ int ScreenInsets::bottom() {
 }
 
 int ScreenInsets::left() {
-#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
+#if defined(Q_OS_IOS)
     // if window is not ready
     if (m_window == nullptr) return 0;
     QPlatformWindow *pWindow = m_window->handle();
@@ -61,7 +61,7 @@ int ScreenInsets::left() {
 }
 
 int ScreenInsets::right() {
-#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
+#if defined(Q_OS_IOS)
     // if window is not ready
     if (m_window == nullptr) return 0;
     QPlatformWindow *pWindow = m_window->handle();
