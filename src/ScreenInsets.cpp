@@ -1,8 +1,10 @@
 #include "ScreenInsets.h"
 
 
-#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
+#if defined(Q_OS_IOS)
 #include <qpa/qplatformwindow.h>
+#elseif defined(Q_OS_ANDROID)
+#include <QJniObject>
 #endif
 
 ScreenInsets::ScreenInsets(QQuickWindow *window)
@@ -11,13 +13,22 @@ ScreenInsets::ScreenInsets(QQuickWindow *window)
 {}
 
 int ScreenInsets::top() {
-#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
+#if defined(Q_OS_IOS)
     // if window is not ready
     if (m_window == nullptr) return 0;
     QPlatformWindow *pWindow = m_window->handle();
     if (pWindow == nullptr) return 0;
     QMargins margins = pWindow->safeAreaMargins();
     return margins.top();
+#elseif defined(Q_OS_ANDROID)
+    // thanks
+    // https://bugfreeblog.duckdns.org/2023/01/qt-qml-cutouts.html
+    QJniObject activity = QNativeInterface::QAndroidApplication::context();
+    QJniObject window = activity.callObjectMethod("getWindow", "()Landroid/view/Window;");
+    QJniObject decorView = window.callObjectMethod("getDecorView", "()Landroid/view/View;");
+    QJniObject insets = decorView.callObjectMethod("getRootWindowInsets", "()Landroid/view/WindowInsets;");
+    QJniObject cutout = insets.callObjectMethod("getDisplayCutout", "()Landroid/view/DisplayCutout;");
+    return cutout.callMethod<int>("getSafeInsetTop", "()I");
 #else
     return 0;
 #endif

@@ -18,7 +18,7 @@
 
 #include "ProjectManager.h"
 
-// #include <QDebug>
+#include <QDebug>
 
 ProjectManager::ProjectManager(QObject *parent) :
     QObject(parent)
@@ -76,6 +76,7 @@ QVariantList ProjectManager::files(QString subdir)
     QFileInfoList files = dir.entryInfoList(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot);
 
     foreach(QFileInfo file, files) {
+        qDebug() << file.absolutePath();
         if (file.absolutePath() == baseFolderPath("qmlcreator.ini")) continue;
         QVariantMap entry;
         entry.insert("name", file.fileName());

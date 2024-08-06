@@ -44,9 +44,13 @@ if (IOS)
         MACOSX_BUNDLE TRUE
         MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/platform-specific/ios/Info.plist
     )
+elseif (ANDROID)
+    set_target_properties(qmlcreator PROPERTIES
+        QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/platform-specific/android
+    )
 endif()
 
-if (IOS OR ANDROID)
+if (IOS)
     target_link_libraries(qmlcreator PRIVATE Qt6::GuiPrivate)
 endif()
 
