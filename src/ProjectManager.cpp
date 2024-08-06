@@ -76,6 +76,7 @@ QVariantList ProjectManager::files(QString subdir)
     QFileInfoList files = dir.entryInfoList(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot);
 
     foreach(QFileInfo file, files) {
+        if (file.absolutePath() == baseFolderPath("qmlcreator.ini")) continue;
         QVariantMap entry;
         entry.insert("name", file.fileName());
         entry.insert("isDir", file.isDir());
@@ -193,7 +194,7 @@ QString ProjectManager::baseFolderPath(QString folder)
 {
 #if defined(UBUNTU_CLICK)
     QString folderPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
-#elif defined(Q_OS_IOS)
+#elif defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     QString folderPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
 #else
     QString folderPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) +
@@ -206,6 +207,10 @@ QString ProjectManager::baseFolderPath(QString folder)
     }
 
     return folderPath;
+}
+
+QString ProjectManager::settingsPath() {
+    return "file://" + baseFolderPath("qmlcreator.ini");
 }
 
 QString ProjectManager::newFileContent(QString fileType)

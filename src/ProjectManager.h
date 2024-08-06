@@ -31,6 +31,8 @@
 class ProjectManager : public QObject
 {
     Q_OBJECT
+    
+    Q_PROPERTY(QString settingsPath READ settingsPath CONST)
 
 public:
     explicit ProjectManager(QObject *parent = 0);
@@ -60,6 +62,8 @@ public:
     
     // for main.qml selection in main.cpp
     Q_INVOKABLE static QString baseFolderPath(QString folder);
+    
+    QString static settingsPath();
 
 private:
     void recursiveCopyDir(QDir source, QDir target);

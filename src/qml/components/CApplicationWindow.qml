@@ -50,7 +50,6 @@ ApplicationWindow {
         // internal
         property bool debugMode: false
         property double pixelDensity : 2.5
-        property string previousVersion: "0.0.0"
         property bool desktopPlatform: Qt.platform.os === "windows" ||
                                        Qt.platform.os === "linux" ||
                                        Qt.platform.os === "osx" ||
@@ -58,6 +57,7 @@ ApplicationWindow {
     }
 
     Settings {
+        location: ProjectManager.settingsPath
         category: "Editor"
         property alias font: settings.font
         property alias fontSize: settings.fontSize
@@ -66,11 +66,6 @@ ApplicationWindow {
         property alias debugging: settings.debugging
         property alias allowEditUI: settings.allowEditUI
         property alias useNewPlayground: settings.useNewPlayground 
-    }
-
-    Settings {
-        category: "Version"
-        property alias previousVersion: settings.previousVersion
     }
 
     property alias settings: settings
