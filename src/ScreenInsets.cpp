@@ -1,7 +1,7 @@
 #include "ScreenInsets.h"
 
 
-#ifdef Q_OS_IOS
+#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
 #include <qpa/qplatformwindow.h>
 #endif
 
