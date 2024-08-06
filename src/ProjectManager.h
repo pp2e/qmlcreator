@@ -32,7 +32,7 @@ class ProjectManager : public QObject
 {
     Q_OBJECT
     
-    Q_PROPERTY(QString settingsPath READ settingsPath CONST)
+    Q_PROPERTY(QString settingsPath READ settingsPath CONSTANT)
 
 public:
     explicit ProjectManager(QObject *parent = 0);
