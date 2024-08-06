@@ -3,7 +3,7 @@
 
 #if defined(Q_OS_IOS)
 #include <qpa/qplatformwindow.h>
-#elseif defined(Q_OS_ANDROID)
+#elif defined(Q_OS_ANDROID)
 #include <QJniObject>
 #endif
 
