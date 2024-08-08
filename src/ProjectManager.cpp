@@ -77,7 +77,7 @@ QVariantList ProjectManager::files(QString subdir)
 
     foreach(QFileInfo file, files) {
         qDebug() << file.absolutePath();
-        if (file.absolutePath() == baseFolderPath("qmlcreator.ini")) continue;
+        if (file.absoluteFilePath() == baseFolderPath("qmlcreator.ini")) continue;
         QVariantMap entry;
         entry.insert("name", file.fileName());
         entry.insert("isDir", file.isDir());
