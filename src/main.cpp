@@ -86,33 +86,32 @@ int main(int argc, char *argv[])
         GRID_UNIT_PX = 8;
     }
 
-    QQmlApplicationEngine engine;
+    QQuickView view;
+    //QQmlApplicationEngine engine;
 
     const QString qtVersion = QT_VERSION_STR;
     const QString buildDateTime = QStringLiteral("%1 %2").arg(__DATE__, __TIME__);
-    engine.rootContext()->setContextProperty("qtVersion", qtVersion);
-    engine.rootContext()->setContextProperty("buildDateTime", buildDateTime);
+    view.engine()->rootContext()->setContextProperty("qtVersion", qtVersion);
+    view.engine()->rootContext()->setContextProperty("buildDateTime", buildDateTime);
 
-    engine.rootContext()->setContextProperty("configPath", configPath);
-    engine.rootContext()->setContextProperty("cachePath", cachePath);
+    view.engine()->rootContext()->setContextProperty("configPath", configPath);
+    view.engine()->rootContext()->setContextProperty("cachePath", cachePath);
 
-    engine.rootContext()->setContextProperty("GRID_UNIT_PX", GRID_UNIT_PX);
+    view.engine()->rootContext()->setContextProperty("GRID_UNIT_PX", GRID_UNIT_PX);
 
 #if !defined(Q_OS_ANDROID)
-    engine.rootContext()->setContextProperty("platformResizesView", true);
+    view.engine()->rootContext()->setContextProperty("platformResizesView", true);
 #else
-    engine.rootContext()->setContextProperty("platformResizesView", false);
+    view.engine()->rootContext()->setContextProperty("platformResizesView", false);
 #endif
 
 #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
-    engine.rootContext()->setContextProperty("platformHasNativeCopyPaste", true);
-    engine.rootContext()->setContextProperty("platformHasNativeDragHandles", true);
+    view.engine()->rootContext()->setContextProperty("platformHasNativeCopyPaste", true);
+    view.engine()->rootContext()->setContextProperty("platformHasNativeDragHandles", true);
 #else
-    engine.rootContext()->setContextProperty("platformHasNativeCopyPaste", false);
-    engine.rootContext()->setContextProperty("platformHasNativeDragHandles", false);
+    view.engine()->rootContext()->setContextProperty("platformHasNativeCopyPaste", false);
+    view.engine()->rootContext()->setContextProperty("platformHasNativeDragHandles", false);
 #endif
-
-    QQuickView view(engine);
 
     // Load user's custom main.qml if we can
     if (QFile(ProjectManager::baseFolderPath("QmlCreator") + "/main.qml").exists())
