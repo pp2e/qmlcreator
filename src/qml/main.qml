@@ -45,7 +45,6 @@ CApplicationWindow {
                          Material.Blue
 
     property var insets: ScreenInsets {
-        //window: appWindow
         window: Window.window
     }
 

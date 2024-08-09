@@ -26,10 +26,7 @@ import "palettes"
 
 Rectangle {
     id: cApplicationWindow
-    width: 420
-    height: 640
-    //visible: true
-    //title: "QML Creator"
+    anchors.fill: parent
     color: appWindow.colorPalette.background
 
     readonly property bool enableDualView: width > height
@@ -91,6 +88,7 @@ Rectangle {
 
     // Focus Management
 
+    property Item activeFocusItem: Window.activeFocusItem
     property Item focusItem: null
     signal backPressed()
 
