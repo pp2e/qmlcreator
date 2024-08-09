@@ -70,7 +70,7 @@ private:
     QString newFileContent(QString fileType);
 
     // QML engine stuff
-    static QQmlApplicationEngine *m_qmlEngine;
+    QQmlApplicationEngine *m_qmlEngine;
 
 signals:
     void error(QString description);
