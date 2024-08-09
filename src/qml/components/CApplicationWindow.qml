@@ -24,12 +24,12 @@ import QtCore
 import ProjectManager
 import "palettes"
 
-ApplicationWindow {
+Rectangle {
     id: cApplicationWindow
     width: 420
     height: 640
-    visible: true
-    title: "QML Creator"
+    //visible: true
+    //title: "QML Creator"
     color: appWindow.colorPalette.background
 
     readonly property bool enableDualView: width > height
