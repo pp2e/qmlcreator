@@ -26,7 +26,6 @@
 #include <QIODevice>
 #include <QStandardPaths>
 #include <QTextStream>
-#include <QQmlApplicationEngine>
 #include <QQmlEngine>
 
 class ProjectManager : public QObject
@@ -70,7 +69,7 @@ private:
     QString newFileContent(QString fileType);
 
     // QML engine stuff
-    QQmlApplicationEngine *m_qmlEngine;
+    QQmlEngine *m_qmlEngine;
 
 signals:
     void error(QString description);
