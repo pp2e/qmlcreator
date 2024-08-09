@@ -27,6 +27,7 @@
 #include <QStandardPaths>
 #include <QTextStream>
 #include <QQmlApplicationEngine>
+#include <QQmlEngine>
 
 class ProjectManager : public QObject
 {
@@ -35,7 +36,7 @@ class ProjectManager : public QObject
     Q_PROPERTY(QString settingsPath READ settingsPath CONSTANT)
 
 public:
-    explicit ProjectManager(QObject *parent = 0);
+    explicit ProjectManager(QQmlEngine *engine, QObject *parent = 0);
 
     // project management
     Q_INVOKABLE void createProject(QString path, QString projectName);
@@ -54,7 +55,6 @@ public:
     Q_INVOKABLE void saveFileContent(QString filePath, QString content);
 
     // QML engine stuff
-    static void setQmlEngine(QQmlApplicationEngine *engine);
     Q_INVOKABLE void clearComponentCache();
 
     // singleton type provider function

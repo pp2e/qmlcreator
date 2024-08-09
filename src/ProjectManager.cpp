@@ -20,8 +20,9 @@
 
 #include <QDebug>
 
-ProjectManager::ProjectManager(QObject *parent) :
-    QObject(parent)
+ProjectManager::ProjectManager(QQmlEngine *engine, QObject *parent) :
+    QObject(parent),
+    m_qmlEngine(engine)
 {
     QDir().mkpath(baseFolderPath("Projects"));
     QDir().mkpath(baseFolderPath("Examples"));
@@ -144,24 +145,16 @@ void ProjectManager::saveFileContent(QString filePath, QString content)
     textStream<<content;
 }
 
-QQmlApplicationEngine *ProjectManager::m_qmlEngine = Q_NULLPTR;
-
-void ProjectManager::setQmlEngine(QQmlApplicationEngine *engine)
-{
-    ProjectManager::m_qmlEngine = engine;
-}
-
 void ProjectManager::clearComponentCache()
 {
-    ProjectManager::m_qmlEngine->clearComponentCache();
+    m_qmlEngine->clearComponentCache();
 }
 
 QObject *ProjectManager::projectManagerProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
 {
-    Q_UNUSED(engine)
     Q_UNUSED(scriptEngine)
 
-    ProjectManager *projectManager = new ProjectManager();
+    ProjectManager *projectManager = new ProjectManager(engine);
     return projectManager;
 }
 
