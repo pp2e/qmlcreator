@@ -111,17 +111,11 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("platformHasNativeDragHandles", false);
 #endif
 
-    QQuickView view(engine);
-
     // Load user's custom main.qml if we can
     if (QFile(ProjectManager::baseFolderPath("QmlCreator") + "/main.qml").exists())
-        //engine.load(QUrl(ProjectManager::baseFolderPath("QmlCreator") + "/main.qml"));
-        view.setSource(QUrl(ProjectManager::baseFolderPath("QmlCreator") + "/main.qml"));
+        engine.load(QUrl(ProjectManager::baseFolderPath("QmlCreator") + "/main.qml"));
     else
-        //engine.load(QUrl("qrc:/qt/qml/QmlCreator/qml/main.qml"));
-        view.setSource(QUrl("qrc:/qt/qml/QmlCreator/qml/main.qml"));
-    
-    view.show();
+        engine.load(QUrl("qrc:/qt/qml/QmlCreator/qml/main.qml"));
 
     MessageHandler::setQmlEngine(&engine);
     return app.exec();
