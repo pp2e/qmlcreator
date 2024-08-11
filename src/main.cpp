@@ -22,7 +22,6 @@
 #include <QQmlApplicationEngine>
 #include <QTranslator>
 #include <QtGlobal>
-#include <QQuickView>
 #include "MessageHandler.h"
 #include "ProjectManager.h"
 #include "SyntaxHighlighter.h"
