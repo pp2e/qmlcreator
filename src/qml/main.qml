@@ -42,7 +42,7 @@ CApplicationWindow {
                          Material.Blue
 
     property var insets: ScreenInsets {
-        window: quickView
+        window: Window.window
     }
 
     onBackPressed: {
