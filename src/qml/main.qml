@@ -32,6 +32,9 @@ import Qt.labs.platform
 CApplicationWindow {
     id: appWindow
     property alias splitView : splitView
+    minimumHeight: 100
+    minimumWidth: 100
+    flags: Qt.Window | Qt.MaximizeUsingFullscreenGeometryHint
     readonly property bool isDarkMode : settings.palette == "Dark"
 
     Material.theme: isDarkMode ?
