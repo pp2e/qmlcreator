@@ -121,7 +121,6 @@ int main(int argc, char *argv[])
         //engine.load(QUrl("qrc:/qt/qml/QmlCreator/qml/main.qml"));
         view.setSource(QUrl("qrc:/qt/qml/QmlCreator/qml/main.qml"));
     
-    view.setFlag(Qt::MaximizeUsingFullscreenGeometryHint);
     view.show();
 
     //MessageHandler::setQmlEngine(view.engine());
