@@ -123,7 +123,6 @@ int main(int argc, char *argv[])
     
     view.show();
 
-    ProjectManager::setQmlEngine(&engine);
     MessageHandler::setQmlEngine(&engine);
     return app.exec();
 }
