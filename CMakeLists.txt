@@ -13,5 +13,6 @@ qt_policy(SET QTP0001 NEW)
 set(BUILD_TESTING "0")
 find_package(ECM REQUIRED)
 
+set(BUILD_SHARED_LIBS OFF)
 add_subdirectory(3rdparty/kirigami)
 add_subdirectory(src)
