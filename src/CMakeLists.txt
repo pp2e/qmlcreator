@@ -213,4 +213,4 @@ qt_add_qml_module(qmlcreator
     qml/screens/NewPlaygroundScreen.qml
 )
 
-target_link_libraries(qmlcreator PRIVATE Qt6::Quick)
+target_link_libraries(qmlcreator PRIVATE Qt6::Quick kieigamiplugin)
