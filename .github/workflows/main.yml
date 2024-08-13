@@ -8,18 +8,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install Host Qt
-      uses: jurplel/install-qt-action@v4
-      with:
-        version: 6.7.*
-        host: 'mac'
-        target: 'desktop'
-        arch: 'clang_64'
-        tools: 'tools_ninja tools_cmake'
-        dir: '${{ runner.temp }}'
-        install-deps: 'true'
-        cache: true
-          
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
       with:
@@ -27,14 +15,24 @@ jobs:
         host: 'mac'
         target: 'ios'
         arch: 'ios'
+        modules: 'qtshadertools'
         dir: '${{ runner.temp }}'
         install-deps: 'true'
         cache: true
 
-    - name: Configure
+    - name: Build ecm
       run: |
-        export QT_HOST_PATH=/${{ env.QT_ROOT_DIR }}/../macos/
-        ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B ./build
+        git clone https://invent.kde.org/frameworks/extra-cmake-modules ${{ runner.temp }}/ecm
+        cd ${{ runner.temp }}/ecm
+        git checkout v6.5.0
+        cmake .
+        cmake --build .
+        cmake --install . --prefix ${{ env.QT_ROOT_DIR }}/
+
+    - name: Configure
+      run: cmake -B ./build -DCMAKE_TOOLCHAIN_FILE=${{ env.QT_ROOT_DIR }}/lib/cmake/Qt6/qt.toolchain.cmake
+                            -DQT_HOST_PATH=${{ env.QT_ROOT_DIR }}/../macos/
+                            -DQt6LinguistTools_DIR=/media/eugen/media_01/qtwasm/6.7.1/gcc_64/lib/cmake/Qt6LinguistTools
 
     - name: Build
       run: xcodebuild build -project qmlcreator.xcodeproj -configuration Release -destination "generic/platform=iOS" CODE_SIGNING_ALLOWED=NO -scheme qmlcreator -archivePath qmlcreator.xcarchive archive
