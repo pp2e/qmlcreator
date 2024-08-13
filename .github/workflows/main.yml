@@ -18,6 +18,7 @@ jobs:
         target: 'desktop'
         arch: 'clang_64'
         modules: 'qtshadertools'
+        tools: 'tools_cmake'
         dir: '${{ runner.temp }}'
         install-deps: 'true'
         cache: true
