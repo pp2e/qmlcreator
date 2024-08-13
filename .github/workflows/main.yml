@@ -10,6 +10,18 @@ jobs:
       with:
         submodules: 'true'
 
+    - name: Install host Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        version: 6.7.*
+        host: 'mac'
+        target: 'desktop'
+        arch: 'clang_64'
+        modules: 'qtshadertools'
+        dir: '${{ runner.temp }}'
+        install-deps: 'true'
+        cache: true
+
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
       with:
