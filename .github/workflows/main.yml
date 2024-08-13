@@ -18,7 +18,6 @@ jobs:
         target: 'desktop'
         arch: 'clang_64'
         modules: 'qtshadertools'
-        tools: 'tools_cmake'
         dir: '${{ runner.temp }}'
         install-deps: 'true'
         cache: true
@@ -52,8 +51,6 @@ jobs:
                             -DQt6LinguistTools_DIR=${{ env.QT_ROOT_DIR }}/../macos/lib/cmake/Qt6LinguistTools
                             -DQt6ShaderToolsTools_DIR=${{ env.QT_ROOT_DIR }}/../macos/lib/cmake/Qt6ShaderToolsTools
 
-    - run: ls build
-
     - name: Build
       run: xcodebuild build -project qmlcreator.xcodeproj -configuration Release -destination "generic/platform=iOS" CODE_SIGNING_ALLOWED=NO -scheme qmlcreator -archivePath qmlcreator.xcarchive archive
       working-directory: build
@@ -84,6 +81,7 @@ jobs:
         host: 'linux'
         target: 'desktop'
         arch: 'linux_gcc_64'
+        modules: 'qtshadertools'
         tools: 'tools_ninja tools_cmake'
         dir: '${{ runner.temp }}'
         install-deps: 'true'
@@ -96,21 +94,29 @@ jobs:
         host: 'linux'
         target: 'android'
         arch: 'android_arm64_v8a'
+        modules: 'qtshadertools'
         dir: '${{ runner.temp }}'
         install-deps: 'true'
         cache: true
 
-    - name: Configure
+    - name: Build ecm
       run: |
-        ls ${{ env.QT_ROOT_DIR }}/..
-        export QT_HOST_PATH=/${{ env.QT_ROOT_DIR }}/../gcc_64/
-        ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B ./build
+        git clone https://invent.kde.org/frameworks/extra-cmake-modules ${{ runner.temp }}/ecm
+        cd ${{ runner.temp }}/ecm
+        git checkout v6.5.0
+        cmake .
+        cmake --build .
+        cmake --install . --prefix ${{ env.QT_ROOT_DIR }}/
+
+    - name: Configure
+      run: ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B ./build
+                            -DQT_HOST_PATH=${{ env.QT_ROOT_DIR }}/../gcc_64/
+                            -DQt6LinguistTools_DIR=${{ env.QT_ROOT_DIR }}/../gcc_64/lib/cmake/Qt6LinguistTools
+                            -DQt6ShaderToolsTools_DIR=${{ env.QT_ROOT_DIR }}/../gcc_64/lib/cmake/Qt6ShaderToolsTools
 
     - name: Build
       run: cmake --build .
       working-directory: build
-
-    - run: ls build/*/*
 
     - name: Save APK
       uses: actions/upload-artifact@v4
