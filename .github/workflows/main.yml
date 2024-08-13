@@ -31,7 +31,7 @@ jobs:
         cmake --build .
         cmake --install . --prefix ${{ env.QT_ROOT_DIR }}/
 
-    - run: ls ${{ env.QT_ROOT_DIR }}/../macos/lib/cmake/Qt6ShaderToolsTools
+    - run: ls ${{ env.QT_ROOT_DIR }}/../macos/lib/cmake/
 
     - name: Configure
       run: cmake -B ./build -DCMAKE_TOOLCHAIN_FILE=${{ env.QT_ROOT_DIR }}/lib/cmake/Qt6/qt.toolchain.cmake
