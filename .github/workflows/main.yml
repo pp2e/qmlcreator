@@ -47,7 +47,7 @@ jobs:
     - run: ls ${{ env.QT_ROOT_DIR }}/../macos/lib/cmake/
 
     - name: Configure
-      run: cmake -B ./build -DCMAKE_TOOLCHAIN_FILE=${{ env.QT_ROOT_DIR }}/lib/cmake/Qt6/qt.toolchain.cmake
+      run: ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B ./build
                             -DQT_HOST_PATH=${{ env.QT_ROOT_DIR }}/../macos/
                             -DQt6LinguistTools_DIR=${{ env.QT_ROOT_DIR }}/../macos/lib/cmake/Qt6LinguistTools
                             -DQt6ShaderToolsTools_DIR=${{ env.QT_ROOT_DIR }}/../macos/lib/cmake/Qt6ShaderToolsTools
