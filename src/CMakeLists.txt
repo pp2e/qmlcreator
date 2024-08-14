@@ -20,7 +20,6 @@ qt_add_executable(qmlcreator
     modulesfinder.h
     modulesfinder.cpp
 )
-set_property(TARGET qmlcreator PROPERTY ENABLE_EXPORTS ON)
 
 if (IOS)
     set(app_icons
@@ -214,4 +213,6 @@ qt_add_qml_module(qmlcreator
     qml/screens/NewPlaygroundScreen.qml
 )
 
-target_link_libraries(qmlcreator PRIVATE Qt6::Quick Kirigamiplugin)
+target_link_libraries(qmlcreator PRIVATE Qt6::Quick)
+set_property(TARGET qmlcreator PROPERTY ENABLE_EXPORTS ON)
+target_link_libraries(qmlcreator PRIVATE Kirigamiplugin)
