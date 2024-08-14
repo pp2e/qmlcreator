@@ -20,6 +20,7 @@ qt_add_executable(qmlcreator
     modulesfinder.h
     modulesfinder.cpp
 )
+set_property(TARGET qmlcreator PROPERTY ENABLE_EXPORTS ON)
 
 if (IOS)
     set(app_icons
