@@ -15,4 +15,5 @@ find_package(ECM REQUIRED)
 
 set(BUILD_SHARED_LIBS OFF)
 add_subdirectory(3rdparty/kirigami)
+set(CMAKE_ENABLE_EXPORTS ON)
 add_subdirectory(src)
