@@ -213,6 +213,5 @@ qt_add_qml_module(qmlcreator
     qml/screens/NewPlaygroundScreen.qml
 )
 
-target_link_libraries(qmlcreator PRIVATE Qt6::Quick)
-set_property(TARGET qmlcreator PROPERTY ENABLE_EXPORTS ON)
-target_link_libraries(qmlcreator PRIVATE Kirigamiplugin)
+set_target_properties(qmlcreator PROPERTIES ENABLE_EXPORTS ON)
+target_link_libraries(qmlcreator PRIVATE Qt6::Quick Kirigamiplugin)
