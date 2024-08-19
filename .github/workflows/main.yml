@@ -46,10 +46,10 @@ jobs:
     - run: ls ${{ env.QT_ROOT_DIR }}/../macos/lib/cmake/
 
     - name: Configure
-      run: ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B ./build
+      run: ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B build
                             -DQT_HOST_PATH=${{ env.QT_ROOT_DIR }}/../macos/
                             -DQt6LinguistTools_DIR=${{ env.QT_ROOT_DIR }}/../macos/lib/cmake/Qt6LinguistTools
-                            -DQt6ShaderToolsTools_DIR=${{ env.QT_ROOT_DIR }}/../macos/lib/cmake/Qt6ShaderToolsTools
+                            -DQt6ShaderToolsTools_DIR=${{ env.QT_ROOT_DIR }}/../macos/lib/cmake/Qt6ShaderToolsTools || cmake -B build
 
     - name: Build
       run: xcodebuild build -project qmlcreator.xcodeproj -configuration Release -destination "generic/platform=iOS" CODE_SIGNING_ALLOWED=NO -scheme qmlcreator -archivePath qmlcreator.xcarchive archive
