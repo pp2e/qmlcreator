@@ -34,6 +34,9 @@ jobs:
         install-deps: 'true'
         cache: true
 
+    - name: Install ninja
+      run: brew install ninja
+
     - name: Build ecm
       run: |
         git clone https://invent.kde.org/frameworks/extra-cmake-modules ${{ runner.temp }}/ecm
@@ -46,27 +49,30 @@ jobs:
     - run: ls ${{ env.QT_ROOT_DIR }}/../macos/lib/cmake/
 
     - name: Configure
-      run: ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B build
+      run: ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B build -G Ninja
                             -DQT_HOST_PATH=${{ env.QT_ROOT_DIR }}/../macos/
                             -DQt6LinguistTools_DIR=${{ env.QT_ROOT_DIR }}/../macos/lib/cmake/Qt6LinguistTools
                             -DQt6ShaderToolsTools_DIR=${{ env.QT_ROOT_DIR }}/../macos/lib/cmake/Qt6ShaderToolsTools || cmake -B build
 
     - name: Build
-      run: xcodebuild build -project qmlcreator.xcodeproj -configuration Release -destination "generic/platform=iOS" CODE_SIGNING_ALLOWED=NO -scheme qmlcreator -archivePath qmlcreator.xcarchive archive
+      # run: xcodebuild build -project qmlcreator.xcodeproj -configuration Release -destination "generic/platform=iOS" CODE_SIGNING_ALLOWED=NO -scheme qmlcreator -archivePath qmlcreator.xcarchive archive
+      run: cmake --build .
       working-directory: build
 
     - name: Package
       run: |
         mkdir Payload
-        mv *.app Payload
+        mv src/*.app Payload
         zip -qq -r -9 Qmlcreator.ipa Payload
-      working-directory: build/qmlcreator.xcarchive/Products/Applications
+      # working-directory: build/qmlcreator.xcarchive/Products/Applications
+      working-directory: build
 
     - name: Save APK
       uses: actions/upload-artifact@v4
       with:
         name: qmlcreator-ipa
-        path: build/qmlcreator.xcarchive/Products/Applications/*.ipa
+        # path: build/qmlcreator.xcarchive/Products/Applications/*.ipa
+        path: build/*.ipa
 
 
   build-apk:
