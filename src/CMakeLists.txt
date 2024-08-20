@@ -1,24 +1,23 @@
 qt_add_executable(qmlcreator
     main.cpp
-    linenumbershelper.cpp
-    linenumbershelper.h
+    #linenumbershelper.cpp
+    #linenumbershelper.h
     MessageHandler.cpp
     MessageHandler.h
-    ProjectManager.cpp
-    ProjectManager.h
-    QMLHighlighter.h
-    SyntaxHighlighter.cpp
-    SyntaxHighlighter.h
-    QMLHighlighter.cpp
-    QMLHighlighter.h
+    #ProjectManager.cpp
+    #ProjectManager.h
+    #SyntaxHighlighter.cpp
+    #SyntaxHighlighter.h
+    #QMLHighlighter.cpp
+    #QMLHighlighter.h
 
     # New original code from alteve4d
-    ScreenInsets.h
-    ScreenInsets.cpp
-    windowloader.h
-    windowloader.cpp
-    modulesfinder.h
-    modulesfinder.cpp
+    #ScreenInsets.h
+    #ScreenInsets.cpp
+    #windowloader.h
+    #windowloader.cpp
+    #modulesfinder.h
+    #modulesfinder.cpp
 )
 
 if (IOS)
@@ -56,6 +55,17 @@ endif()
 
 qt_add_qml_module(qmlcreator
     URI QmlCreator
+    VERSION 1
+    
+    SOURCES
+    linenumbershelper.cpp
+    ProjectManager.cpp
+    SyntaxHighlighter.cpp
+    QMLHighlighter.cpp
+    # New original code from alteve4d
+    ScreenInsets.cpp
+    windowloader.cpp
+    modulesfinder.cpp
 
     RESOURCES
     resources/dictionaries/javascript.txt

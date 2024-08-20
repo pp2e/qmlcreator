@@ -21,7 +21,7 @@ import QtQuick.Controls
 import QtQuick.Window
 // import Qt.labs.settings
 import QtCore
-import ProjectManager
+import QmlCreator
 import "palettes"
 
 ApplicationWindow {

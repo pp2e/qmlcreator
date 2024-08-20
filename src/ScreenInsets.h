@@ -7,6 +7,7 @@
 class ScreenInsets : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
 
     Q_PROPERTY(int top READ top NOTIFY insetsChanged)
     Q_PROPERTY(int bottom READ bottom NOTIFY insetsChanged)

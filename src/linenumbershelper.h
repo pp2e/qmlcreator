@@ -7,6 +7,7 @@
 class LineNumbersHelper : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
 
 public:
     Q_PROPERTY(QObject* document READ document WRITE setDocument NOTIFY documentChanged)

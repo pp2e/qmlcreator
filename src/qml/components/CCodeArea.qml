@@ -18,9 +18,7 @@
 
 import QtQuick
 import QtQuick.Controls
-import ProjectManager
-import SyntaxHighlighter
-import LineNumbersHelper
+import QmlCreator
 
 Item {
     id: cCodeArea

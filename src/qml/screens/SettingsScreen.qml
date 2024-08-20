@@ -18,7 +18,7 @@
 
 import QtQuick
 import "../components"
-import ProjectManager
+import QmlCreator
 
 BlankScreen {
     id: mainMenuScreen

@@ -33,6 +33,8 @@ class ProjectManager : public QObject
     Q_OBJECT
     
     Q_PROPERTY(QString settingsPath READ settingsPath CONSTANT)
+    QML_ELEMENT
+    QML_SINGLETON
 
 public:
     explicit ProjectManager(QQmlEngine *engine, QObject *parent = 0);

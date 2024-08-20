@@ -18,7 +18,7 @@
 
 import QtQuick
 import QtQuick.Effects
-import ProjectManager
+import QmlCreator
 import ".."
 
 BaseDialog {

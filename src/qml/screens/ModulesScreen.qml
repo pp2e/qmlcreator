@@ -18,7 +18,6 @@
 
 import QtQuick
 import QtQuick.Controls
-import ModulesFinder
 import "../components"
 
 BlankScreen {

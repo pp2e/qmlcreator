@@ -26,6 +26,7 @@
 class SyntaxHighlighter : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
 
     Q_PROPERTY(QColor normalColor    MEMBER m_normalColor    READ normalColor    WRITE setNormalColor    NOTIFY normalColorChanged)
     Q_PROPERTY(QColor commentColor   MEMBER m_commentColor   READ commentColor   WRITE setCommentColor   NOTIFY commentColorChanged)

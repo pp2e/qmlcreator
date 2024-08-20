@@ -23,12 +23,12 @@
 #include <QTranslator>
 #include <QtGlobal>
 #include "MessageHandler.h"
-#include "ProjectManager.h"
-#include "SyntaxHighlighter.h"
-#include "linenumbershelper.h"
-#include "ScreenInsets.h"
-#include "modulesfinder.h"
-#include "windowloader.h"
+//#include "ProjectManager.h"
+//#include "SyntaxHighlighter.h"
+//#include "linenumbershelper.h"
+//#include "ScreenInsets.h"
+//#include "modulesfinder.h"
+//#include "windowloader.h"
 
 #include <QLoggingCategory>
 
@@ -73,12 +73,12 @@ int main(int argc, char *argv[])
     translator.load("qmlcreator_" + QLocale::system().name(), ":/QmlCreator/resources/translations");
     app.installTranslator(&translator);
 
-    qmlRegisterSingletonType<ProjectManager>("ProjectManager", 1, 1, "ProjectManager", &ProjectManager::projectManagerProvider);
-    qmlRegisterType<SyntaxHighlighter>("SyntaxHighlighter", 1, 1, "SyntaxHighlighter");
-    qmlRegisterType<LineNumbersHelper>("LineNumbersHelper", 1, 1, "LineNumbersHelper");
-    qmlRegisterType<ScreenInsets>("ScreenInsets", 1, 0, "ScreenInsets");
-    qmlRegisterType<WindowLoader>("WindowLoader", 1, 0, "WindowLoader");
-    qmlRegisterType<ModulesFinder>("ModulesFinder", 1, 0, "ModulesFinder");
+    //qmlRegisterSingletonType<ProjectManager>("ProjectManager", 1, 1, "ProjectManager", &ProjectManager::projectManagerProvider);
+    //qmlRegisterType<SyntaxHighlighter>("SyntaxHighlighter", 1, 1, "SyntaxHighlighter");
+    //qmlRegisterType<LineNumbersHelper>("LineNumbersHelper", 1, 1, "LineNumbersHelper");
+    //qmlRegisterType<ScreenInsets>("ScreenInsets", 1, 0, "ScreenInsets");
+    //qmlRegisterType<WindowLoader>("WindowLoader", 1, 0, "WindowLoader");
+    //qmlRegisterType<ModulesFinder>("ModulesFinder", 1, 0, "ModulesFinder");
 
     uint GRID_UNIT_PX = qgetenv("GRID_UNIT_PX").toUInt();
     if (GRID_UNIT_PX == 0) {

@@ -18,7 +18,7 @@
 
 import QtQuick
 import QtQuick.Layouts
-import ProjectManager
+import QmlCreator
 import "../components"
 
 BlankScreen {
