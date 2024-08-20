@@ -9,7 +9,7 @@
 class WindowLoader : public QObject
 {
     Q_OBJECT
-    QML_ELEMENTS
+    QML_ELEMENT
 
     Q_PROPERTY(QString source READ source WRITE setSource NOTIFY sourceChanged)
     Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged)
