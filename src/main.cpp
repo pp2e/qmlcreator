@@ -23,7 +23,7 @@
 #include <QTranslator>
 #include <QtGlobal>
 #include "MessageHandler.h"
-//#include "ProjectManager.h"
+#include "ProjectManager.h"
 //#include "SyntaxHighlighter.h"
 //#include "linenumbershelper.h"
 //#include "ScreenInsets.h"
