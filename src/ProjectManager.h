@@ -59,7 +59,7 @@ public:
     Q_INVOKABLE void clearComponentCache();
 
     // singleton type provider function
-    static QObject *projectManagerProvider(QQmlEngine *engine, QJSEngine *scriptEngine);
+    static ProjectManager *create(QQmlEngine *engine, QJSEngine *scriptEngine);
     
     // for main.qml selection in main.cpp
     Q_INVOKABLE static QString baseFolderPath(QString folder);

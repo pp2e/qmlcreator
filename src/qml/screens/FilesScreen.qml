@@ -78,14 +78,14 @@ BlankScreen {
                 if (modelData.isDir) {
                     newScreen =
                             filesScreenComponent.createObject(leftView, {
-                                                                  subPath: subPath + "/" + modelData.name
+                                                                  subPath: modelData.fullPath
                                                               });
                     leftView.push(newScreen)
                 } else {
                     newScreen =
                             editorScreenComponent.createObject(rightView,
                                                                {
-                                                                   filePath : subPath + "/" + modelData.name,
+                                                                   filePath : modelData.fullPath
                                                                });
                     rightView.push(newScreen)
                 }
@@ -102,7 +102,7 @@ BlankScreen {
                 {
                     if (value)
                     {
-                        ProjectManager.removeFile(subPath + "/" + modelData.name)
+                        ProjectManager.removeFile(modelData.fullPath)
                         listView.model = ProjectManager.files(subPath)
                     }
                 }
@@ -150,7 +150,7 @@ BlankScreen {
 
                 var callback = function(value)
                 {
-                    ProjectManager.createFile(subPath + "/" + value.fileName, value.fileExtension)
+                    ProjectManager.createFile(modelData.fullPath, value.fileExtension)
                     listView.model = ProjectManager.files(subPath)
                 }
 
@@ -168,7 +168,7 @@ BlankScreen {
 
                 var callback = function(value)
                 {
-                    ProjectManager.createDir(subPath + "/" + value.dirName)
+                    ProjectManager.createDir(modelData.fullPath)
                     listView.model = ProjectManager.files(subPath)
                 }
 

@@ -77,10 +77,10 @@ QVariantList ProjectManager::files(QString subdir)
     QFileInfoList files = dir.entryInfoList(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot);
 
     foreach(QFileInfo file, files) {
-        qDebug() << file.absolutePath();
         if (file.absoluteFilePath() == baseFolderPath("qmlcreator.ini")) continue;
         QVariantMap entry;
         entry.insert("name", file.fileName());
+        entry.insert("fullPath", file.absoluteFilePath());
         entry.insert("isDir", file.isDir());
         projectFiles.push_back(entry);
     }
@@ -150,7 +150,7 @@ void ProjectManager::clearComponentCache()
     m_qmlEngine->clearComponentCache();
 }
 
-QObject *ProjectManager::projectManagerProvider(QQmlEngine *engine, QJSEngine *scriptEngine)
+ProjectManager *ProjectManager::create(QQmlEngine *engine, QJSEngine *scriptEngine)
 {
     Q_UNUSED(scriptEngine)
 

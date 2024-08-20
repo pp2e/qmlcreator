@@ -10,7 +10,7 @@ find_package(Qt6ShaderToolsTools REQUIRED CMAKE_FIND_ROOT_PATH_BOTH)
 qt_standard_project_setup()
 qt_policy(SET QTP0001 NEW)
 
-set(BUILD_TESTING "0")
+set(BUILD_TESTING OFF)
 find_package(ECM REQUIRED)
 
 set(BUILD_SHARED_LIBS OFF)
