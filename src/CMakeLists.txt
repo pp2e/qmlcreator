@@ -55,7 +55,7 @@ endif()
 
 qt_add_qml_module(qmlcreator
     URI QmlCreator
-    VERSION 1
+    VERSION 1.0
     
     SOURCES
     linenumbershelper.cpp
