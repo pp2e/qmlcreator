@@ -200,7 +200,7 @@ qt_add_qml_module(qmlcreator
     qml/screens/SettingsScreen.qml
     qml/screens/PlaygroundScreen.qml
     qml/screens/ModulesScreen.qml
-    qml/main.qml
+    qml/Main.qml
 
     QML_FILES
     # New original qml code from altevedev
