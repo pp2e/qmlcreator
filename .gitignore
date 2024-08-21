@@ -9,3 +9,4 @@ prime/
 snap/.snapcraft
 .DS_Store
 ._*
+.qmllint.ini
