@@ -1,0 +1,8 @@
+clickable_minimum_required: '7.6.0'
+builder: cmake
+build_args:
+- -DCLICK_MODE
+
+framework: ubuntu-sdk-20.04
+
+kill: 'qmlcreator'

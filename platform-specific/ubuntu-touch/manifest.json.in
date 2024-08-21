@@ -1,11 +1,11 @@
 {
-    "name": "me.fredl.qmlcreator",
+    "name": "qmlcreator.pp2e",
     "title": "QML Creator",
     "version": "1.4.0",
     "description": "A simple and lightweight IDE for projects based on QML & JavaScript",
     "architecture": "@CLICK_ARCH@",
-    "framework": "ubuntu-sdk-16.04",
-    "maintainer": "Alfred Neumayer <dev.beidl@gmail.com>",
+    "framework": "ubuntu-sdk-20.04",
+    "maintainer": "AlTeveD <enuromskiy@gmail.com>",
     "hooks": {
         "qmlcreator": {
             "apparmor": "qmlcreator.apparmor",
