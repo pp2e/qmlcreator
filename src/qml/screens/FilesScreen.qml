@@ -150,7 +150,7 @@ BlankScreen {
 
                 var callback = function(value)
                 {
-                    ProjectManager.createFile(modelData.fullPath, value.fileExtension)
+                    ProjectManager.createFile(subPath + "/" + value.fileName, value.fileExtension)
                     listView.model = ProjectManager.files(subPath)
                 }
 
@@ -168,7 +168,7 @@ BlankScreen {
 
                 var callback = function(value)
                 {
-                    ProjectManager.createDir(modelData.fullPath)
+                    ProjectManager.createDir(subPath + "/" + value.dirName)
                     listView.model = ProjectManager.files(subPath)
                 }
 
