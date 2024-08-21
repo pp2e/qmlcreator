@@ -131,3 +131,16 @@ jobs:
       with:
         name: qmlcreator-apk
         path: build/src/android-build/*.apk
+
+  build-ut:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: 'true'
+
+    - name: install clickable
+      run: pip install --user clickable-ut
+
+    - name: build
+      run: clickable build
