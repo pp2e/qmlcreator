@@ -1,7 +1,7 @@
 clickable_minimum_required: '7.6.0'
 builder: cmake
 build_args:
-- -DCLICK_MODE
+- -DCLICK_MODE=ON
 
 framework: ubuntu-sdk-20.04
 
