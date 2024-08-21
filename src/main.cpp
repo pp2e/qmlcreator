@@ -24,11 +24,6 @@
 #include <QtGlobal>
 #include "MessageHandler.h"
 #include "ProjectManager.h"
-//#include "SyntaxHighlighter.h"
-//#include "linenumbershelper.h"
-//#include "ScreenInsets.h"
-//#include "modulesfinder.h"
-//#include "windowloader.h"
 
 #include <QLoggingCategory>
 
@@ -73,13 +68,6 @@ int main(int argc, char *argv[])
     translator.load("qmlcreator_" + QLocale::system().name(), ":/QmlCreator/resources/translations");
     app.installTranslator(&translator);
 
-    //qmlRegisterSingletonType<ProjectManager>("ProjectManager", 1, 1, "ProjectManager", &ProjectManager::projectManagerProvider);
-    //qmlRegisterType<SyntaxHighlighter>("SyntaxHighlighter", 1, 1, "SyntaxHighlighter");
-    //qmlRegisterType<LineNumbersHelper>("LineNumbersHelper", 1, 1, "LineNumbersHelper");
-    //qmlRegisterType<ScreenInsets>("ScreenInsets", 1, 0, "ScreenInsets");
-    //qmlRegisterType<WindowLoader>("WindowLoader", 1, 0, "WindowLoader");
-    //qmlRegisterType<ModulesFinder>("ModulesFinder", 1, 0, "ModulesFinder");
-
     uint GRID_UNIT_PX = qgetenv("GRID_UNIT_PX").toUInt();
     if (GRID_UNIT_PX == 0) {
         GRID_UNIT_PX = 8;
@@ -115,7 +103,7 @@ int main(int argc, char *argv[])
     if (QFile(ProjectManager::baseFolderPath("QmlCreator") + "/main.qml").exists())
         engine.load(QUrl(ProjectManager::baseFolderPath("QmlCreator") + "/main.qml"));
     else
-        engine.load(QUrl("qrc:/qt/qml/QmlCreator/qml/main.qml"));
+        engine.loadFromModule("QmlCreator", "Main");
 
     MessageHandler::setQmlEngine(&engine);
     return app.exec();

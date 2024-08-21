@@ -1,23 +1,7 @@
 qt_add_executable(qmlcreator
     main.cpp
-    #linenumbershelper.cpp
-    #linenumbershelper.h
     MessageHandler.cpp
     MessageHandler.h
-    #ProjectManager.cpp
-    #ProjectManager.h
-    #SyntaxHighlighter.cpp
-    #SyntaxHighlighter.h
-    #QMLHighlighter.cpp
-    #QMLHighlighter.h
-
-    # New original code from alteve4d
-    #ScreenInsets.h
-    #ScreenInsets.cpp
-    #windowloader.h
-    #windowloader.cpp
-    #modulesfinder.h
-    #modulesfinder.cpp
 )
 
 if (IOS)
