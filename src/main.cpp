@@ -100,8 +100,8 @@ int main(int argc, char *argv[])
 #endif
 
     // Load user's custom main.qml if we can
-    if (QFile(ProjectManager::baseFolderPath("QmlCreator") + "/main.qml").exists())
-        engine.load(QUrl(ProjectManager::baseFolderPath("QmlCreator") + "/main.qml"));
+    if (QFile(ProjectManager::baseFolderPath("QmlCreator") + "/Main.qml").exists())
+        engine.load(QUrl(ProjectManager::baseFolderPath("QmlCreator") + "/Main.qml"));
     else
         engine.loadFromModule("QmlCreator", "Main");
 
