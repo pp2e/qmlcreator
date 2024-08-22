@@ -167,9 +167,9 @@ jobs:
         install-deps: 'true'
         cache: true
 
-    - run: export QT_ROOT_DIR=${{ env.QT_ROOT_DIR }}/../gcc_arm64
-
     - name: Build ecm
+      env:
+        QT_ROOT_DIR: ${{ env.QT_ROOT_DIR }}/../gcc_arm64
       run: |
         ls ${{ env.QT_ROOT_DIR }}/..
         git clone https://invent.kde.org/frameworks/extra-cmake-modules ${{ runner.temp }}/ecm
@@ -180,6 +180,8 @@ jobs:
         cmake --install . --prefix ${{ env.QT_ROOT_DIR }}/
 
     - name: Configure
+      env:
+        QT_ROOT_DIR: ${{ env.QT_ROOT_DIR }}/../gcc_arm64
       run: ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B build -DCLICK_MODE=ON
                             -DQT_HOST_PATH=${{ env.QT_ROOT_DIR }}/../gcc_64/
                             -DQt6LinguistTools_DIR=${{ env.QT_ROOT_DIR }}/../gcc_64/lib/cmake/Qt6LinguistTools
