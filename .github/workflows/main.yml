@@ -189,7 +189,7 @@ jobs:
     - name: Package
       working-directory: build
       run: |
-        cmake --install .
+        cmake --install . --prefix $(pwd)/trash # fool kirigami
         click build pkg
 
     - run: ls build
