@@ -141,6 +141,7 @@ jobs:
 
     - name: Install click
       run: |
+        sudo apt install libjson-glib-dev libgee-0.8-dev
         git clone https://gitlab.com/ubports/development/core/click ${{ runner.temp }}/click
         cd ${{ runner.temp }}/click
         ./autogen.sh
