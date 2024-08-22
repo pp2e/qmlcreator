@@ -139,6 +139,8 @@ jobs:
       with:
         submodules: 'true'
 
+    - run: apt search click
+    - run: which click || true
     - run: sudo apt install click
 
     - name: Install Host Qt
