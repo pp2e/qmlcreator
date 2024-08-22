@@ -147,7 +147,9 @@ jobs:
         ./autogen.sh
         ./configure
         ls
-        pip install --user .
+        make
+        sudo make install
+        echo pip install --user .
         click --version
 
     - name: Install Host Qt
