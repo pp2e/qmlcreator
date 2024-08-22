@@ -167,6 +167,8 @@ jobs:
         install-deps: 'true'
         cache: true
 
+    - run: export QT_ROOT_DIR=${{ env.QT_ROOT_DIR }}/../gcc_arm64
+
     - name: Build ecm
       run: |
         ls ${{ env.QT_ROOT_DIR }}/..
