@@ -139,9 +139,14 @@ jobs:
       with:
         submodules: 'true'
 
-    - run: apt search click
-    - run: which click || true
-    - run: sudo apt install click
+    - name: Install click
+      run: |
+        git clone https://gitlab.com/ubports/development/core/click ${{ runner.temp }}/click
+        cd ${{ runner.temp }}/click
+        ./autogen.sh
+        ls
+        pip install .
+        click --version
 
     - name: Install Host Qt
       uses: jurplel/install-qt-action@v4
