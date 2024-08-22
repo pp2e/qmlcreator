@@ -141,7 +141,7 @@ jobs:
 
     - name: Install click
       run: |
-        sudo apt install libjson-glib-dev libgee-0.8-dev libproperties-cpp-dev dbus-test-runner valac gobject-introspection libgirepository1.0-dev
+        sudo apt install libjson-glib-dev libgee-0.8-dev libproperties-cpp-dev dbus-test-runner valac gobject-introspection libgirepository1.0-dev python3-gi
         git clone https://gitlab.com/ubports/development/core/click ${{ runner.temp }}/click
         cd ${{ runner.temp }}/click
         ./autogen.sh
