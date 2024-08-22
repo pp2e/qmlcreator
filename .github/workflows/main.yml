@@ -133,7 +133,7 @@ jobs:
         path: build/src/android-build/*.apk
 
   build-ut:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v4
       with:
@@ -141,15 +141,7 @@ jobs:
 
     - name: Install click
       run: |
-        sudo apt install libjson-glib-dev libgee-0.8-dev libproperties-cpp-dev dbus-test-runner valac gobject-introspection libgirepository1.0-dev python3-gi
-        git clone https://gitlab.com/ubports/development/core/click ${{ runner.temp }}/click
-        cd ${{ runner.temp }}/click
-        ./autogen.sh
-        ./configure
-        ls
-        make
-        sudo make install
-        echo pip install --user .
+        sudo apt install click
         click --version
 
     - name: Install Host Qt
