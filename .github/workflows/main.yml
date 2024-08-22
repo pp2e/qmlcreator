@@ -140,9 +140,7 @@ jobs:
         submodules: 'true'
 
     - name: Install click
-      run: |
-        sudo apt install click
-        click --version
+      run: sudo apt install click
 
     - name: Install Host Qt
       uses: jurplel/install-qt-action@v4
