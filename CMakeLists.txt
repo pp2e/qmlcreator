@@ -30,8 +30,9 @@ if(CLICK_MODE)
     set(CLICK_ARCH aarch64)
 
     configure_file(platform-specific/ubuntu-touch/manifest.json.in ${CMAKE_CURRENT_BINARY_DIR}/manifest.json)
-    install(FILES platform-specific/ubuntu-touch/manifest.json DESTINATION ${CMAKE_INSTALL_PREFIX})
+    install(FILES ${CMAKE_CURRENT_BINARY_DIR}/manifest.json DESTINATION ${CMAKE_INSTALL_PREFIX})
     install(FILES platform-specific/ubuntu-touch/qmlcreator.apparmor DESTINATION ${CMAKE_INSTALL_PREFIX})
     install(FILES platform-specific/ubuntu-touch/qmlcreator.desktop DESTINATION ${CMAKE_INSTALL_PREFIX})
+    install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})
 
 endif()
