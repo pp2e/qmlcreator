@@ -144,8 +144,9 @@ jobs:
         git clone https://gitlab.com/ubports/development/core/click ${{ runner.temp }}/click
         cd ${{ runner.temp }}/click
         ./autogen.sh
+        ./configure
         ls
-        pip install .
+        pip install --user .
         click --version
 
     - name: Install Host Qt
