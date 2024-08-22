@@ -154,6 +154,7 @@ jobs:
         dir: '${{ runner.temp }}'
         install-deps: 'true'
         cache: true
+        set-env: false
 
     - name: Install arm Qt
       uses: ArchitektApx/install-qt-action@v4
@@ -166,6 +167,7 @@ jobs:
         dir: '${{ runner.temp }}'
         install-deps: 'true'
         cache: true
+        set-env: false
 
     - name: Build ecm
       env:
