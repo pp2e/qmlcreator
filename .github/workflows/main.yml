@@ -189,7 +189,7 @@ jobs:
     - name: Package
       working-directory: build
       run: |
-        cmake --install . --prefix $(pwd)/pkg
+        cmake --install .
         click build pkg
 
     - run: ls build
