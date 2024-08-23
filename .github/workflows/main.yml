@@ -140,7 +140,7 @@ jobs:
         submodules: 'true'
 
     - name: Install click
-      run: sudo apt install click gcc-arm-linux-gnueabi g++-arm-linux-gnueabi
+      run: sudo apt install click gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
 
     - name: Install Host Qt
       uses: jurplel/install-qt-action@v4
@@ -184,7 +184,7 @@ jobs:
     - name: Configure
       env:
         QT_ROOT_DIR: ${{ runner.temp }}/Qt/6.7.2/gcc_arm64
-      run: ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B build -DCLICK_MODE=ON -DCMAKE_C_COMPILER=arm-linux-gnueabi-gcc -DCMAKE_CXX_COMPILER=arm-linux-gnueabi-g++
+      run: ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B build -DCLICK_MODE=ON -DCMAKE_C_COMPILER=gcc-aarch64-linux-gnu -DCMAKE_CXX_COMPILER=g++-aarch64-linux-gnu
                             -DQT_HOST_PATH=${{ env.QT_ROOT_DIR }}/../gcc_64/
                             -DQt6LinguistTools_DIR=${{ env.QT_ROOT_DIR }}/../gcc_64/lib/cmake/Qt6LinguistTools
                             -DQt6ShaderToolsTools_DIR=${{ env.QT_ROOT_DIR }}/../gcc_64/lib/cmake/Qt6ShaderToolsTools || cmake -B build
