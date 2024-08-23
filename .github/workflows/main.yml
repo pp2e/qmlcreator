@@ -142,6 +142,8 @@ jobs:
     - name: Install click
       run: sudo apt install click gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
 
+    - run: sudo apt install libglx-dev libgl1-mesa-dev
+
     - name: Install Host Qt
       uses: jurplel/install-qt-action@v4
       with:
