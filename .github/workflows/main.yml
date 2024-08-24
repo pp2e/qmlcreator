@@ -149,7 +149,7 @@ jobs:
         ls /etc/apt/sources.list.d
         cat /etc/apt/sources.list.d/azure-cli.sources
         echo -----
-        cat /etc/apt/sources.list.d/microsoft-prod.list
+        cat /etc/apt/sources.list.d/ubuntu.sources
         echo -----
         sudo sed -i 's/azure\.//' /etc/apt/sources.list.d/ubuntu.sources
         cat /etc/apt/sources.list.d/azure-cli.sources
