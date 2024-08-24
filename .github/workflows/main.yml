@@ -144,9 +144,10 @@ jobs:
 
     - run: |
         sudo dpkg --add-architecture arm64
-        cat /etc/apt/sources.list
-        sudo sed -i 's/azure\.//' /etc/apt/sources.list 
-        cat /etc/apt/sources.list
+        ls /etc/apt/sources.list.d
+        cat /etc/apt/sources.list.d/ubuntu.sources
+        sudo sed -i 's/azure\.//' /etc/apt/sources.list.d/ubuntu.sources
+        cat /etc/apt/sources.list.d/ubuntu.sources
         sudo apt update || true
         sudo apt install libglx-dev:arm64 libgl1-mesa-dev:arm64
 
