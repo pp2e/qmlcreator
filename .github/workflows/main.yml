@@ -143,7 +143,7 @@ jobs:
       run: sudo apt install click gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
 
     - run: |
-        echo deb [arch=arm64] http://azure.ports.ubuntu.com/ noble main multiverse universe >> /etc/apt/sources.list.d/azure-cli.sources
+        echo deb [arch=arm64] http://azure.ports.ubuntu.com/ noble main multiverse universe | sudo tee -a /etc/apt/sources.list.d/azure-cli.sources
         
         sudo dpkg --add-architecture arm64
         ls /etc/apt/sources.list.d
