@@ -149,7 +149,7 @@ jobs:
         ls /etc/apt/sources.list.d
         cat /etc/apt/sources.list.d/azure-cli.sources
         echo -----
-        sudo sed -i '/multiverse/a \nArchitectures: amd64' /etc/apt/sources.list.d/ubuntu.sources
+        sudo sed -i '/multiverse/a \Architectures: amd64' /etc/apt/sources.list.d/ubuntu.sources
         cat /etc/apt/sources.list.d/ubuntu.sources
         echo -----
         sudo sed -i 's/azure\.//' /etc/apt/sources.list.d/ubuntu.sources
