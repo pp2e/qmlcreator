@@ -209,8 +209,8 @@ jobs:
       run: ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B build -DCLICK_MODE=ON -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc -DCMAKE_CXX_COMPILER=aarch64-linux-gnu-g++
                             -DQT_HOST_PATH=${{ env.QT_ROOT_DIR }}/../gcc_64/
                             -DQt6LinguistTools_DIR=${{ env.QT_ROOT_DIR }}/../gcc_64/lib/cmake/Qt6LinguistTools
-                            -DQt6ShaderToolsTools_DIR=${{ env.QT_ROOT_DIR }}/../gcc_64/lib/cmake/Qt6ShaderToolsTools || cmake -B build
-                            -DXKB_LIBRARY=/usr/lib/aarch64-linux-gnu/
+                            -DQt6ShaderToolsTools_DIR=${{ env.QT_ROOT_DIR }}/../gcc_64/lib/cmake/Qt6ShaderToolsTools
+                            -DXKB_LIBRARY=/usr/lib/aarch64-linux-gnu/ || cmake -B build
 
     - name: Build
       run: cmake --build .
