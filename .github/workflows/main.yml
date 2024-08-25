@@ -148,8 +148,14 @@ jobs:
         cat /etc/apt/sources.list.d/azure-cli.sources
         echo -----
         sudo sed -i '/multiverse/a \Architectures: amd64' /etc/apt/sources.list.d/ubuntu.sources
-        echo Types: deb\nURIs: http://azure.ports.ubuntu.com/ubuntu/\nSuites: noble\nComponents: main universe restricted multiverse\nArchitectures: arm64\nSigned-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg | sudo tee -a /etc/apt/sources.list.d/ubuntu.sources
-        
+        echo #arm | sudo tee -a /etc/apt/sources.list.d/ubuntu.sources
+        echo Types: deb | sudo tee -a /etc/apt/sources.list.d/ubuntu.sources
+        echo URIs: http://azure.ports.ubuntu.com/ubuntu/ | sudo tee -a /etc/apt/sources.list.d/ubuntu.sources
+        echo Suites: noble | sudo tee -a /etc/apt/sources.list.d/ubuntu.sources
+        echo Components: main universe restricted multiverse | sudo tee -a /etc/apt/sources.list.d/ubuntu.sources
+        echo Architectures: arm64 | sudo tee -a /etc/apt/sources.list.d/ubuntu.sources
+        echo Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg | sudo tee -a /etc/apt/sources.list.d/ubuntu.sources
+
         cat /etc/apt/sources.list.d/ubuntu.sources
         echo -----
         sudo sed -i 's/azure\.//' /etc/apt/sources.list.d/ubuntu.sources
