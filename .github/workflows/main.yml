@@ -210,6 +210,7 @@ jobs:
                             -DQT_HOST_PATH=${{ env.QT_ROOT_DIR }}/../gcc_64/
                             -DQt6LinguistTools_DIR=${{ env.QT_ROOT_DIR }}/../gcc_64/lib/cmake/Qt6LinguistTools
                             -DQt6ShaderToolsTools_DIR=${{ env.QT_ROOT_DIR }}/../gcc_64/lib/cmake/Qt6ShaderToolsTools || cmake -B build
+                            -DXKB_LIBRARY /usr/lib/aarch64-linux-gnu/
 
     - name: Build
       run: cmake --build .
