@@ -143,13 +143,13 @@ jobs:
       run: sudo apt install click gcc-aarch64-linux-gnu g++-aarch64-linux-gnu
 
     - run: |
-        echo deb [arch=arm64] http://azure.ports.ubuntu.com/ noble main multiverse universe | sudo tee -a /etc/apt/sources.list.d/ubuntu.sources
-        
         sudo dpkg --add-architecture arm64
         ls /etc/apt/sources.list.d
         cat /etc/apt/sources.list.d/azure-cli.sources
         echo -----
         sudo sed -i '/multiverse/a \Architectures: amd64' /etc/apt/sources.list.d/ubuntu.sources
+        echo Types: deb\nURIs: http://azure.ports.ubuntu.com/ubuntu/\nSuites: noble\nComponents: main universe restricted multiverse\nArchitectures: arm64\nSigned-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg | sudo tee -a /etc/apt/sources.list.d/ubuntu.sources
+        
         cat /etc/apt/sources.list.d/ubuntu.sources
         echo -----
         sudo sed -i 's/azure\.//' /etc/apt/sources.list.d/ubuntu.sources
