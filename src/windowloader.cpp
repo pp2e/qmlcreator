@@ -39,7 +39,7 @@ QQuickWindow *WindowLoader::window() const {
     return m_window;
 }
 
-QQmlEngine *WindowLoader::engine() const {
+QQmlEngine *WindowLoader::engine() {
     return &m_engine;
 }
 

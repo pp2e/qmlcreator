@@ -28,7 +28,7 @@ public:
 
     QQuickWindow *window() const;
     
-    QQmlEngine *engine() const;
+    QQmlEngine *engine();
 
 private:
     void loadWindow();
