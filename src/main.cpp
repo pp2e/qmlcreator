@@ -109,8 +109,8 @@ int main(int argc, char *argv[])
         //engine.loadFromModule("QmlCreator", "Main");
         loader.setSource("qrc:/qt/qml/QmlCreator/qml/main.qml");
         
-    QObject::connect(loader, &WindowLoader::windowChanged,
-                     [&loader]() { if (loader->window()) loader->window()->show(); });
+    QObject::connect(&loader, &WindowLoader::windowChanged,
+                     [&loader]() { if (loader.window()) loader.window()->show(); });
 
     //MessageHandler::setQmlEngine(loader.engine());
     return app.exec();
