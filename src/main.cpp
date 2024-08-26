@@ -24,6 +24,7 @@
 #include <QtGlobal>
 #include "MessageHandler.h"
 #include "ProjectManager.h"
+#include "windowloader.h"
 
 #include <QLoggingCategory>
 
@@ -73,38 +74,44 @@ int main(int argc, char *argv[])
         GRID_UNIT_PX = 8;
     }
 
-    QQmlApplicationEngine engine;
+    //QQmlApplicationEngine engine;
+    WindowLoader loader;
 
     const QString qtVersion = QT_VERSION_STR;
     const QString buildDateTime = QStringLiteral("%1 %2").arg(__DATE__, __TIME__);
-    engine.rootContext()->setContextProperty("qtVersion", qtVersion);
-    engine.rootContext()->setContextProperty("buildDateTime", buildDateTime);
+    loader.engine()->rootContext()->setContextProperty("qtVersion", qtVersion);
+    loader.engine()->rootContext()->setContextProperty("buildDateTime", buildDateTime);
 
-    engine.rootContext()->setContextProperty("configPath", configPath);
-    engine.rootContext()->setContextProperty("cachePath", cachePath);
+    loader.engine()->rootContext()->setContextProperty("configPath", configPath);
+    loader.engine()->rootContext()->setContextProperty("cachePath", cachePath);
 
-    engine.rootContext()->setContextProperty("GRID_UNIT_PX", GRID_UNIT_PX);
+    loader.engine()->rootContext()->setContextProperty("GRID_UNIT_PX", GRID_UNIT_PX);
 
 #if !defined(Q_OS_ANDROID)
-    engine.rootContext()->setContextProperty("platformResizesView", true);
+    loader.engine()->rootContext()->setContextProperty("platformResizesView", true);
 #else
-    engine.rootContext()->setContextProperty("platformResizesView", false);
+    loader.engine()->rootContext()->setContextProperty("platformResizesView", false);
 #endif
 
 #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
-    engine.rootContext()->setContextProperty("platformHasNativeCopyPaste", true);
-    engine.rootContext()->setContextProperty("platformHasNativeDragHandles", true);
+    loader.engine()->rootContext()->setContextProperty("platformHasNativeCopyPaste", true);
+    loader.engine()->rootContext()->setContextProperty("platformHasNativeDragHandles", true);
 #else
-    engine.rootContext()->setContextProperty("platformHasNativeCopyPaste", false);
-    engine.rootContext()->setContextProperty("platformHasNativeDragHandles", false);
+    loader.engine()->rootContext()->setContextProperty("platformHasNativeCopyPaste", false);
+    loader.engine()->rootContext()->setContextProperty("platformHasNativeDragHandles", false);
 #endif
 
     // Load user's custom main.qml if we can
     if (QFile(ProjectManager::baseFolderPath("QmlCreator") + "/Main.qml").exists())
-        engine.load(QUrl(ProjectManager::baseFolderPath("QmlCreator") + "/Main.qml"));
+        //engine.load(QUrl(ProjectManager::baseFolderPath("QmlCreator") + "/Main.qml"));
+        loader.setSource(ProjectManager::baseFolderPath("QmlCreator") + "/Main.qml");
     else
-        engine.loadFromModule("QmlCreator", "Main");
+        //engine.loadFromModule("QmlCreator", "Main");
+        loader.setSource("qrc:/qt/qml/QmlCreator/qml/main.qml");
+        
+    QObject::connect(loader, &WindowLoader.windowChanged,
+                     [=]() { if (loader.window) loader.window->show(); });
 
-    MessageHandler::setQmlEngine(&engine);
+    MessageHandler::setQmlEngine(loader.engine());
     return app.exec();
 }

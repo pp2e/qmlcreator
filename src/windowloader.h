@@ -27,6 +27,8 @@ public:
     void setColor(const QColor color);
 
     QQuickWindow *window() const;
+    
+    QQmlEngine *engine() const;
 
 private:
     void loadWindow();

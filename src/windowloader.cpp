@@ -39,6 +39,10 @@ QQuickWindow *WindowLoader::window() const {
     return m_window;
 }
 
+QQmlEngine *WindowLoader::engine() const {
+    return &m_engine;
+}
+
 void WindowLoader::loadWindow() {
     if (m_window) {
         m_window->hide();
