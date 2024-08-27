@@ -107,7 +107,7 @@ int main(int argc, char *argv[])
         loader.setSource(ProjectManager::baseFolderPath("QmlCreator") + "/Main.qml");
     else
         //engine.loadFromModule("QmlCreator", "Main");
-        loader.setSource("qrc:/qt/qml/QmlCreator/qml/main.qml");
+        loader.setSource("qrc:/qt/qml/QmlCreator/qml/Main.qml");
         
     QObject::connect(&loader, &WindowLoader::windowChanged,
                      [&loader]() { if (loader.window()) loader.window()->show(); });
