@@ -39,6 +39,17 @@ QQuickWindow *WindowLoader::window() const {
     return m_window;
 }
 
+bool WindowLoader::hideWindow() {
+    return m_hideWindow;
+}
+
+void WindowLoader::setHideWindow(bool hideWindow) {
+    if (m_hideWindow == hideWindow) return;
+    
+    m_hideWindow = hideWindow;
+    emit hideWindowChanged();
+}
+
 QQmlEngine *WindowLoader::engine() {
     return &m_engine;
 }
@@ -72,14 +83,16 @@ void WindowLoader::createWindow(QQmlComponent *component) {
         emit windowChanged();
         return;
     }
-    // If component is window we need to hide it, if not we will undo that later
-    QObject *object = component->createWithInitialProperties({{"visible", false}});
+    if (m_hideWindow) {
+        // If component is window we need to hide it, if not we will undo that later
+        QObject *object = component->createWithInitialProperties({{"visible", false}});
+    }
     m_window = qobject_cast<QQuickWindow*>(object);
 
     // if root item is not window
     if (!m_window) {
         QQuickItem *item = qobject_cast<QQuickItem*>(object);
-        item->setVisible(true);
+        if (m_hideWindow) item->setVisible(true);
         m_window = new QQuickWindow();
         item->setParentItem(m_window->contentItem());
         m_window->setColor(m_color);

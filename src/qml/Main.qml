@@ -58,6 +58,7 @@ CApplicationWindow {
 
     WindowLoader {
         id: windowLoader
+        hideWindow: true
         color: appWindow.colorPalette.background
     }
 

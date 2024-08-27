@@ -15,6 +15,7 @@ class WindowLoader : public QObject
     Q_PROPERTY(QColor color READ color WRITE setColor NOTIFY colorChanged)
 
     Q_PROPERTY(QQuickWindow* window READ window NOTIFY windowChanged)
+    Q_PROPERTY(bool hideWindow READ hideWindow WRITE setHideWindow NOTIFY hideWindowChanged)
 
 public:
     explicit WindowLoader(QObject *parent = nullptr);
@@ -28,6 +29,9 @@ public:
 
     QQuickWindow *window() const;
     
+    bool hideWindow();
+    void setHideWindow(bool hideWindow);
+    
     QQmlEngine *engine();
 
 private:
@@ -37,6 +41,7 @@ private:
     QString m_source = "";
     QColor m_color;
     QQuickWindow *m_window = nullptr;
+    bool m_hideWindow;
 
     QQmlEngine m_engine;
 
@@ -44,6 +49,7 @@ signals:
     void sourceChanged();
     void colorChanged();
     void windowChanged();
+    void hideWindowChanged();
     void error(QString text);
 };
 
