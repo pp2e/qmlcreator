@@ -83,7 +83,7 @@ void WindowLoader::createWindow(QQmlComponent *component) {
         emit windowChanged();
         return;
     }
-    QObject *object
+    QObject *object;
     if (m_hideWindow) {
         // If component is window we need to hide it, if not we will undo that later
         object = component->createWithInitialProperties({{"visible", false}});
