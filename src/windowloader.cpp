@@ -83,10 +83,12 @@ void WindowLoader::createWindow(QQmlComponent *component) {
         emit windowChanged();
         return;
     }
+    QObject *object
     if (m_hideWindow) {
         // If component is window we need to hide it, if not we will undo that later
-        QObject *object = component->createWithInitialProperties({{"visible", false}});
-    }
+        object = component->createWithInitialProperties({{"visible", false}});
+    } else object = component->create();
+
     m_window = qobject_cast<QQuickWindow*>(object);
 
     // if root item is not window
