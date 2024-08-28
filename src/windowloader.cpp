@@ -16,12 +16,40 @@ QString WindowLoader::source() const {
     return m_source;
 }
 
-void WindowLoader::setSource(const QString &newSource) {
-    if (m_source == newSource) return;
+void WindowLoader::setSource(const QString &source) {
+    if (m_source == source) return;
 
-    m_source = newSource;
-    loadWindow();
+    load(source);
+}
+
+void WindowLoader::load(const QString &source, QVariantMap properties) {
+    m_source = source;
+    m_properties = properties;
+    if (m_hideWindow) {
+        // If component is window we need to hide it, if not we will undo that later
+        m_properties.insert("visible", false);
+    }
     emit sourceChanged();
+
+    if (m_window) {
+        m_window->hide();
+        m_window->deleteLater();
+        m_window = nullptr; // for safety
+    }
+
+    // if we want to clear window
+    if (m_source == "") {
+        emit windowChanged();
+        return;
+    }
+
+    m_engine.clearComponentCache();
+    QQmlComponent *component = new QQmlComponent(&m_engine, QUrl(m_source), &m_engine);
+    if (component->isLoading())
+        QObject::connect(component, &QQmlComponent::statusChanged,
+                         [=] () {createWindow(component);});
+    else
+        createWindow(component);
 }
 
 QColor WindowLoader::color() const {
@@ -54,46 +82,27 @@ QQmlEngine *WindowLoader::engine() {
     return &m_engine;
 }
 
-void WindowLoader::loadWindow() {
-    if (m_window) {
-        m_window->hide();
-        m_window->deleteLater();
-        m_window = nullptr; // for safety
-    }
-
-    // if we want to clear window
-    if (m_source == "") {
-        emit windowChanged();
-        return;
-    }
-
-    m_engine.clearComponentCache();
-    QQmlComponent *component = new QQmlComponent(&m_engine, QUrl(m_source), &m_engine);
-    if (component->isLoading())
-        QObject::connect(component, &QQmlComponent::statusChanged,
-                         [=] () {createWindow(component);});
-    else
-        createWindow(component);
-}
-
 void WindowLoader::createWindow(QQmlComponent *component) {
     if (component->status() == QQmlComponent::Error) {
         emit error(component->errorString());
-        m_window = nullptr;
+        delete component;
+        // m_window = nullptr; // It already done
         emit windowChanged();
         return;
     }
-    QObject *object;
-    if (m_hideWindow) {
-        // If component is window we need to hide it, if not we will undo that later
-        object = component->createWithInitialProperties({{"visible", false}});
-    } else object = component->create();
+
+    QObject *object = component->createWithInitialProperties(m_properties);
+    delete component;
 
     m_window = qobject_cast<QQuickWindow*>(object);
 
     // if root item is not window
     if (!m_window) {
         QQuickItem *item = qobject_cast<QQuickItem*>(object);
+        if (!item) {
+            m_window = nullptr;
+            emit windowChanged();
+        }
         if (m_hideWindow) item->setVisible(true);
         m_window = new QQuickWindow();
         item->setParentItem(m_window->contentItem());

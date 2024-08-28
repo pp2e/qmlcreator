@@ -22,7 +22,9 @@ public:
     ~WindowLoader();
 
     QString source() const;
-    void setSource(const QString &newSource);
+    void setSource(const QString &source);
+
+    void load(const QString &source, QVariantMap properties = {});
 
     QColor color() const;
     void setColor(const QColor color);
@@ -35,10 +37,10 @@ public:
     QQmlEngine *engine();
 
 private:
-    void loadWindow();
     void createWindow(QQmlComponent *component);
 
     QString m_source = "";
+    QVariantMap m_properties;
     QColor m_color;
     QQuickWindow *m_window = nullptr;
     bool m_hideWindow;

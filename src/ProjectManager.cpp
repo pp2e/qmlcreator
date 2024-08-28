@@ -77,7 +77,7 @@ QVariantList ProjectManager::files(QString subdir)
     QFileInfoList files = dir.entryInfoList(QDir::Files | QDir::Dirs | QDir::NoDotAndDotDot);
 
     foreach(QFileInfo file, files) {
-        if (file.absoluteFilePath() == baseFolderPath("qmlcreator.ini")) continue;
+        if (file.absoluteFilePath() == baseFolderPath("settings.ini")) continue;
         QVariantMap entry;
         entry.insert("name", file.fileName());
         entry.insert("fullPath", file.absoluteFilePath());
@@ -192,7 +192,7 @@ QString ProjectManager::baseFolderPath(QString folder)
     QString folderPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
 #else
     QString folderPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) +
-                         QDir::separator() + "QML Projects";
+                         QDir::separator() + "QML Creator";
 #endif
 
     if (!folder.isEmpty())
@@ -204,7 +204,7 @@ QString ProjectManager::baseFolderPath(QString folder)
 }
 
 QString ProjectManager::settingsPath() {
-    return "file://" + baseFolderPath("qmlcreator.ini");
+    return "file://" + baseFolderPath("settings.ini");
 }
 
 QString ProjectManager::newFileContent(QString fileType)

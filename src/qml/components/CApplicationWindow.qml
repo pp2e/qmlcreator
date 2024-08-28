@@ -44,8 +44,8 @@ ApplicationWindow {
         property string palette: "Cute"
         property int indentSize: 4
         property bool debugging: true
-        property bool allowEditUI: false
         property bool useNewPlayground: true
+        property string qmlEntryPoint: ""
 
         // internal
         property bool debugMode: false
@@ -58,14 +58,14 @@ ApplicationWindow {
 
     Settings {
         location: ProjectManager.settingsPath
-        category: "Editor"
+        // category: "Editor"
         property alias font: settings.font
         property alias fontSize: settings.fontSize
         property alias palette: settings.palette
         property alias indentSize: settings.indentSize
         property alias debugging: settings.debugging
-        property alias allowEditUI: settings.allowEditUI
         property alias useNewPlayground: settings.useNewPlayground 
+        property alias qmlEntryPoint: settings.qmlEntryPoint
     }
 
     property alias settings: settings

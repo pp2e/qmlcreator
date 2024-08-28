@@ -117,15 +117,6 @@ BlankScreen {
                     settings.debugging = !settings.debugging
                 }
             }
-
-            CSettingButton {
-                text: qsTr("Allow edit UI")
-                description: settings.allowEditUI ? qsTr("Enabled") : qsTr("Disabled")
-
-                onClicked: {
-                    settings.allowEditUI = !settings.allowEditUI
-                }
-            }
             
             CSettingButton {
                 text: qsTr("Use new playground")
@@ -173,6 +164,29 @@ BlankScreen {
                     dialog.open(dialog.types.confirmation, parameters, callback)
                 }
             }
+
+            CSettingButton {
+                text: qsTr("QML entry point")
+                description: settings.qmlEntryPoint !== "" ? settings.qmlEntryPoint : "Builtin"
+                onClicked: {
+                    if (settings.qmlEntryPoint === "") return;
+
+                    var parameters = {
+                        title: qsTr("Reset QML entry point?"),
+                        text: qsTr("You will load from builtin on restart")
+                    }
+
+                    var callback = function(value)
+                    {
+                        if (value)
+                        {
+                            settings.qmlEntryPoint = ""
+                        }
+                    }
+
+                    dialog.open(dialog.types.confirmation, parameters, callback)
+                }
+            }
             
             CSettingButton {
                 text: qsTr("Restore QmlCreator files")
@@ -187,6 +201,7 @@ BlankScreen {
                         if (value)
                         {
                             ProjectManager.restoreExamples(ProjectManager.baseFolderPath("QmlCreator"))
+                            settings.qmlEntryPoint = ProjectManager.baseFolderPath("QmlCreator")+"/main.qml"
                         }
                     }
 

@@ -29,7 +29,7 @@ if (IOS)
     )
 elseif (ANDROID)
     #set_target_properties(qmlcreator PROPERTIES
-    #    QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/platform-specific/android
+    #   QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/android
     #)
 endif()
 
@@ -200,11 +200,12 @@ qt_add_qml_module(qmlcreator
     qml/screens/SettingsScreen.qml
     qml/screens/PlaygroundScreen.qml
     qml/screens/ModulesScreen.qml
-    qml/Main.qml
+    qml/main.qml
 
     QML_FILES
     # New original qml code from altevedev
     qml/screens/NewPlaygroundScreen.qml
+    qml/error.qml
 )
 
 target_link_libraries(qmlcreator PRIVATE Qt6::Quick)

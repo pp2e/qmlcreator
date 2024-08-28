@@ -5,12 +5,15 @@ MessageHandler::MessageHandler(QObject *parent) :
 {
 }
 
-QQmlApplicationEngine *MessageHandler::m_qmlEngine = NULL;
-QObject *MessageHandler::m_qmlMessageHandler = NULL;
+QObject *MessageHandler::m_qmlMessageHandler = nullptr;
 
 void MessageHandler::setQmlEngine(QQmlApplicationEngine *engine)
 {
-    MessageHandler::m_qmlEngine = engine;
+    MessageHandler::m_qmlMessageHandler = engine->rootObjects().first()->findChild<QObject*>("messageHandler");
+}
+
+void MessageHandler::setWindow(QQuickWindow *window) {
+    MessageHandler::m_qmlMessageHandler = window->findChild<QObject*>("messageHandler");
 }
 
 void MessageHandler::handler(QtMsgType messageType, const QMessageLogContext &context, const QString &message)
@@ -45,17 +48,9 @@ void MessageHandler::handler(QtMsgType messageType, const QMessageLogContext &co
     QTextStream textStream(stderr);
     textStream<<consoleMessageString;
 
-    if (m_qmlEngine)
+    if (m_qmlMessageHandler)
     {
-        if (m_qmlMessageHandler == NULL)
-        {
-            m_qmlMessageHandler = m_qmlEngine->rootObjects().first()->findChild<QObject*>("messageHandler");
-        }
-
-        if (m_qmlMessageHandler != NULL)
-        {
-            QString guiMessageString = QString("%1: %2").arg(messageTypeString).arg(message);
-            QMetaObject::invokeMethod(m_qmlMessageHandler, "messageReceived", Q_ARG(QString, guiMessageString));
-        }
+        QString guiMessageString = QString("%1: %2").arg(messageTypeString).arg(message);
+        QMetaObject::invokeMethod(m_qmlMessageHandler, "messageReceived", Q_ARG(QString, guiMessageString));
     }
 }

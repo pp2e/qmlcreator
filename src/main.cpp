@@ -27,6 +27,7 @@
 #include "windowloader.h"
 
 #include <QLoggingCategory>
+#include <QSettings>
 
 inline static void createNecessaryDir(const QString& path) {
     const QDir configDir = QDir(path);
@@ -42,28 +43,22 @@ inline static void createNecessaryDir(const QString& path) {
 
 int main(int argc, char *argv[])
 {
-    // QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-
     qInstallMessageHandler(&MessageHandler::handler);
     QGuiApplication app(argc, argv);
     app.setApplicationVersion("1.4.0");
 #ifdef UBUNTU_CLICK
-    app.setOrganizationName(QStringLiteral("me.fredl.qmlcreator"));
+    app.setOrganizationName(QStringLiteral("qmlcreator.pp2e"));
 #else
     app.setApplicationName("QML Creator");
-    app.setOrganizationName("wearyinside");
-    app.setOrganizationDomain("com.wearyinside.qmlcreator");
+    app.setOrganizationName("pp2e");
+    app.setOrganizationDomain("qmlcreator.pp2e");
 #endif
 
-    const QString configPath =
-            QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) +
-            QDir::separator();
-    const QString cachePath =
-            QStandardPaths::writableLocation(QStandardPaths::CacheLocation) +
-            QDir::separator();
-
-    createNecessaryDir(configPath);
-    createNecessaryDir(cachePath);
+    // const QString configPath = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation);
+    // const QString cachePath = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+    createNecessaryDir(QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation));
+    createNecessaryDir(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
+    createNecessaryDir(ProjectManager::baseFolderPath(""));
 
     QTranslator translator;
     translator.load("qmlcreator_" + QLocale::system().name(), ":/QmlCreator/resources/translations");
@@ -74,16 +69,27 @@ int main(int argc, char *argv[])
         GRID_UNIT_PX = 8;
     }
 
-    //QQmlApplicationEngine engine;
+    // Use here the same thing we use to preview
     WindowLoader loader;
+
+    QObject::connect(&loader, &WindowLoader::error,
+                     [&loader](QString error) { qDebug() << error << "lol"; loader.load("qrc:/qt/qml/QmlCreator/qml/error.qml", {{"text", error}}); });
+
+    QObject::connect(&loader, &WindowLoader::windowChanged,
+                     [&loader]() {
+                         if (loader.window()) {
+                             loader.window()->show();
+                             MessageHandler::setWindow(loader.window());
+                         }
+                     });
 
     const QString qtVersion = QT_VERSION_STR;
     const QString buildDateTime = QStringLiteral("%1 %2").arg(__DATE__, __TIME__);
     loader.engine()->rootContext()->setContextProperty("qtVersion", qtVersion);
     loader.engine()->rootContext()->setContextProperty("buildDateTime", buildDateTime);
 
-    loader.engine()->rootContext()->setContextProperty("configPath", configPath);
-    loader.engine()->rootContext()->setContextProperty("cachePath", cachePath);
+    // loader.engine()->rootContext()->setContextProperty("configPath", configPath);
+    // loader.engine()->rootContext()->setContextProperty("cachePath", cachePath);
 
     loader.engine()->rootContext()->setContextProperty("GRID_UNIT_PX", GRID_UNIT_PX);
 
@@ -101,17 +107,16 @@ int main(int argc, char *argv[])
     loader.engine()->rootContext()->setContextProperty("platformHasNativeDragHandles", false);
 #endif
 
-    // Load user's custom main.qml if we can
-    if (QFile(ProjectManager::baseFolderPath("QmlCreator") + "/Main.qml").exists())
-        //engine.load(QUrl(ProjectManager::baseFolderPath("QmlCreator") + "/Main.qml"));
-        loader.setSource(ProjectManager::baseFolderPath("QmlCreator") + "/Main.qml");
-    else
-        //engine.loadFromModule("QmlCreator", "Main");
-        loader.setSource("qrc:/qt/qml/QmlCreator/qml/Main.qml");
-        
-    QObject::connect(&loader, &WindowLoader::windowChanged,
-                     [&loader]() { if (loader.window()) loader.window()->show(); });
+    QSettings settings(ProjectManager::baseFolderPath("settings.ini"), QSettings::IniFormat);
+    QString entryPoint = settings.value("qmlEntryPoint").toString();
 
-    //MessageHandler::setQmlEngine(loader.engine());
+    if (entryPoint != "") {
+        qDebug() << "Loading from" << entryPoint;
+        loader.load(entryPoint);
+    } else {
+        qDebug() << "Using inbuilt main.qml";
+        loader.load("qrc:/qt/qml/QmlCreator/qml/main.qml");
+    }
+
     return app.exec();
 }

@@ -5,6 +5,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QTextStream>
+#include <QQuickWindow>
 
 class MessageHandler : public QObject
 {
@@ -15,6 +16,7 @@ public:
 
     // QML engine stuff
     static void setQmlEngine(QQmlApplicationEngine *engine);
+    static void setWindow(QQuickWindow *window);
 
     static void handler(QtMsgType messageType, const QMessageLogContext &context, const QString &message);
 
