@@ -20,8 +20,8 @@ void MessageHandler::handler(QtMsgType messageType, const QMessageLogContext &co
 {
     Q_UNUSED(context)
 
-    if (messageType == QtFatalMsg)
-        abort();
+    // if (messageType == QtFatalMsg)
+    //     abort();
 
     QString messageTypeString;
 

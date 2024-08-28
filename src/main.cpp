@@ -73,7 +73,15 @@ int main(int argc, char *argv[])
     WindowLoader loader;
 
     QObject::connect(&loader, &WindowLoader::error,
-                     [&loader](QString error) { qDebug() << error << "lol"; loader.load("qrc:/qt/qml/QmlCreator/qml/error.qml", {{"text", error}}); });
+                     [&](QString error) {
+                         qCritical() << error;
+                         if (loader.source() == "qrc:/qt/qml/QmlCreator/qml/error.qml") {
+                             qFatal() << "Cannot load error window";
+                             app.exit(1);
+                             return;
+                         }
+                         loader.load("qrc:/qt/qml/QmlCreator/qml/error.qml", {{"text", error}});
+                     });
 
     QObject::connect(&loader, &WindowLoader::windowChanged,
                      [&loader]() {

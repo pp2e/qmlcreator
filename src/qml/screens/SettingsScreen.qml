@@ -189,11 +189,11 @@ BlankScreen {
             }
             
             CSettingButton {
-                text: qsTr("Restore QmlCreator files")
+                text: qsTr("Restore QML Creator files")
                 onClicked: {
                     var parameters = {
-                        title: qsTr("Restore QmlCreator files"),
-                        text: qsTr("Press OK to delete all the edits you have made in QmlCreator ui.")
+                        title: qsTr("Restore QML Creator files"),
+                        text: qsTr("Press OK to delete all the edits you have made in QML Creator ui.")
                     }
 
                     var callback = function(value)

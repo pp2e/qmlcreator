@@ -1,4 +1,5 @@
 import QtQuick
+import QtQuick.Controls
 
 Window {
     id: window
@@ -15,6 +16,12 @@ Window {
             id: text
             wrapMode: Text.Wrap
             width: window.width
+        }
+
+        Button {
+            text: "Load builtin main.qml"
+            enabled: false
+            onClicked: window.loadBuiltin()
         }
     }
 }
