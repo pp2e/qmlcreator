@@ -1,9 +1,0 @@
-{
-  "template": "qmake",
-  "default": "clean build click-build",
-  "kill": "qmlcreator",
-  "build_args": [
-    "CONFIG+=click"
-  ],
-  "make_jobs": 4
-}
