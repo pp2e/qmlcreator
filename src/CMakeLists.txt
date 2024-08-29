@@ -28,9 +28,9 @@ if (IOS)
         MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/ios/Info.plist
     )
 elseif (ANDROID)
-    #set_target_properties(qmlcreator PROPERTIES
-    #   QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/android
-    #)
+    set_target_properties(qmlcreator PROPERTIES
+      QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_SOURCE_DIR}/android
+    )
 endif()
 
 if (IOS)
@@ -206,6 +206,7 @@ qt_add_qml_module(qmlcreator
     # New original qml code from altevedev
     qml/screens/NewPlaygroundScreen.qml
     qml/error.qml
+    qml/modules.qml
 )
 
 target_link_libraries(qmlcreator PRIVATE Qt6::Quick)

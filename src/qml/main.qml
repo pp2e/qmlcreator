@@ -24,10 +24,6 @@ import "components"
 import "components/dialogs"
 import "screens"
 
-// test if it will be linked
-import Qt.labs.platform
-import org.kde.kirigami
-
 CApplicationWindow {
     id: appWindow
     property alias splitView : splitView
