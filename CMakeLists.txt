@@ -20,6 +20,8 @@ if (KF6Kirigami_FOUND)
     message("Using system kirigami")
 else()
     message("Building kirigami")
+    # Fix OpenMP breaks android build
+    set(CMAKE_DISABLE_FIND_PACKAGE_OpenMP ON)
     set(BUILD_SHARED_LIBS OFF)
     add_subdirectory(3rdparty/kirigami)
     target_link_libraries(qmlcreator PRIVATE Kirigamiplugin)
