@@ -89,5 +89,12 @@ BlankScreen {
                 messages.append(message)
             }
         }
+
+        Connections {
+            target: windowLoader
+            function onError(error) {
+                messages.append(error)
+            }
+        }
     }
 }

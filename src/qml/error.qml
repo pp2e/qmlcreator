@@ -1,11 +1,19 @@
+import QtCore
 import QtQuick
 import QtQuick.Controls
+import QmlCreator
 
 Window {
     id: window
     visible: true
 
     property alias text: text.text
+
+    Settings {
+        id: settings
+        location: ProjectManager.settingsPath
+        property string qmlEntryPoint
+    }
 
     Column {
         Text {
@@ -19,9 +27,8 @@ Window {
         }
 
         Button {
-            text: "Load builtin main.qml"
-            enabled: false
-            onClicked: window.loadBuiltin()
+            text: "Reset to builtin main.qml"
+            onClicked: settings.qmlEntryPoint = ""
         }
     }
 }

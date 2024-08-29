@@ -24,11 +24,11 @@ int ScreenInsets::top() {
     // thanks
     // https://bugfreeblog.duckdns.org/2023/01/qt-qml-cutouts.html
     QJniObject activity = QNativeInterface::QAndroidApplication::context();
+
     QJniObject window = activity.callObjectMethod("getWindow", "()Landroid/view/Window;");
     QJniObject decorView = window.callObjectMethod("getDecorView", "()Landroid/view/View;");
     QJniObject insets = decorView.callObjectMethod("getRootWindowInsets", "()Landroid/view/WindowInsets;");
-    QJniObject cutout = insets.callObjectMethod("getDisplayCutout", "()Landroid/view/DisplayCutout;");
-    return cutout.callMethod<int>("getSafeInsetTop", "()I");
+    return insets.callMethod<int>("getSystemWindowInsetTop", "()I")/qApp->devicePixelRatio(); // deprecated but who cares hehe
 #else
     return 0;
 #endif
