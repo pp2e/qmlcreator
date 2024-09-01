@@ -37,6 +37,10 @@ if (IOS)
     target_link_libraries(qmlcreator PRIVATE Qt6::GuiPrivate)
 endif()
 
+include_directories(
+    ${CMAKE_SOURCE_DIR}/3rdparty/tree-sitter/lib/include
+)
+
 qt_add_qml_module(qmlcreator
     URI QmlCreator
     VERSION 1.0
@@ -50,6 +54,11 @@ qt_add_qml_module(qmlcreator
     ScreenInsets.cpp
     windowloader.cpp
     modulesfinder.cpp
+    # treesitter
+    EditorBackend.cpp
+    ${CMAKE_SOURCE_DIR}/3rdparty/tree-sitter/lib/src/lib.c
+    ${CMAKE_SOURCE_DIR}/3rdparty/tree-sitter-qmljs/src/scanner.c
+    ${CMAKE_SOURCE_DIR}/3rdparty/tree-sitter-qmljs/src/parser.c
 
     RESOURCES
     resources/dictionaries/javascript.txt

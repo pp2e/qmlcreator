@@ -83,4 +83,5 @@ BasePalette {
     editorMarker: "#ffff00"
     editorItem: "#55ff55"
     editorProperty: "#ff5555"
+    editorError: "#ff5555"
 }

@@ -252,25 +252,28 @@ Item {
                 }
             }
 
-            SyntaxHighlighter {
+            EditorBackend {
                 id: syntaxHighlighter
 
-                normalColor: appWindow.colorPalette.editorNormal
+                document: textEdit.textDocument
+
+                // normalColor: appWindow.colorPalette.editorNormal
                 commentColor: appWindow.colorPalette.editorComment
                 numberColor: appWindow.colorPalette.editorNumber
                 stringColor: appWindow.colorPalette.editorString
-                operatorColor: appWindow.colorPalette.editorOperator
+                // operatorColor: appWindow.colorPalette.editorOperator
                 keywordColor: appWindow.colorPalette.editorKeyword
-                builtInColor: appWindow.colorPalette.editorBuiltIn
-                markerColor: appWindow.colorPalette.editorMarker
+                // builtInColor: appWindow.colorPalette.editorBuiltIn
+                // markerColor: appWindow.colorPalette.editorMarker
                 itemColor: appWindow.colorPalette.editorItem
                 propertyColor: appWindow.colorPalette.editorProperty
+                errorColor: appWindow.colorPalette.editorError
             }
 
             Component.onCompleted: {
                 // oskEventFixer.setupImEventFilter(textEdit)
                 lineNumbersHelper.document = textEdit.textDocument
-                syntaxHighlighter.setHighlighter(textEdit)
+                // syntaxHighlighter.setHighlighter(textEdit)
                 // if (ProjectManager.project !== "") {
                 //     // add custom components
                 //     var files = ProjectManager.files()

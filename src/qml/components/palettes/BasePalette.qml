@@ -83,4 +83,5 @@ QtObject {
     property color editorMarker: "#ffff00"
     property color editorItem: "#800080"
     property color editorProperty: "#800000"
+    property color editorError: "#800000"
 }
