@@ -7,15 +7,15 @@ qt_add_executable(qmlcreator
 if (IOS)
     set(app_icons
         ${CMAKE_SOURCE_DIR}/ios/Icon.png
-        ${CMAKE_SOURCE_DIR}/ios/Icon@2x.png
-        ${CMAKE_SOURCE_DIR}/ios/Icon@3x.png
-        ${CMAKE_SOURCE_DIR}/ios/Icon-60.png
-        ${CMAKE_SOURCE_DIR}/ios/Icon-60@2x.png
-        ${CMAKE_SOURCE_DIR}/ios/Icon-60@3x.png
-        ${CMAKE_SOURCE_DIR}/ios/Icon-72.png
-        ${CMAKE_SOURCE_DIR}/ios/Icon-72@2x.png
-        ${CMAKE_SOURCE_DIR}/ios/Icon-76.png
-        ${CMAKE_SOURCE_DIR}/ios/Icon-76@2x.png
+        #${CMAKE_SOURCE_DIR}/ios/Icon@2x.png
+        #${CMAKE_SOURCE_DIR}/ios/Icon@3x.png
+        #${CMAKE_SOURCE_DIR}/ios/Icon-60.png
+        #${CMAKE_SOURCE_DIR}/ios/Icon-60@2x.png
+        #${CMAKE_SOURCE_DIR}/ios/Icon-60@3x.png
+        #${CMAKE_SOURCE_DIR}/ios/Icon-72.png
+        #${CMAKE_SOURCE_DIR}/ios/Icon-72@2x.png
+        #${CMAKE_SOURCE_DIR}/ios/Icon-76.png
+        #${CMAKE_SOURCE_DIR}/ios/Icon-76@2x.png
     )
     target_sources(qmlcreator PRIVATE ${app_icons})
     set_source_files_properties(${app_icons} PROPERTIES
@@ -48,8 +48,8 @@ qt_add_qml_module(qmlcreator
     SOURCES
     linenumbershelper.cpp
     ProjectManager.cpp
-    SyntaxHighlighter.cpp
-    QMLHighlighter.cpp
+    #SyntaxHighlighter.cpp
+    #QMLHighlighter.cpp
     # New original code from alteve4d
     ScreenInsets.cpp
     windowloader.cpp
@@ -61,10 +61,10 @@ qt_add_qml_module(qmlcreator
     ${CMAKE_SOURCE_DIR}/3rdparty/tree-sitter-qmljs/src/parser.c
 
     RESOURCES
-    resources/dictionaries/javascript.txt
-    resources/dictionaries/keywords.txt
-    resources/dictionaries/properties.txt
-    resources/dictionaries/qml.txt
+    #resources/dictionaries/javascript.txt
+    #resources/dictionaries/keywords.txt
+    #resources/dictionaries/properties.txt
+    #resources/dictionaries/qml.txt
     resources/fonts/editor/DejaVu\ Font\ License.txt
     resources/fonts/editor/Droid\ Font\ License.txt
     resources/fonts/editor/Fira\ Font\ License.txt
