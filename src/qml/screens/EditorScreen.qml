@@ -74,7 +74,8 @@ Kirigami.Page {
                                            (!codeArea.selectedText.length > 0 || codeArea.useNativeTouchHandling)
             onTriggered: {
                 ProjectManager.saveFileContent(filePath, codeArea.text)
-                ProjectManager.clearComponentCache()
+                // Disable to fix Kirigami
+                // ProjectManager.clearComponentCache()
                 Qt.inputMethod.hide()
                 var playgroundName = settings.useNewPlayground ? "NewPlaygroundScreen.qml" : "PlaygroundScreen.qml"
                 pageStack.push(Qt.resolvedUrl(playgroundName), {filePath : filePath})
