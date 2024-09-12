@@ -26,7 +26,6 @@ ProjectManager::ProjectManager(QQmlEngine *engine, QObject *parent) :
 {
     QDir().mkpath(baseFolderPath("Projects"));
     QDir().mkpath(baseFolderPath("Examples"));
-    QDir().mkpath(baseFolderPath("QmlCreator"));
 }
 
 void ProjectManager::createProject(QString path, QString projectName)
@@ -54,20 +53,18 @@ void ProjectManager::createProject(QString path, QString projectName)
     }
 }
 
-void ProjectManager::restoreExamples(QString path)
-{
+void ProjectManager::restoreExamples(QString path) {
     QDir deviceExamplesDir(path);
     deviceExamplesDir.removeRecursively();
 
-    QDir qrcExamplesDir;
-    if (path == baseFolderPath("Examples"))
-        qrcExamplesDir = QDir(":/qt/qml/QmlCreator/examples");
-    else if (path == baseFolderPath("QmlCreator"))
-        qrcExamplesDir = QDir(":/qt/qml/QmlCreator/qml");
-    else
-        return;
+    recursiveCopyDir(QDir(":/qt/qml/QmlCreator/examples"), deviceExamplesDir);
+}
 
-    recursiveCopyDir(qrcExamplesDir, deviceExamplesDir);
+void ProjectManager::restoreQmlFiles(QString path) {
+    QDir deviceExamplesDir(path);
+    deviceExamplesDir.removeRecursively();
+
+    recursiveCopyDir(QDir(":/qt/qml/QmlCreator/qml"), deviceExamplesDir);
 }
 
 QVariantList ProjectManager::files(QString subdir)

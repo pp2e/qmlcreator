@@ -42,6 +42,7 @@ public:
     // project management
     Q_INVOKABLE void createProject(QString path, QString projectName);
     Q_INVOKABLE void restoreExamples(QString path);
+    Q_INVOKABLE void restoreQmlFiles(QString path);
 
     // current project
     Q_INVOKABLE QVariantList files(QString subdir);

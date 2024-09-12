@@ -44,7 +44,7 @@ Item {
             wrapMode: TextEdit.Wrap
             textFormat: TextEdit.RichText
             activeFocusOnPress: false
-            onLinkActivated: Qt.openUrlExternally(link)
+            onLinkActivated: (link) => Qt.openUrlExternally(link)
         }
     }
 

@@ -48,8 +48,6 @@ qt_add_qml_module(qmlcreator
     SOURCES
     linenumbershelper.cpp
     ProjectManager.cpp
-    #SyntaxHighlighter.cpp
-    #QMLHighlighter.cpp
     # New original code from alteve4d
     ScreenInsets.cpp
     windowloader.cpp
@@ -61,10 +59,6 @@ qt_add_qml_module(qmlcreator
     ${CMAKE_SOURCE_DIR}/3rdparty/tree-sitter-qmljs/src/parser.c
 
     RESOURCES
-    #resources/dictionaries/javascript.txt
-    #resources/dictionaries/keywords.txt
-    #resources/dictionaries/properties.txt
-    #resources/dictionaries/qml.txt
     resources/fonts/editor/DejaVu\ Font\ License.txt
     resources/fonts/editor/Droid\ Font\ License.txt
     resources/fonts/editor/Fira\ Font\ License.txt
@@ -157,7 +151,6 @@ qt_add_qml_module(qmlcreator
     examples/WebSocket/main.qml
     examples/XMLHttpRequest/main.qml
 
-    QML_FILES
     qml/components/dialogs/BaseDialog.qml
     qml/components/dialogs/ConfirmationDialog.qml
     qml/components/dialogs/DialogLoader.qml
@@ -211,7 +204,6 @@ qt_add_qml_module(qmlcreator
     qml/screens/ModulesScreen.qml
     qml/main.qml
 
-    QML_FILES
     # New original qml code from altevedev
     qml/screens/NewPlaygroundScreen.qml
     qml/error.qml
