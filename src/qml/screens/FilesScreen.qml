@@ -22,24 +22,81 @@ import QtQuick.Layouts
 import QmlCreator
 import "../components"
 
-BlankScreen {
-    id: projectsScreen
+import org.kde.kirigami as Kirigami
 
-    readonly property Component editorScreenComponent :
-        Qt.createComponent(Qt.resolvedUrl("EditorScreen.qml"),
-                           Component.PreferSynchronous);
-    readonly property Component filesScreenComponent :
-        Qt.createComponent(Qt.resolvedUrl("FilesScreen.qml"),
-                           Component.PreferSynchronous);
+Kirigami.Page {
+    id: projectsScreen
+    padding: 0
     
     property string subPath : ""
     property alias listFooter: listView.footer
 
-    StackView.onStatusChanged: {
-        if (StackView.status === StackView.Activating) {
-            // ProjectManager.subDir = projectsScreen.subPath
-            listView.model = ProjectManager.files(projectsScreen.subPath)
+    title: getDirName(subPath)
+    actions: [
+        Kirigami.Action {
+            icon.name: "list-add"
+            text: qsTr("Add...")
+
+            Kirigami.Action {
+                icon.name: "document-new"
+                text: qsTr("New file...")
+                onTriggered: {
+                    var parameters = {
+                        title: qsTr("New file"),
+                        path: subPath,
+                    }
+
+                    var callback = function(value)
+                    {
+                        ProjectManager.createFile(subPath + "/" + value.fileName, value.fileExtension)
+                        listView.model = ProjectManager.files(subPath)
+                    }
+
+                    dialog.open(dialog.types.newFile, parameters, callback)
+                }
+            }
+            Kirigami.Action {
+                icon.name: "folder-new"
+                text: qsTr("New directory...")
+                onTriggered: {
+                    var parameters = {
+                        title: qsTr("New directory"),
+                        path: subPath,
+                    }
+
+                    var callback = function(value)
+                    {
+                        ProjectManager.createDir(subPath + "/" + value.dirName)
+                        listView.model = ProjectManager.files(subPath)
+                    }
+
+                    dialog.open(dialog.types.newDir, parameters, callback)
+                }
+            }
+            Kirigami.Action {
+                icon.name: "project-development-new"
+                text: qsTr("New project...")
+                onTriggered: {
+                    var parameters = {
+                        title: qsTr("New project"),
+                        path: subPath,
+                    }
+
+                    var callback = function(value)
+                    {
+                        ProjectManager.createProject(subPath, value)
+                        listView.model = ProjectManager.files(subPath)
+                    }
+
+                    dialog.open(dialog.types.newProject, parameters, callback)
+                }
+            }
         }
+    ]
+
+    onIsCurrentPageChanged: {
+        if (isCurrentPage)
+            listView.model = ProjectManager.files(projectsScreen.subPath)
     }
 
     function getDirName(path) {
@@ -56,38 +113,20 @@ BlankScreen {
 
     CListView {
         id: listView
-        anchors.top: toolBar.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        displayMarginBeginning: toolBar.height
+        anchors.fill: parent
 
         delegate: CFileButton {
             width: listView.width
             text: modelData.name
-            // removeButtonVisible: modelData.name !== "main.qml"
             isDir: modelData.isDir
 
             onClicked: {
                 var newScreen = null;
 
-                while (rightView.depth > 1) {
-                    rightView.pop()
-                }
-
                 if (modelData.isDir) {
-                    newScreen =
-                            filesScreenComponent.createObject(leftView, {
-                                                                  subPath: modelData.fullPath
-                                                              });
-                    leftView.push(newScreen)
+                    pageStack.push(Qt.resolvedUrl("FilesScreen.qml"), {subPath: modelData.fullPath})
                 } else {
-                    newScreen =
-                            editorScreenComponent.createObject(rightView,
-                                                               {
-                                                                   filePath : modelData.fullPath
-                                                               });
-                    rightView.push(newScreen)
+                    pageStack.push(Qt.resolvedUrl("EditorScreen.qml"), {filePath: modelData.fullPath})
                 }
 
             }
@@ -110,93 +149,6 @@ BlankScreen {
                 dialog.open(dialog.types.confirmation, parameters, callback)
             }
         }
-    }
-
-    CToolBar {
-        id: toolBar
-
-        RowLayout {
-            anchors.fill: parent
-            spacing: 0
-
-            CBackButton {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                enableBack: leftView.depth > 1
-                targetSplit: leftView
-                text: getDirName(subPath)
-            }
-
-            CToolButton {
-                Layout.fillHeight: true
-                icon: "\uf067"
-                tooltipText: qsTr("New...")
-                onClicked: newContextMenu.open()
-            }
-        }
-    }
-
-    Menu {
-        id: newContextMenu
-        x: parent.width - width
-        y: toolBar.height
-        MenuItem {
-            text: qsTr("New file...")
-            onTriggered: {
-                var parameters = {
-                    title: qsTr("New file"),
-                    path: subPath,
-                }
-
-                var callback = function(value)
-                {
-                    ProjectManager.createFile(subPath + "/" + value.fileName, value.fileExtension)
-                    listView.model = ProjectManager.files(subPath)
-                }
-
-                dialog.open(dialog.types.newFile, parameters, callback)
-            }
-        }
-
-        MenuItem {
-            text: qsTr("New directory...")
-            onTriggered: {
-                var parameters = {
-                    title: qsTr("New directory"),
-                    path: subPath,
-                }
-
-                var callback = function(value)
-                {
-                    ProjectManager.createDir(subPath + "/" + value.dirName)
-                    listView.model = ProjectManager.files(subPath)
-                }
-
-                dialog.open(dialog.types.newDir, parameters, callback)
-            }
-        }
-
-        MenuItem {
-            text: qsTr("New project...")
-            onTriggered: {
-                var parameters = {
-                    title: qsTr("New project"),
-                    path: subPath,
-                }
-
-                var callback = function(value)
-                {
-                    ProjectManager.createProject(subPath, value)
-                    listView.model = ProjectManager.files(subPath)
-                }
-
-                dialog.open(dialog.types.newProject, parameters, callback)
-            }
-        }
-    }
-
-    CToolBarBlur {
-        sourceItem: listView
     }
 
     CScrollBar {

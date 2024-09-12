@@ -19,17 +19,17 @@
 import QtQuick
 import "../components"
 
-BlankScreen {
-    id: aboutScreen
+import org.kde.kirigami as Kirigami
 
-    property var backPressed : function () {}
+Kirigami.Page {
+    id: aboutScreen
+    padding: 0
+
+    title: qsTr("About")
 
     CTextArea {
         id: aboutTextArea
-        anchors.top: toolBar.bottom
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
+        anchors.fill: parent
 
         text:  textStyle() +
                "QML Creator " + Qt.application.version + "<br>
@@ -54,19 +54,4 @@ BlankScreen {
 
                Qt is a registered trademark of The Qt Company Ltd. and/or its subsidiaries."
     }
-
-        CToolBar {
-            id: toolBar
-
-            CBackButton {
-                anchors.fill: parent
-                text: qsTr("About")
-                //enableBack: !enableDualView
-                onClicked: backPressed()
-            }
-        }
-
-        CToolBarBlur {
-            sourceItem: aboutTextArea
-        }
-    }
+}

@@ -21,9 +21,11 @@ import QtQuick.Layouts
 import QmlCreator
 import "../components"
 
-BlankScreen {
+import org.kde.kirigami as Kirigami
+
+Kirigami.Page {
     id: playgroundScreen
-    enabled: true
+    padding: 0
 
     property string filePath: ""
 
@@ -38,39 +40,21 @@ BlankScreen {
         return dirname
     }
 
-    CToolBar {
-        id: toolBar
-
-        RowLayout {
-            anchors.fill: parent
-            spacing: 0
-
-            CBackButton {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                //enabled: !leftView.busy
-                //enableBack: !enableDualView
-                text: getDirName(filePath)
-            }
-
-            CToolButton {
-                Layout.fillHeight: true
-                icon: "\uf188"
-                tooltipText: settings.debugging ? qsTr("Disable debugging") : qsTr("Enable debugging")
-                checked: settings.debugging
-                onClicked: {
-                    settings.debugging = !settings.debugging
-                }
-            }
+    title: getDirName(filePath)
+    actions: [
+        Kirigami.Action {
+            icon.name: "showinfo"
+            checkable: true
+            checked: settings.debugging
+            text: qsTr("Debug")
+            tooltip: settings.debugging ? qsTr("Disable debugging") : qsTr("Enable debugging")
+            onTriggered: settings.debugging = !settings.debugging
         }
-    }
+    ]
 
     Item {
         id: playArea
-        anchors.top: toolBar.bottom
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
+        anchors.fill: parent
         clip: true
 
         Flickable {
@@ -105,8 +89,6 @@ BlankScreen {
 
         Connections {
             target: messageHandler
-            // onMessageReceived:
-            //     messages.append(message)
             function onMessageReceived(message) {
                 messages.append(message)
             }
@@ -115,7 +97,7 @@ BlankScreen {
 
     Component.onCompleted: {
         var componentUrl = ProjectManager.getFilePath(filePath)
-        var playComponent = Qt.createComponent(componentUrl, Component.PreferSynchronous, playgroundScreen)
+        var playComponent = Qt.createComponent(componentUrl, Component.PreferSynchronous)
         if (playComponent.status === Component.Error)
         {
             messages.append(playComponent.errorString())

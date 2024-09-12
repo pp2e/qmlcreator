@@ -20,17 +20,17 @@ import QtQuick
 import "../components"
 import QmlCreator
 
-BlankScreen {
-    id: mainMenuScreen
+import org.kde.kirigami as Kirigami
 
-    property var backPressed : function () {}
+Kirigami.Page {
+    id: mainMenuScreen
+    padding: 0
+
+    title: qsTr("Settings")
 
     CFlickable {
         id: settingsFlickable
-        anchors.top: toolBar.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
+        anchors.fill: parent
         contentHeight: column.height
 
         Column {
@@ -200,7 +200,7 @@ BlankScreen {
                     {
                         if (value)
                         {
-                            ProjectManager.restoreExamples(ProjectManager.baseFolderPath("QmlCreator"))
+                            ProjectManager.restoreQmlFiles(ProjectManager.baseFolderPath("QmlCreator"))
                             settings.qmlEntryPoint = ProjectManager.baseFolderPath("QmlCreator")+"/main.qml"
                         }
                     }
@@ -209,21 +209,6 @@ BlankScreen {
                 }
             }
         }
-    }
-
-    CToolBar {
-        id: toolBar
-
-        CBackButton {
-            anchors.fill: parent
-            text: qsTr("Settings")
-            //enableBack: !enableDualView
-            onClicked: backPressed()
-        }
-    }
-
-    CToolBarBlur {
-        sourceItem: settingsFlickable
     }
 
     CScrollBar {

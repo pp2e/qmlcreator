@@ -195,7 +195,7 @@ qt_add_qml_module(qmlcreator
     qml/components/CCodeArea.qml
     qml/components/CInformationItem.qml
     qml/components/CTextField.qml
-    qml/screens/BlankScreen.qml
+
     qml/screens/AboutScreen.qml
     qml/screens/EditorScreen.qml
     qml/screens/FilesScreen.qml

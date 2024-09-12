@@ -4,8 +4,11 @@ import QtQuick.Layouts
 import QmlCreator
 import "../components"
 
-BlankScreen {
+import org.kde.kirigami as Kirigami
+
+Kirigami.Page {
     id: playgroundScreen
+    padding: 0
 
     property string filePath: ""
 
@@ -15,50 +18,38 @@ BlankScreen {
         return path.slice(lastSlash+1);
     }
 
-    StackView.onStatusChanged: {
-        if (StackView.status === StackView.Activating) {
-            windowLoader.source = ProjectManager.getFilePath(filePath)
-            windowContainer.window = windowLoader.window
+    title: getDirName(filePath)
+    actions: [
+        Kirigami.Action {
+            icon.name: "showinfo"
+            checkable: true
+            checked: settings.debugging
+            text: qsTr("Debug")
+            tooltip: settings.debugging ? qsTr("Disable debugging") : qsTr("Enable debugging")
+            onTriggered: settings.debugging = !settings.debugging
         }
-        else if (StackView.status === StackView.Deactivating) {
-            logWindow.hide()
-            windowLoader.source = ""
-        }
+    ]
+
+    Component.onCompleted: {
+        windowLoader.source = ProjectManager.getFilePath(filePath)
+        windowContainer.window = windowLoader.window
     }
-
-    CToolBar {
-        id: toolBar
-
-        RowLayout {
-            anchors.fill: parent
-            spacing: 0
-
-            CBackButton {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                //enabled: !leftView.busy
-                //enableBack: !enableDualView
-                text: getDirName(filePath)
-                onClicked: windowLoader.source = ""
-            }
-
-            CToolButton {
-                icon: "\uf188"
-                tooltipText: settings.debugging ? qsTr("Disable debugging") : qsTr("Enable debugging")
-                checked: settings.debugging
-                onClicked: {
-                    settings.debugging = !settings.debugging
-                }
-            }
+    Component.onDestruction: {
+        windowLoader.source = ""
+    }
+    Kirigami.ColumnView.onInViewportChanged: {
+        if (Kirigami.ColumnView.inViewport) {
+            windowContainer.window = windowLoader.window
+            logWindow.visible = settings.debugging
+        } else {
+            windowContainer.window = null
+            logWindow.hide()
         }
     }
 
     WindowContainer {
         id: windowContainer
-        anchors.top: toolBar.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
+        anchors.fill: parent
     }
 
     Window {
@@ -67,8 +58,7 @@ BlankScreen {
         color: "transparent"
         parent: playgroundScreen
         width: playgroundScreen.width
-        height: playgroundScreen.height - toolBar.height
-        y: toolBar.height
+        height: playgroundScreen.height
 
         flags: Qt.WindowTransparentForInput
 

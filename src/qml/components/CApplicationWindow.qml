@@ -24,7 +24,9 @@ import QtCore
 import QmlCreator
 import "palettes"
 
-ApplicationWindow {
+import org.kde.kirigami as Kirigami
+
+Kirigami.ApplicationWindow {
     id: cApplicationWindow
     width: 420
     height: 640

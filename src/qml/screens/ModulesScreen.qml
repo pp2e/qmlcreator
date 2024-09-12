@@ -21,10 +21,13 @@ import QtQuick.Controls
 import QmlCreator
 import "../components"
 
-BlankScreen {
-    id: modulesScreen
+import org.kde.kirigami as Kirigami
 
-    property var backPressed : function () {}
+Kirigami.Page {
+    id: modulesScreen
+    padding: 0
+
+    title: qsTr("Modules")
 
     ModulesFinder {
         id: finder
@@ -32,11 +35,7 @@ BlankScreen {
 
     ListView {
         id: listView
-        anchors.top: toolBar.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        displayMarginBeginning: toolBar.height
+        anchors.fill: parent
 
         model: finder.modules
 
@@ -45,20 +44,6 @@ BlankScreen {
             text: modelData
             description: qsTr("Available")
         }
-    }
-
-    CToolBar {
-        id: toolBar
-
-        CBackButton {
-            anchors.fill: parent
-            text: qsTr("Modules")
-            onClicked: backPressed()
-        }
-    }
-
-    CToolBarBlur {
-        sourceItem: listView
     }
 
     CScrollBar {

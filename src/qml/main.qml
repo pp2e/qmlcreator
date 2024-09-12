@@ -23,10 +23,10 @@ import QmlCreator
 import "components"
 import "components/dialogs"
 import "screens"
+import org.kde.kirigami as Kirigami
 
 CApplicationWindow {
     id: appWindow
-    property alias splitView : splitView
     minimumHeight: 100
     minimumWidth: 100
     flags: Qt.Window | Qt.MaximizeUsingFullscreenGeometryHint
@@ -58,71 +58,42 @@ CApplicationWindow {
         color: appWindow.colorPalette.background
     }
 
-    CSplitView {
-        id: splitView
-        anchors.fill: parent
-        anchors.bottomMargin: Qt.inputMethod.visible && platformResizesView ?
-                                  (Qt.inputMethod.keyboardRectangle.height / (GRID_UNIT_PX / 8)) : 0
+    pageStack.initialPage: FilesScreen {
+        subPath: ProjectManager.baseFolderPath("")
 
-        Component.onCompleted: {
-            splitView.leftView.push(Qt.resolvedUrl("screens/FilesScreen.qml"),
-                                   {listFooter: mainMenuFooter,
-                                    subPath: ProjectManager.baseFolderPath("")})
-            splitView.rightView.push(initialRightView)
-        }
-        
-        Component {
-            id: mainMenuFooter
-            Column {
-                id: column
-                width: parent.width
+        listFooter: Column {
+            id: column
+            width: parent.width
 
-                // CNavigationButton {
-                //     id: qrcButton
-                //     text: qsTr("qrc:/")
-                //     icon: "\uf0ad"
-                //     onClicked: {
-                //         splitView.leftView.push(Qt.resolvedUrl("screens/FilesScreen.qml"), {subPath: ":/"})
-                //     }
-                // }
-                
-                CNavigationButton {
-                    id: settingsButton
-                    text: qsTr("SETTINGS")
-                    icon: "\uf0ad"
-                    onClicked: {
-                        splitView.rightView.push(Qt.resolvedUrl("screens/SettingsScreen.qml"))
-                    }
-                }
+            // CNavigationButton {
+            //     text: qsTr("qrc:/")
+            //     icon: "\uf0ad"
+            //     onClicked: {
+            //         splitView.leftView.push(Qt.resolvedUrl("screens/FilesScreen.qml"), {subPath: ":/"})
+            //     }
+            // }
 
-                CNavigationButton {
-                    id: modulesButton
-                    text: qsTr("MODULES")
-                    icon: "\uf085"
-                    onClicked: {
-                        splitView.rightView.push(Qt.resolvedUrl("screens/ModulesScreen.qml"))
-                    }
-                }
-                CNavigationButton {
-                    id: aboutButton
-                    text: qsTr("ABOUT")
-                    icon: "\uf0e5"
-                    onClicked: {
-                        splitView.rightView.push(Qt.resolvedUrl("screens/AboutScreen.qml"))
-                    }
+            CNavigationButton {
+                text: qsTr("SETTINGS")
+                icon: "\uf0ad"
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("screens/SettingsScreen.qml"))
                 }
             }
-        }
 
-        Item {
-            id: initialRightView
-
-            Image {
-                anchors.fill: parent
-                anchors.margins: parent.width / 4
-                visible: splitView.enableDualView
-                fillMode: Image.PreserveAspectFit
-                source: "qrc:/qt/qml/QmlCreator/resources/images/icon512.png"
+            CNavigationButton {
+                text: qsTr("MODULES")
+                icon: "\uf085"
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("screens/ModulesScreen.qml"))
+                }
+            }
+            CNavigationButton {
+                text: qsTr("ABOUT")
+                icon: "\uf0e5"
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("screens/AboutScreen.qml"))
+                }
             }
         }
     }

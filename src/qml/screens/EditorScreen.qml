@@ -22,17 +22,19 @@ import QtQuick.Layouts
 import QmlCreator
 import "../components"
 
-BlankScreen {
-    id: editorScreen
-    objectName: "EditorScreen"
+import org.kde.kirigami as Kirigami
 
-    function saveContent() {
-        // ProjectManager.fileName = fileName
-        ProjectManager.saveFileContent(filePath, codeArea.text)
-    }
+Kirigami.Page {
+    id: editorScreen
+    padding: 0
 
     property alias codeArea : codeArea
     property string filePath: ""
+
+    function saveContent() {
+        console.log("save")
+        ProjectManager.saveFileContent(filePath, codeArea.text)
+    }
 
     function getDirName(path) {
         var dirname = ""
@@ -45,96 +47,54 @@ BlankScreen {
         return dirname
     }
 
-    StackView.onStatusChanged: {
-        if (StackView.status === StackView.Activating) {
-            // ProjectManager.fileName = fileName
+    title: getDirName(filePath)
+    actions: [
+        Kirigami.Action {
+            icon.name: "edit-select-all"
+            text: qsTr("Select all")
+            visible: codeArea.selectedText.length > 0 && !codeArea.useNativeTouchHandling
+            onTriggered: codeArea.selectAll()
+        },
+        Kirigami.Action {
+            icon.name: "edit-copy"
+            text: qsTr("Copy")
+            visible: codeArea.selectedText.length > 0 && !codeArea.useNativeTouchHandling
+            onTriggered: codeArea.copy()
+        },
+        Kirigami.Action {
+            icon.name: "edit-cut"
+            text: qsTr("Cut")
+            visible: codeArea.selectedText.length > 0 && !codeArea.useNativeTouchHandling
+            onTriggered: codeArea.cut()
+        },
+        Kirigami.Action {
+            icon.name: "media-playback-start"
+            text: qsTr("Run")
+            visible: filePath.endsWith(".qml") &&
+                                           (!codeArea.selectedText.length > 0 || codeArea.useNativeTouchHandling)
+            onTriggered: {
+                ProjectManager.saveFileContent(filePath, codeArea.text)
+                ProjectManager.clearComponentCache()
+                Qt.inputMethod.hide()
+                var playgroundName = settings.useNewPlayground ? "NewPlaygroundScreen.qml" : "PlaygroundScreen.qml"
+                pageStack.push(Qt.resolvedUrl(playgroundName), {filePath : filePath})
+            }
+        }
+    ]
+
+    onIsCurrentPageChanged: {
+        if (isCurrentPage) {
             codeArea.text = ProjectManager.getFileContent(filePath);
-        } else if (StackView.status === StackView.Deactivating) {
+        } else {
             saveContent()
         }
     }
 
-
-
     CCodeArea {
         id: codeArea
 
-        anchors.top: toolBar.bottom
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
+        anchors.fill: parent
 
         indentSize: settings.indentSize
-
-        text: ""
-    }
-
-    CToolBar {
-        id: toolBar
-
-        RowLayout {
-            anchors.fill: parent
-            spacing: 0
-
-            CBackButton {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                text: getDirName(filePath)
-                //enableBack: !enableDualView
-                targetSplit: appWindow.splitView.rightView
-                onClicked: {
-                    saveContent()
-                }
-            }
-
-            CToolButton {
-                visible: codeArea.selectedText.length > 0 && !codeArea.useNativeTouchHandling
-                Layout.fillHeight: true
-                icon: "\uf034"
-                tooltipText: qsTr("Select all")
-                onClicked: codeArea.selectAll()
-            }
-
-            CToolButton {
-                visible: codeArea.selectedText.length > 0 && !codeArea.useNativeTouchHandling
-                Layout.fillHeight: true
-                icon: "\uf0c5"
-                tooltipText: qsTr("Copy")
-                onClicked: codeArea.copy()
-            }
-
-            CToolButton {
-                visible: codeArea.selectedText.length > 0 && !codeArea.useNativeTouchHandling
-                Layout.fillHeight: true
-                icon: "\uf0c4"
-                tooltipText: qsTr("Cut")
-                onClicked: codeArea.cut()
-            }
-
-            CToolButton {
-                visible: filePath.endsWith(".qml") &&
-                         (!codeArea.selectedText.length > 0 || codeArea.useNativeTouchHandling)
-                Layout.fillHeight: true
-                icon: "\uf04b"
-                tooltipText: qsTr("Run")
-                onClicked: {
-                    ProjectManager.saveFileContent(filePath, codeArea.text)
-                    ProjectManager.clearComponentCache()
-                    Qt.inputMethod.hide()
-                    var playgroundName = settings.useNewPlayground ? "NewPlaygroundScreen.qml" : "PlaygroundScreen.qml"
-                    var playgroundScreenComponent = Qt.createComponent(Qt.resolvedUrl(playgroundName),
-                                       Component.PreferSynchronous);
-                    var newScreen = playgroundScreenComponent.createObject(rightView,
-                                                               {
-                                                                   filePath : filePath,
-                                                               });
-                    rightView.push(newScreen)
-                }
-            }
-        }
-    }
-
-    CToolBarBlur {
-        sourceItem: codeArea
     }
 }
