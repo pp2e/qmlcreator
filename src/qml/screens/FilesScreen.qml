@@ -24,13 +24,6 @@ import "../components"
 
 BlankScreen {
     id: projectsScreen
-
-    readonly property Component editorScreenComponent :
-        Qt.createComponent(Qt.resolvedUrl("EditorScreen.qml"),
-                           Component.PreferSynchronous);
-    readonly property Component filesScreenComponent :
-        Qt.createComponent(Qt.resolvedUrl("FilesScreen.qml"),
-                           Component.PreferSynchronous);
     
     property string subPath : ""
     property alias listFooter: listView.footer
@@ -76,18 +69,9 @@ BlankScreen {
                 }
 
                 if (modelData.isDir) {
-                    newScreen =
-                            filesScreenComponent.createObject(leftView, {
-                                                                  subPath: modelData.fullPath
-                                                              });
-                    leftView.push(newScreen)
+                    leftView.push(Qt.resolvedUrl("FilesScreen.qml"), {subPath : modelData.fullPath})
                 } else {
-                    newScreen =
-                            editorScreenComponent.createObject(rightView,
-                                                               {
-                                                                   filePath : modelData.fullPath
-                                                               });
-                    rightView.push(newScreen)
+                    rightView.push(Qt.resolvedUrl("EditorScreen.qml"), {filePath : modelData.fullPath})
                 }
 
             }

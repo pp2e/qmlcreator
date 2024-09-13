@@ -68,8 +68,9 @@ Item {
                 return;
             }
 
-            if (!splitView.leftView.busy && !splitView.rightView.busy)
+            if (!splitView.leftView.busy && !splitView.rightView.busy) {
                 splitView.popPage()
+            }
         }
     }
 }
