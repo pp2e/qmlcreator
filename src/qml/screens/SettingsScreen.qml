@@ -200,7 +200,7 @@ BlankScreen {
                     {
                         if (value)
                         {
-                            ProjectManager.restoreExamples(ProjectManager.baseFolderPath("QmlCreator"))
+                            ProjectManager.restoreQmlFiles(ProjectManager.baseFolderPath("QmlCreator"))
                             settings.qmlEntryPoint = ProjectManager.baseFolderPath("QmlCreator")+"/main.qml"
                         }
                     }
