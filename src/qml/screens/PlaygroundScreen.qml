@@ -113,16 +113,22 @@ BlankScreen {
         }
     }
 
+    property var obj
     Component.onCompleted: {
         var componentUrl = ProjectManager.getFilePath(filePath)
-        var playComponent = Qt.createComponent(componentUrl, Component.PreferSynchronous, playgroundScreen)
+        var playComponent = Qt.createComponent(componentUrl, Component.PreferSynchronous)
         if (playComponent.status === Component.Error)
         {
             messages.append(playComponent.errorString())
         }
         else
         {
-            playComponent.createObject(playArea)
+            obj = playComponent.createObject(playArea)
         }
+    }
+
+    Component.onDestruction: {
+        if (obj)
+            obj.destroy()
     }
 }

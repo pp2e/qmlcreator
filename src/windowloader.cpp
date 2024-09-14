@@ -34,7 +34,7 @@ void WindowLoader::load(const QString &source, QVariantMap properties) {
     if (m_window) {
         m_window->hide();
         m_window->deleteLater();
-        m_window = nullptr; // for safety
+        m_window = nullptr; // to ensure safety
     }
 
     // if we want to clear window
@@ -95,19 +95,24 @@ void WindowLoader::createWindow(QQmlComponent *component) {
     delete component;
 
     m_window = qobject_cast<QQuickWindow*>(object);
-
-    // if root item is not window
-    if (!m_window) {
-        QQuickItem *item = qobject_cast<QQuickItem*>(object);
-        if (!item) {
-            m_window = nullptr;
-            emit windowChanged();
-        }
-        if (m_hideWindow) item->setVisible(true);
-        m_window = new QQuickWindow();
-        item->setParentItem(m_window->contentItem());
-        m_window->setColor(m_color);
+    // root element is Window itself
+    if (m_window) {
+        emit windowChanged();
+        return;
     }
 
-    emit windowChanged();
+    QQuickItem *item = qobject_cast<QQuickItem*>(object);
+    // root component is some weird thing like QtObject
+    if (!item) {
+        qWarning() << "Loaded component is not based on Item, cannot display";
+        m_window = nullptr;
+        emit windowChanged();
+        return;
+    }
+
+    if (m_hideWindow) item->setVisible(true);
+    m_window = new QQuickWindow();
+    item->setParentItem(m_window->contentItem());
+    item->setParent(m_window); // This needed for safety
+    m_window->setColor(m_color);
 }
