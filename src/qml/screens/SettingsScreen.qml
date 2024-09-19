@@ -83,15 +83,6 @@ BlankScreen {
                     dialog.open(dialog.types.fontSize, parameters, callback)
                 }
             }
-
-            CSettingButton {
-                text: qsTr("Debugging")
-                description: settings.debugging ? qsTr("Enabled") : qsTr("Disabled")
-
-                onClicked: {
-                    settings.debugging = !settings.debugging
-                }
-            }
             
             CSettingButton {
                 text: qsTr("Use new playground")

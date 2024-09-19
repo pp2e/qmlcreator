@@ -27,11 +27,11 @@ BlankScreen {
     objectName: "EditorScreen"
 
     function saveContent() {
-        ProjectManager.saveFileContent(filePath, codeArea.text)
+        ProjectManager.saveFileContent(path, codeArea.text)
     }
 
     property alias codeArea : codeArea
-    property string filePath: ""
+    property string path: ""
 
     function getDirName(path) {
         var dirname = ""
@@ -47,7 +47,7 @@ BlankScreen {
     StackView.onStatusChanged: {
         if (StackView.status === StackView.Activating) {
             // ProjectManager.fileName = fileName
-            codeArea.text = ProjectManager.getFileContent(filePath);
+            codeArea.text = ProjectManager.getFileContent(path);
         } else if (StackView.status === StackView.Deactivating) {
             saveContent()
         }
@@ -76,7 +76,7 @@ BlankScreen {
             CBackButton {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                text: getDirName(filePath)
+                text: getDirName(path)
                 //enableBack: !enableDualView
                 targetSplit: appWindow.splitView.rightView
                 onClicked: {
@@ -109,23 +109,19 @@ BlankScreen {
             }
 
             CToolButton {
-                visible: filePath.endsWith(".qml") &&
+                visible: path.endsWith(".qml") &&
                          (!codeArea.selectedText.length > 0 || codeArea.useNativeTouchHandling)
                 Layout.fillHeight: true
                 icon: "\uf04b"
                 tooltipText: qsTr("Run")
                 onClicked: {
-                    ProjectManager.saveFileContent(filePath, codeArea.text)
+                    ProjectManager.saveFileContent(path, codeArea.text)
                     ProjectManager.clearComponentCache()
                     Qt.inputMethod.hide()
                     var playgroundName = settings.useNewPlayground ? "NewPlaygroundScreen.qml" : "PlaygroundScreen.qml"
-                    var playgroundScreenComponent = Qt.createComponent(Qt.resolvedUrl(playgroundName),
-                                       Component.PreferSynchronous);
-                    var newScreen = playgroundScreenComponent.createObject(rightView,
-                                                               {
-                                                                   filePath : filePath,
-                                                               });
-                    rightView.push(newScreen)
+                    rightView.push(Qt.resolvedUrl(playgroundName), {
+                        path : path,
+                    })
                 }
             }
         }

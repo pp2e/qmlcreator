@@ -42,12 +42,11 @@ ApplicationWindow {
         property string font: "Ubuntu Mono"
         property int fontSize: 20
         property string palette: "Cute"
-        property bool debugging: true
         property bool useNewPlayground: true
         property string qmlEntryPoint: ""
 
         // internal
-        property bool debugMode: false
+        property bool debugging: true
         property double pixelDensity : 2.5
         property bool desktopPlatform: Qt.platform.os === "windows" ||
                                        Qt.platform.os === "linux" ||
@@ -61,9 +60,9 @@ ApplicationWindow {
         property alias font: settings.font
         property alias fontSize: settings.fontSize
         property alias palette: settings.palette
-        property alias debugging: settings.debugging
         property alias useNewPlayground: settings.useNewPlayground 
         property alias qmlEntryPoint: settings.qmlEntryPoint
+        property alias debugging: settings.debugging
     }
 
     property alias settings: settings

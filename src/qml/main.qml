@@ -67,7 +67,7 @@ CApplicationWindow {
         Component.onCompleted: {
             splitView.leftView.push(Qt.resolvedUrl("screens/FilesScreen.qml"),
                                    {listFooter: mainMenuFooter,
-                                    subPath: ProjectManager.baseFolderPath("")})
+                                    path: ProjectManager.baseFolderPath("")})
             splitView.rightView.push(initialRightView)
         }
         
@@ -82,7 +82,7 @@ CApplicationWindow {
                 //     text: qsTr("qrc:/")
                 //     icon: "\uf0ad"
                 //     onClicked: {
-                //         splitView.leftView.push(Qt.resolvedUrl("screens/FilesScreen.qml"), {subPath: ":/"})
+                //         splitView.leftView.push(Qt.resolvedUrl("screens/FilesScreen.qml"), {path: ":/"})
                 //     }
                 // }
                 

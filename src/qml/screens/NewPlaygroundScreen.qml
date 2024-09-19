@@ -7,7 +7,7 @@ import "../components"
 BlankScreen {
     id: playgroundScreen
 
-    property string filePath: ""
+    property string path: ""
 
     function getDirName(path) {
         var lastSlash = path.lastIndexOf("/");
@@ -17,7 +17,7 @@ BlankScreen {
 
     StackView.onStatusChanged: {
         if (StackView.status === StackView.Activating) {
-            windowLoader.source = ProjectManager.getFilePath(filePath)
+            windowLoader.source = ProjectManager.getFilePath(path)
             windowContainer.window = windowLoader.window
         }
         else if (StackView.status === StackView.Deactivating) {
@@ -38,7 +38,7 @@ BlankScreen {
                 Layout.fillHeight: true
                 //enabled: !leftView.busy
                 //enableBack: !enableDualView
-                text: getDirName(filePath)
+                text: getDirName(path)
                 onClicked: windowLoader.source = ""
             }
 

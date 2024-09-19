@@ -25,13 +25,13 @@ import "../components"
 BlankScreen {
     id: projectsScreen
     
-    property string subPath : ""
+    property string path : ""
     property alias listFooter: listView.footer
 
     StackView.onStatusChanged: {
         if (StackView.status === StackView.Activating) {
             // ProjectManager.subDir = projectsScreen.subPath
-            listView.model = ProjectManager.files(projectsScreen.subPath)
+            listView.model = ProjectManager.files(projectsScreen.path)
         }
     }
 
@@ -69,9 +69,9 @@ BlankScreen {
                 }
 
                 if (modelData.isDir) {
-                    leftView.push(Qt.resolvedUrl("FilesScreen.qml"), {subPath : modelData.fullPath})
+                    leftView.push(Qt.resolvedUrl("FilesScreen.qml"), {path : modelData.fullPath})
                 } else {
-                    rightView.push(Qt.resolvedUrl("EditorScreen.qml"), {filePath : modelData.fullPath})
+                    rightView.push(Qt.resolvedUrl("EditorScreen.qml"), {path : modelData.fullPath})
                 }
 
             }
@@ -87,7 +87,7 @@ BlankScreen {
                     if (value)
                     {
                         ProjectManager.removeFile(modelData.fullPath)
-                        listView.model = ProjectManager.files(subPath)
+                        listView.model = ProjectManager.files(path)
                     }
                 }
 
@@ -108,7 +108,7 @@ BlankScreen {
                 Layout.fillHeight: true
                 enableBack: leftView.depth > 1
                 targetSplit: leftView
-                text: getDirName(subPath)
+                text: getDirName(path)
             }
 
             CToolButton {
@@ -129,13 +129,13 @@ BlankScreen {
             onTriggered: {
                 var parameters = {
                     title: qsTr("New file"),
-                    path: subPath,
+                    path: path,
                 }
 
                 var callback = function(value)
                 {
-                    ProjectManager.createFile(subPath + "/" + value.fileName, value.fileExtension)
-                    listView.model = ProjectManager.files(subPath)
+                    ProjectManager.createFile(path + "/" + value.fileName, value.fileExtension)
+                    listView.model = ProjectManager.files(path)
                 }
 
                 dialog.open(dialog.types.newFile, parameters, callback)
@@ -147,13 +147,13 @@ BlankScreen {
             onTriggered: {
                 var parameters = {
                     title: qsTr("New directory"),
-                    path: subPath,
+                    path: path,
                 }
 
                 var callback = function(value)
                 {
-                    ProjectManager.createDir(subPath + "/" + value.dirName)
-                    listView.model = ProjectManager.files(subPath)
+                    ProjectManager.createDir(path + "/" + value.dirName)
+                    listView.model = ProjectManager.files(path)
                 }
 
                 dialog.open(dialog.types.newDir, parameters, callback)
@@ -165,13 +165,13 @@ BlankScreen {
             onTriggered: {
                 var parameters = {
                     title: qsTr("New project"),
-                    path: subPath,
+                    path: path,
                 }
 
                 var callback = function(value)
                 {
-                    ProjectManager.createProject(subPath, value)
-                    listView.model = ProjectManager.files(subPath)
+                    ProjectManager.createProject(path, value)
+                    listView.model = ProjectManager.files(path)
                 }
 
                 dialog.open(dialog.types.newProject, parameters, callback)
