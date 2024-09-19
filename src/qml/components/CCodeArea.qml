@@ -25,16 +25,8 @@ Item {
 
     property alias text: textEdit.text
     property alias selectedText: textEdit.selectedText
-    property int indentSize: 0
 
     readonly property bool useNativeTouchHandling : (Qt.platform.os === "ios")
-
-    onIndentSizeChanged: {
-        var indentString = ""
-        for (var i = 0; i < indentSize; i++)
-            indentString += " "
-        textEdit.indentString = indentString
-    }
 
     function paste() {
         textEdit.paste()
@@ -138,8 +130,6 @@ Item {
             inputMethodHints: Qt.ImhNoPredictiveText
             activeFocusOnPress: useNativeTouchHandling
 
-            property string indentString: ""
-
             property int currentLine: cursorRectangle.y / cursorRectangle.height + 1
 
             onContentHeightChanged:
@@ -156,7 +146,7 @@ Item {
             }
 
             EditorBackend {
-                id: syntaxHighlighter
+                id: backend
 
                 textEdit: textEdit
 

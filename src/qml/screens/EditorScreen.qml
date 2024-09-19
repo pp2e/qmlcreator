@@ -27,7 +27,6 @@ BlankScreen {
     objectName: "EditorScreen"
 
     function saveContent() {
-        // ProjectManager.fileName = fileName
         ProjectManager.saveFileContent(filePath, codeArea.text)
     }
 
@@ -63,8 +62,6 @@ BlankScreen {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-
-        indentSize: settings.indentSize
 
         text: ""
     }

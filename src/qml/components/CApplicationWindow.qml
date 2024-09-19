@@ -42,7 +42,6 @@ ApplicationWindow {
         property string font: "Ubuntu Mono"
         property int fontSize: 20
         property string palette: "Cute"
-        property int indentSize: 4
         property bool debugging: true
         property bool useNewPlayground: true
         property string qmlEntryPoint: ""
@@ -62,7 +61,6 @@ ApplicationWindow {
         property alias font: settings.font
         property alias fontSize: settings.fontSize
         property alias palette: settings.palette
-        property alias indentSize: settings.indentSize
         property alias debugging: settings.debugging
         property alias useNewPlayground: settings.useNewPlayground 
         property alias qmlEntryPoint: settings.qmlEntryPoint

@@ -158,7 +158,7 @@ qt_add_qml_module(qmlcreator
     qml/components/dialogs/DialogLoader.qml
     qml/components/dialogs/FontFamilyDialog.qml
     qml/components/dialogs/FontSizeDialog.qml
-    qml/components/dialogs/IndentSizeDialog.qml
+
     qml/components/dialogs/ListDialog.qml
     qml/components/dialogs/MessageDialog.qml
     qml/components/dialogs/NewDirDialog.qml
