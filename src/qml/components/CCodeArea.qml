@@ -37,7 +37,6 @@ Item {
     }
 
     function paste() {
-        textEdit.textChangedManually = true
         textEdit.paste()
     }
 
@@ -46,7 +45,6 @@ Item {
     }
 
     function cut() {
-        textEdit.textChangedManually = true
         textEdit.cut()
     }
 
@@ -157,114 +155,15 @@ Item {
                 lineNumberRepeater.model = lineNumbersHelper.lineCount
             }
 
-            property bool textChangedManually: false
-            property string previousText: ""
-            onLengthChanged: {
-                if (settings.indentSize === 0)
-                    return
-
-                // This is kind of stupid workaround, we forced to do this check because TextEdit sends
-                // us "textChanged" and "lengthChanged" signals after every select() and forceActiveFocus() call
-                if (text !== previousText)
-                {
-                    if (textChangedManually)
-                    {
-                        previousText = text
-                        textChangedManually = false
-                        return
-                    }
-
-                    if (length > previousText.length)
-                    {
-                        var textBeforeCursor
-                        var openBrackets
-                        var closeBrackets
-                        var openBracketsCount
-                        var closeBracketsCount
-                        var indentDepth
-                        var indentString
-
-                        var lastCharacter = text[cursorPosition - 1]
-
-                        switch (lastCharacter)
-                        {
-                        case "\n":
-                            textBeforeCursor = text.substring(0, cursorPosition - 1)
-                            openBrackets = textBeforeCursor.match(/\{/g)
-                            closeBrackets = textBeforeCursor.match(/\}/g)
-
-                            if (openBrackets !== null)
-                            {
-                                openBracketsCount = openBrackets.length
-                                closeBracketsCount = 0
-
-                                if (closeBrackets !== null)
-                                    closeBracketsCount = closeBrackets.length
-
-                                indentDepth = openBracketsCount - closeBracketsCount
-                                indentString = new Array(indentDepth + 1).join(textEdit.indentString)
-                                textChangedManually = true
-                                insert(cursorPosition, indentString)
-                            }
-                            break
-                        case "}":
-                            var lineBreakPosition
-                            for (var i = cursorPosition - 2; i >= 0; i--)
-                            {
-                                if (text[i] !== " ")
-                                {
-                                    if (text[i] === "\n")
-                                        lineBreakPosition = i
-
-                                    break
-                                }
-                            }
-
-                            if (lineBreakPosition !== undefined)
-                            {
-                                textChangedManually = true
-                                remove(lineBreakPosition + 1, cursorPosition - 1)
-
-                                textBeforeCursor = text.substring(0, cursorPosition - 1)
-                                openBrackets = textBeforeCursor.match(/\{/g)
-                                closeBrackets = textBeforeCursor.match(/\}/g)
-
-                                if (openBrackets !== null)
-                                {
-                                    openBracketsCount = openBrackets.length
-                                    closeBracketsCount = 0
-
-                                    if (closeBrackets !== null)
-                                        closeBracketsCount = closeBrackets.length
-
-                                    indentDepth = openBracketsCount - closeBracketsCount - 1
-                                    indentString = new Array(indentDepth + 1).join(textEdit.indentString)
-                                    textChangedManually = true
-                                    insert(cursorPosition - 1, indentString)
-                                }
-                            }
-
-                            break
-                        }
-                    }
-
-                    previousText = text
-                }
-            }
-
             EditorBackend {
                 id: syntaxHighlighter
 
-                document: textEdit.textDocument
+                textEdit: textEdit
 
-                // normalColor: appWindow.colorPalette.editorNormal
                 commentColor: appWindow.colorPalette.editorComment
                 numberColor: appWindow.colorPalette.editorNumber
                 stringColor: appWindow.colorPalette.editorString
-                // operatorColor: appWindow.colorPalette.editorOperator
                 keywordColor: appWindow.colorPalette.editorKeyword
-                // builtInColor: appWindow.colorPalette.editorBuiltIn
-                // markerColor: appWindow.colorPalette.editorMarker
                 itemColor: appWindow.colorPalette.editorItem
                 propertyColor: appWindow.colorPalette.editorProperty
                 errorColor: appWindow.colorPalette.editorError

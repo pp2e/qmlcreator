@@ -21,33 +21,6 @@ EditorBackend::~EditorBackend() {
     }
 }
 
-void EditorBackend::setQuickDocument(QQuickTextDocument *quickDocument) {
-    m_quickDocument = quickDocument;
-    m_document = quickDocument->textDocument();
-    connect(m_document, &QTextDocument::contentsChange,
-            this, &EditorBackend::textChanged);
-}
-
-void EditorBackend::highlightText(QTextBlock block, int start, int end, QTextCharFormat format) {
-    QTextLayout *layout = block.layout();
-    QList<QTextLayout::FormatRange> ranges = layout->formats();
-    QTextLayout::FormatRange r {
-        start,
-        end-start,
-        format
-    };
-    ranges.append(r);
-    layout->setFormats(ranges);
-}
-
-bool TsTreeCursorGotoNextNode(TSTreeCursor *cursor) {
-    // if (ts_tree_cursor_goto_first_child(cursor)) return true;
-    while (!ts_tree_cursor_goto_next_sibling(cursor)) {
-        if (!ts_tree_cursor_goto_parent(cursor)) return false;
-    }
-    return true;
-}
-
 const QTextCharFormat textFormat(QBrush background, bool underline = false) {
     QTextCharFormat format;
     format.setForeground(background);
@@ -129,8 +102,29 @@ void EditorBackend::textChanged(int from, int charsRemoved, int charsAdded) {
     }
 }
 
+void EditorBackend::highlightText(QTextBlock block, int start, int end, QTextCharFormat format) {
+    QTextLayout *layout = block.layout();
+    QList<QTextLayout::FormatRange> ranges = layout->formats();
+    QTextLayout::FormatRange r {
+        start,
+        end-start,
+        format
+    };
+    ranges.append(r);
+    layout->setFormats(ranges);
+}
+
+bool TsTreeCursorGotoNextNode(TSTreeCursor *cursor) {
+    // if (ts_tree_cursor_goto_first_child(cursor)) return true;
+    while (!ts_tree_cursor_goto_next_sibling(cursor)) {
+        if (!ts_tree_cursor_goto_parent(cursor)) return false;
+    }
+    return true;
+}
+
 void EditorBackend::highlightBlock(TSTreeCursor &cursor, QTextBlock block) {
-    while (ts_node_start_point(ts_tree_cursor_current_node(&cursor)).row <= block.blockNumber()) {
+    while (ts_node_start_point(ts_tree_cursor_current_node(&cursor)).row <= block.blockNumber()
+           && ts_node_end_point(ts_tree_cursor_current_node(&cursor)).row >= block.blockNumber()) {
         TSNode node = ts_tree_cursor_current_node(&cursor);
         int start = ts_node_start_point(node).row < block.blockNumber() ? 0 : ts_node_start_point(node).column;
         int end = ts_node_end_point(node).row > block.blockNumber() ? block.length() : ts_node_end_point(node).column;
@@ -156,7 +150,7 @@ void EditorBackend::highlightBlock(TSTreeCursor &cursor, QTextBlock block) {
             if (block.text().at(start).isLower()) // Starts with lower
                 // editorProperty
                 highlightText(block, start, end, textFormat(m_propertyColor));
-            else // Not first item in expression
+            else
                 // editorItem
                 highlightText(block, start, end, textFormat(m_itemColor));
         } else if (strcmp(node_type, "ERROR") == 0) {
@@ -170,9 +164,121 @@ void EditorBackend::highlightBlock(TSTreeCursor &cursor, QTextBlock block) {
                 continue;
         }
 
+        // Do not go to next node if if it exists on next line
         if (ts_node_end_point(node).row > block.blockNumber()) break;
 
         // If node end is on this line we request next node
         if (!TsTreeCursorGotoNextNode(&cursor)) return;
     }
+}
+
+void EditorBackend::setTextEdit(QQuickTextEdit *textEdit) {
+    if (m_textEdit == textEdit)
+        return;
+
+    if (m_textEdit)
+        m_textEdit->removeEventFilter(this);
+
+    if (m_document)
+        disconnect(m_document, &QTextDocument::contentsChange,
+                   this, &EditorBackend::textChanged);
+
+    m_textEdit = textEdit;
+    m_textEdit->installEventFilter(this);
+
+    m_document = m_textEdit->textDocument()->textDocument();
+    connect(m_document, &QTextDocument::contentsChange,
+            this, &EditorBackend::textChanged);
+}
+
+bool TsTreeCursorGotoPos(TSTreeCursor *cursor, TSPoint pos) {
+    if (!ts_tree_cursor_goto_first_child(cursor)) return false;
+
+    do {
+        TSNode node = ts_tree_cursor_current_node(cursor);
+        TSPoint start = ts_node_start_point(node);
+        TSPoint end = ts_node_end_point(node);
+        if ((pos.row > start.row || (pos.row == start.row && pos.column > start.column))
+            && (pos.row < end.row || (pos.row == end.row && pos.column < end.column)))
+            return true;
+
+    } while (ts_tree_cursor_goto_next_sibling(cursor));
+
+    return false;
+}
+
+bool EditorBackend::eventFilter(QObject *object, QEvent *event) {
+    if (object != m_textEdit)
+        return false;
+
+    if (event->type() != QEvent::KeyPress)
+        return false;
+
+    QKeyEvent *key = static_cast<QKeyEvent*>(event);
+
+    // sorry for trash code
+    if (key->key() != Qt::Key_Return && key->key() != Qt::Key_Enter && key->text() != "{" && key->text() != "}")
+        return false;
+
+    TSNode root_node = ts_tree_root_node(m_tree);
+    TSTreeCursor cursor = ts_tree_cursor_new(root_node);
+    TSPoint point = tsPointFromPos(m_prevBlockLengths, m_textEdit->cursorPosition());
+
+    int tabs = 0;
+    TSNode node = ts_tree_cursor_current_node(&cursor);
+    TSPoint start = ts_node_start_point(node);
+    TSPoint end = ts_node_end_point(node);
+    // qDebug() << "point" << point.row << point.column;
+    while (TsTreeCursorGotoPos(&cursor, point)) {
+        node = ts_tree_cursor_current_node(&cursor);
+        start = ts_node_start_point(node);
+        end = ts_node_end_point(node);
+        // qDebug() << ts_node_type(node) << start.row << start.column << end.row << end.column;
+        if (strcmp(ts_node_type(node), "ui_object_initializer")==0)
+            tabs++;
+    }
+
+    if (key->key() == Qt::Key_Return || key->key() == Qt::Key_Enter) {
+        if (point.row == end.row && point.column+1 == end.column) {
+            QTextCursor cursor(m_document);
+            cursor.setPosition(m_textEdit->cursorPosition());
+            cursor.insertText("\n" + QString("    ").repeated(tabs) + "\n" + QString("    ").repeated(tabs-1));
+            m_textEdit->setCursorPosition(m_textEdit->cursorPosition()-1-4*(tabs-1));
+        } else {
+            QTextCursor cursor(m_document);
+            cursor.setPosition(m_textEdit->cursorPosition());
+            cursor.insertText("\n" + QString("    ").repeated(tabs));
+        }
+        return true;
+    }
+
+    if (key->text() == "{") {
+        QTextCursor cursor(m_document);
+        cursor.setPosition(m_textEdit->cursorPosition());
+        cursor.insertText("{\n" + QString("    ").repeated(tabs+1) + "\n" + QString("    ").repeated(tabs) + "}");
+        m_textEdit->setCursorPosition(m_textEdit->cursorPosition()-1-4*tabs-1);
+        return true;
+    }
+
+    if (key->text() == "}") {
+        QTextCursor cursor(m_document);
+        cursor.setPosition(m_textEdit->cursorPosition());
+        if (cursor.atBlockEnd()) {
+            QString text = cursor.block().text();
+            bool onlySpaces = true;
+            for (QChar ch : text) {
+                if (ch != ' ') {
+                    onlySpaces = false;
+                    break;
+                }
+            }
+            if (onlySpaces) {
+                cursor.select(QTextCursor::SelectionType::BlockUnderCursor);
+                cursor.insertText("\n" + QString("    ").repeated(tabs-1) + "}");
+                return true;
+            }
+        }
+    }
+
+    return false;
 }

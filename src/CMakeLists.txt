@@ -40,6 +40,8 @@ endif()
 include_directories(
     ${CMAKE_SOURCE_DIR}/3rdparty/tree-sitter/lib/include
 )
+# Lets goo private headers
+include_directories(${Qt6Quick_PRIVATE_INCLUDE_DIRS})
 
 qt_add_qml_module(qmlcreator
     URI QmlCreator
