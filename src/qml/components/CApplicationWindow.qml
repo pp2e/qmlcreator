@@ -48,10 +48,6 @@ ApplicationWindow {
         // internal
         property bool debugging: true
         property double pixelDensity : 2.5
-        property bool desktopPlatform: Qt.platform.os === "windows" ||
-                                       Qt.platform.os === "linux" ||
-                                       Qt.platform.os === "osx" ||
-                                       Qt.platform.os === "unix"
     }
 
     Settings {

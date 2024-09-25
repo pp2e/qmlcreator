@@ -217,7 +217,7 @@ bool EditorBackend::eventFilter(QObject *object, QEvent *event) {
     QKeyEvent *key = static_cast<QKeyEvent*>(event);
 
     // sorry for trash code
-    if (key->key() != Qt::Key_Return && key->key() != Qt::Key_Enter && key->text() != "{" && key->text() != "}")
+    if (key->key() != Qt::Key_Tab && key->key() != Qt::Key_Return && key->key() != Qt::Key_Enter && key->text() != "{" && key->text() != "}")
         return false;
 
     TSNode root_node = ts_tree_root_node(m_tree);
@@ -228,14 +228,33 @@ bool EditorBackend::eventFilter(QObject *object, QEvent *event) {
     TSNode node = ts_tree_cursor_current_node(&cursor);
     TSPoint start = ts_node_start_point(node);
     TSPoint end = ts_node_end_point(node);
-    // qDebug() << "point" << point.row << point.column;
+
     while (TsTreeCursorGotoPos(&cursor, point)) {
         node = ts_tree_cursor_current_node(&cursor);
         start = ts_node_start_point(node);
         end = ts_node_end_point(node);
-        // qDebug() << ts_node_type(node) << start.row << start.column << end.row << end.column;
+
         if (strcmp(ts_node_type(node), "ui_object_initializer")==0)
             tabs++;
+    }
+
+    if (key->key() == Qt::Key_Tab) {
+        QTextCursor cursor(m_document);
+        cursor.setPosition(m_textEdit->cursorPosition());
+
+        QString text = cursor.block().text().first(cursor.positionInBlock());
+        bool onlySpaces = true;
+        for (QChar ch : text) {
+            if (ch != ' ') {
+                onlySpaces = false;
+                break;
+            }
+        }
+
+        if (onlySpaces) {
+            cursor.insertText(QString(" ").repeated(4-text.length()%4));
+            return true;
+        }
     }
 
     if (key->key() == Qt::Key_Return || key->key() == Qt::Key_Enter) {

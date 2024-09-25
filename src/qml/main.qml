@@ -77,14 +77,14 @@ CApplicationWindow {
                 id: column
                 width: parent.width
 
-                // CNavigationButton {
-                //     id: qrcButton
-                //     text: qsTr("qrc:/")
-                //     icon: "\uf0ad"
-                //     onClicked: {
-                //         splitView.leftView.push(Qt.resolvedUrl("screens/FilesScreen.qml"), {path: ":/"})
-                //     }
-                // }
+                CNavigationButton {
+                    id: qrcButton
+                    text: qsTr("qrc:/")
+                    icon: "\uf0ad"
+                    onClicked: {
+                        splitView.leftView.push(Qt.resolvedUrl("screens/FilesScreen.qml"), {path: ":/"})
+                    }
+                }
                 
                 CNavigationButton {
                     id: settingsButton

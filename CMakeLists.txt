@@ -26,3 +26,29 @@ else()
     add_subdirectory(3rdparty/kirigami)
     target_link_libraries(qmlcreator PRIVATE Kirigamiplugin)
 endif()
+
+add_subdirectory(3rdparty/qtquick.tooling)
+target_link_libraries(qmlcreator PRIVATE quicktoolingfixed)
+
+function(bundle_qml_imports_types target)
+    # conf=probably ok
+    include("${CMAKE_CURRENT_BINARY_DIR}/.qt/qml_imports/${target}_conf.cmake")
+
+    math(EXPR last_index "${qml_import_scanner_imports_count} - 1")
+    foreach(index RANGE 0 ${last_index})
+        cmake_parse_arguments("entry"
+            ""
+            "PATH;PREFER"
+            ""
+            ${qml_import_scanner_import_${index}}
+        )
+        if ("${entry_PREFER}" MATCHES ":.*")
+            file(GLOB types "${entry_PATH}/*.qmltypes")
+            STRING(REGEX REPLACE "^:/" "" prefix ${entry_PREFER})
+            qt_add_resources(${target} ${prefix}bundle_qmltypes.qrc PREFIX "${prefix}" BASE "${entry_PATH}" FILES ${types})
+        endif()
+    endforeach()
+
+endfunction()
+
+bundle_qml_imports_types(qmlcreator)

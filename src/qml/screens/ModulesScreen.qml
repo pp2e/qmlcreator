@@ -42,8 +42,12 @@ BlankScreen {
 
         delegate: CInformationItem {
             width: listView.width
-            text: modelData
-            description: qsTr("Available")
+            text: modelData.name
+            description: modelData.path
+            MouseArea {
+                anchors.fill: parent
+                onClicked: finder.test(modelData.path)
+            }
         }
     }
 
