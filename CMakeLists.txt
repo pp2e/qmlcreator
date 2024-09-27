@@ -32,7 +32,7 @@ target_link_libraries(qmlcreator PRIVATE quicktoolingfixed)
 
 function(bundle_qml_imports_types target)
     # conf=probably ok
-    include("${CMAKE_CURRENT_BINARY_DIR}/.qt/qml_imports/${target}_conf.cmake")
+    include("${CMAKE_CURRENT_BINARY_DIR}/src/.qt/qml_imports/${target}_conf.cmake")
 
     math(EXPR last_index "${qml_import_scanner_imports_count} - 1")
     foreach(index RANGE 0 ${last_index})

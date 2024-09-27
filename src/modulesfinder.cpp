@@ -9,35 +9,43 @@
 ModulesFinder::ModulesFinder(QObject *parent)
     : QObject{parent} {}
 
-void recSearchQmldir(QString path, QMap<QString, QVariant> &names, int depth = 0) {
-    QString qmldirPath = path + QDir::separator() + "qmldir";
-    if (QFileInfo::exists(qmldirPath)) {
-        QFile qmldir(qmldirPath);
-        qmldir.open(QIODevice::ReadOnly);
+QVariantMap parseQmldir(QString path) {
+    QFile qmldir(path+"/qmldir");
+    qmldir.open(QIODevice::ReadOnly);
 
-        QVariantMap entry;
-        entry.insert("name", "???");
-        // entry.insert("path", path);
-        entry.insert("path", "???");
-        qDebug() << path;
-        while (!qmldir.atEnd()) {
-            QByteArray line = qmldir.readLine();
+    QVariantMap entry;
+    entry.insert("name", "???");
+    entry.insert("path", path);
+    //entry.insert("path", "???");
+    //qDebug() << path;
+    while (!qmldir.atEnd()) {
+        QByteArray line = qmldir.readLine();
 
-            if (line.startsWith("module ")) {
-                entry.insert("name", line.sliced(7));
-                // break;
-            }
-
-            if (line.startsWith("typeinfo ")) {
-                entry.insert("path", path+"/"+line.sliced(9).chopped(1));
-                ModulesFinder::test(path+"/"+line.sliced(9).chopped(1));
-                // break;
-            }
-
-            // TODO here check preferred path
+        if (line.startsWith("module ")) {
+            entry.insert("name", line.sliced(7));
+            // break;
         }
+
+        if (line.startsWith("typeinfo ")) {
+            entry.insert("typeinfo", line.sliced(9).chopped(1));
+            ModulesFinder::test(path+"/"+line.sliced(9).chopped(1));
+        }
+
+        if (line.startsWith("prefer ")) {
+            QString prefer = line.sliced(7).chopped(1);
+            //qDebug() << prefer;
+            if (QFile::exists(prefer+"/qmldir"))
+                entry.insert("path", prefer);
+        }
+    }
+    qmldir.close();
+    return entry;
+}
+
+void recSearchQmldir(QString path, QMap<QString, QVariant> &names, int depth = 0) {
+    if (QFileInfo::exists(path + "/qmldir")) {
+        QVariantMap entry = parseQmldir(path);
         names[entry["name"].toString()] = entry;
-        qmldir.close();
     }
 
     if (depth > 5) return;
@@ -60,43 +68,59 @@ QVariantList ModulesFinder::modules() {
 }
 
 void ModulesFinder::test(QString path) {
-    if (path.contains("/kde/plasma/private/dict"))
-        return;
-
-    if (path.contains("/QtWebEngine"))
-        return;
-
-    if (path.contains("/QtWebView"))
-        return;
-
     static QQmlEngine typesEngine;
 
-    if (!QFile::exists(path))
+    QFile file(path);
+    if (!file.exists())
         return;
 
-    QQmlComponent *typeinfo = new QQmlComponent(&typesEngine, path, QQmlComponent::CompilationMode::PreferSynchronous);
-    if (typeinfo->isReady()) {
-        QObject *typeinfo2 = typeinfo->create();
+    QQmlComponent typeinfo(&typesEngine);
+    file.open(QIODevice::ReadOnly);
+    typeinfo.setData(file.readAll(), QUrl());
+    if (typeinfo.isReady()) {
+        QObject *typeinfo2 = typeinfo.create();
         QVariant components = QQmlProperty::read(typeinfo2, "components");
         QQmlListReference list = components.value<QQmlListReference>();
+        qDebug() << path << list.size();
         // for (int i = 0; i < list.size(); i++) {
         //     QObject *comp = list.at(i);
         //     qDebug() << QQmlProperty::read(comp, "name").toString();
         // }
         delete typeinfo2;
-        delete typeinfo;
-    } else if (typeinfo->isError()) {
+    } else if (typeinfo.isError()) {
         qDebug() << path;
-        qDebug() << typeinfo->errorString();
-        delete typeinfo;
-    } else {
-    //     QObject::connect(typeinfo, &QQmlComponent::statusChanged,
-    //                      [=] () {
-    //                          qDebug() << "status chamged";
-    //                          QObject *typeinfo2 = typeinfo->create();
-    //                          qDebug() << typeinfo2->metaObject()->className();
-    //                          delete typeinfo2;
-    //                          delete typeinfo;
-    //                      });
+        qDebug() << typeinfo.errorString();
     }
+}
+
+QString ModulesFinder::getModulePath(QString module) {
+    module.replace(".", "/");
+    QQmlEngine engine;
+    for (QString &dir : engine.importPathList()) {
+        if (dir.startsWith("qrc:/"))
+            dir = dir.sliced(3);
+
+        if (QFile::exists(dir + "/" + module + "/qmldir")) {
+            // qDebug() << "found";
+            return dir + "/" + module;
+        }
+
+        // TODO: check preferred path
+    }
+    return "";
+}
+
+QStringList ModulesFinder::getModuleComponents(QString path) {
+    QFile qmldir(path + "/qmldir");
+    qmldir.open(QIODevice::ReadOnly);
+
+    QSet<QString> components;
+    while (!qmldir.atEnd()) {
+        QString line = qmldir.readLine();
+        if (line.endsWith(".qml\n")) {
+            QString name = line.first(line.indexOf(" "));
+            components << name;
+        }
+    }
+    return components.values();
 }

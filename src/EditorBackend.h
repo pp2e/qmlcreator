@@ -60,6 +60,9 @@ private:
     QColor m_propertyColor;
     QColor m_errorColor;
 
+    // suggestions
+    QMap<QString, QStringList> m_importedTypes;
+
 signals:
     void commentColorChanged();
     void numberColorChanged();

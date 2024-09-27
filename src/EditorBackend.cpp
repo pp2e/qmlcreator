@@ -4,6 +4,8 @@
 #include <QAbstractTextDocumentLayout>
 
 #include "tree_sitter/api.h"
+
+#include "modulesfinder.h"
 extern "C" {
 // Declare the `tree_sitter_json` function, which is
 // implemented by the `tree-sitter-json` library.
@@ -49,7 +51,7 @@ TSPoint tsPointFromPos(QList<int> lengths, int pos) {
 
 void EditorBackend::textChanged(int from, int charsRemoved, int charsAdded) {
     QByteArray data = m_document->toPlainText().toLatin1(); // Latin1 counts russian text as one symbol like QString itself
-    const char *source_code = data.constData();
+    std::string source_code = data.constData();
 
     if (!m_parser) {
         m_parser = ts_parser_new();
@@ -60,9 +62,9 @@ void EditorBackend::textChanged(int from, int charsRemoved, int charsAdded) {
         m_tree = ts_parser_parse_string(
             m_parser,
             NULL,
-            source_code,
-            strlen(source_code)
-            );
+            source_code.data(),
+            source_code.size()
+        );
     } else {
         QList<int> blockLengths;
         for (QTextBlock block = m_document->begin(); block.isValid(); block = block.next()) {
@@ -87,14 +89,69 @@ void EditorBackend::textChanged(int from, int charsRemoved, int charsAdded) {
         m_tree = ts_parser_parse_string(
             m_parser,
             m_tree,
-            source_code,
-            strlen(source_code)
-            );
+            source_code.data(),
+            source_code.size()
+        );
     }
 
     TSNode root_node = ts_tree_root_node(m_tree);
-    TSTreeCursor cursor = ts_tree_cursor_new(root_node);
 
+    QMap<QString, QString> imports;
+    // Walk through imports
+    // TODO: probably create only one walkthrough loop from this and rehighlight code
+    TSTreeCursor importsCursor = ts_tree_cursor_new(root_node);
+    ts_tree_cursor_goto_first_child(&importsCursor);
+    while (strcmp(ts_node_type(ts_tree_cursor_current_node(&importsCursor)), "ui_object_definition")!=0) {
+        if (strcmp(ts_node_type(ts_tree_cursor_current_node(&importsCursor)), "ui_import")==0) {
+            TSNode import = ts_node_child_by_field_name(ts_tree_cursor_current_node(&importsCursor), "source", 6);
+            uint32_t start = ts_node_start_byte(import);
+            uint32_t end = ts_node_end_byte(import);
+            QString name = source_code.substr(start, end-start).data();
+            // qDebug() << ts_node_type(import) << name;
+            QString path = ModulesFinder::getModulePath(name);
+            if (!path.isEmpty())
+                imports.insert(name, path);
+            // ModulesFinder::scan(name);
+        }
+        if (!ts_tree_cursor_goto_next_sibling(&importsCursor))
+            return;
+    }
+    // sorry another trash code
+    for (const QString import : m_importedTypes.keys()) {
+        if (!imports.contains(import)) {
+            qDebug() << "remove component" << import << m_importedTypes.value(import) << "components";
+            m_importedTypes.remove(import);
+        }
+    }
+    for (const QString import : imports.keys()) {
+        if (!m_importedTypes.contains(import)) {
+            m_importedTypes.insert(import, ModulesFinder::getModuleComponents(imports.value(import)));
+            qDebug() << "add component" << import << m_importedTypes.value(import) << "components";
+        }
+    }
+
+    {
+        QStringList suggests;
+        QTextCursor cursor(m_document);
+        cursor.setPosition(m_textEdit->cursorPosition());
+        QString line = cursor.block().text().first(cursor.positionInBlock());
+
+        int firstSpace = line.lastIndexOf(" ");
+        if (firstSpace > 0)
+            line = line.mid(firstSpace+1);
+
+        qDebug() << line;
+
+        for (QStringList &import : m_importedTypes.values()) {
+            for (QString &component : import) {
+                if (component.startsWith(line))
+                    suggests << component;
+            }
+        }
+        qDebug() << suggests;
+    }
+
+    TSTreeCursor cursor = ts_tree_cursor_new(root_node);
     for (QTextBlock block = m_document->begin(); block.isValid(); block = block.next()) {
         block.layout()->clearFormats();
 
