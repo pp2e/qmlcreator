@@ -140,7 +140,7 @@ void EditorBackend::textChanged(int from, int charsRemoved, int charsAdded) {
         if (firstSpace > 0)
             line = line.mid(firstSpace+1);
 
-        qDebug() << line;
+        //qDebug() << line << "text";
 
         for (QStringList &import : m_importedTypes.values()) {
             for (QString &component : import) {
@@ -148,7 +148,14 @@ void EditorBackend::textChanged(int from, int charsRemoved, int charsAdded) {
                     suggests << component;
             }
         }
-        qDebug() << suggests;
+        //qDebug() << "first";
+        if (suggests.size() > 4)
+            suggests = suggests.first(4);
+        if (m_suggestions != suggests) {
+            m_suggestions = suggests;
+            emit suggestionsChanged();
+        }
+        //qDebug() << suggests << "suggest";
     }
 
     TSTreeCursor cursor = ts_tree_cursor_new(root_node);
@@ -186,31 +193,35 @@ void EditorBackend::highlightBlock(TSTreeCursor &cursor, QTextBlock block) {
         int start = ts_node_start_point(node).row < block.blockNumber() ? 0 : ts_node_start_point(node).column;
         int end = ts_node_end_point(node).row > block.blockNumber() ? block.length() : ts_node_end_point(node).column;
 
-        const char *node_type = ts_node_type(node);
+        //const char *node_type = ts_node_type(node);
+        QString node_type = ts_node_type(node);
+        
+        QChar firstChar = block.text().at(start);
 
-        if (strcmp(node_type, "comment") == 0) {
+        if (node_type == "comment") {
             // editorComment
             highlightText(block, start, end, textFormat(m_commentColor));
-        } else if (strcmp(node_type, "number") == 0) {
+        } else if (node_type == "number") {
             // editorNumber
             highlightText(block, start, end, textFormat(m_numberColor));
-        } else if (strcmp(node_type, "string") == 0) {
+        } else if (node_type == "string") {
             // editorString
             highlightText(block, start, end, textFormat(m_stringColor));
-        } else if (strcmp(node_type, "import") == 0 || strcmp(node_type, "property") == 0
+        /*} else if (strcmp(node_type, "import") == 0 || strcmp(node_type, "property") == 0
                    || strcmp(node_type, "ui_property_modifier") == 0 || strcmp(node_type, "type_identifier") == 0
                    || strcmp(node_type, "if") == 0 || strcmp(node_type, "else") == 0
-                   || strcmp(node_type, "true") == 0 || strcmp(node_type, "false") == 0) {
+                   || strcmp(node_type, "true") == 0 || strcmp(node_type, "false") == 0) {*/
+        } else if (!ts_node_is_named(node) && firstChar.isLetter() || node_type == "type_identifier") {
             // editorKeyword
             highlightText(block, start, end, textFormat(m_keywordColor));
-        } else if (strcmp(node_type, "identifier") == 0 || strcmp(node_type, "property_identifier") == 0) {
-            if (block.text().at(start).isLower()) // Starts with lower
+        } else if (node_type == "identifier" || node_type == "property_identifier") {
+            if (firstChar.isLower()) // Starts with lower
                 // editorProperty
                 highlightText(block, start, end, textFormat(m_propertyColor));
             else
                 // editorItem
                 highlightText(block, start, end, textFormat(m_itemColor));
-        } else if (strcmp(node_type, "ERROR") == 0) {
+        } else if (node_type == "ERROR") {
             // editorError
             highlightText(block, start, end, textFormat(m_errorColor, true));
         } else {
@@ -274,7 +285,7 @@ bool EditorBackend::eventFilter(QObject *object, QEvent *event) {
     QKeyEvent *key = static_cast<QKeyEvent*>(event);
 
     // sorry for trash code
-    if (key->key() != Qt::Key_Tab && key->key() != Qt::Key_Return && key->key() != Qt::Key_Enter && key->text() != "{" && key->text() != "}")
+    if (key->key() != Qt::Key_Tab && key->key() != Qt::Key_Return && key->key() != Qt::Key_Enter && key->text() != "{" && key->text() != "[" && key->text() != "}")
         return false;
 
     TSNode root_node = ts_tree_root_node(m_tree);
@@ -291,8 +302,20 @@ bool EditorBackend::eventFilter(QObject *object, QEvent *event) {
         start = ts_node_start_point(node);
         end = ts_node_end_point(node);
 
-        if (strcmp(ts_node_type(node), "ui_object_initializer")==0)
+        QString node_type = ts_node_type(node);
+        if (node_type == "ui_object_initializer" || node_type == "array"  || node_type == "ui_object_array")
             tabs++;
+    }
+    
+    if (key->key() == Qt::Key_Tab) {
+        TSTreeCursor cursor2 = ts_tree_cursor_new(root_node);
+        while (TsTreeCursorGotoPos(&cursor2, point)) {
+            node = ts_tree_cursor_current_node(&cursor2);
+
+            qDebug() << ts_node_type(node);
+        }
+        qDebug() << "tab level" << tabs;
+        return true;
     }
 
     if (key->key() == Qt::Key_Tab) {
@@ -335,6 +358,14 @@ bool EditorBackend::eventFilter(QObject *object, QEvent *event) {
         m_textEdit->setCursorPosition(m_textEdit->cursorPosition()-1-4*tabs-1);
         return true;
     }
+    
+    if (key->text() == "[") {
+        QTextCursor cursor(m_document);
+        cursor.setPosition(m_textEdit->cursorPosition());
+        cursor.insertText("[\n" + QString("    ").repeated(tabs+1) + "\n" + QString("    ").repeated(tabs) + "]");
+        m_textEdit->setCursorPosition(m_textEdit->cursorPosition()-1-4*tabs-1);
+        return true;
+    }
 
     if (key->text() == "}") {
         QTextCursor cursor(m_document);
@@ -357,4 +388,8 @@ bool EditorBackend::eventFilter(QObject *object, QEvent *event) {
     }
 
     return false;
+}
+
+QStringList EditorBackend::suggestions() {
+    return m_suggestions;
 }

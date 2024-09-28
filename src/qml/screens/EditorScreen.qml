@@ -127,6 +127,16 @@ BlankScreen {
         }
     }
 
+    ListView {
+        width: parent.width
+        height: 200
+	model: codeArea.suggestions
+        anchors.bottom: parent.bottom
+        delegate: Text {
+            text: modelData
+	}
+    }
+
     CToolBarBlur {
         sourceItem: codeArea
     }

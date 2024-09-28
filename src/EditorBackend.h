@@ -27,6 +27,8 @@ class EditorBackend : public QObject
     Q_PROPERTY(QColor propertyColor  MEMBER m_propertyColor  NOTIFY propertyColorChanged)
     Q_PROPERTY(QColor errorColor     MEMBER m_errorColor     NOTIFY errorColorChanged)
 
+    Q_PROPERTY(QStringList suggestions READ suggestions NOTIFY suggestionsChanged)
+
 public:
     explicit EditorBackend(QObject *parent = nullptr);
     ~EditorBackend();
@@ -41,6 +43,9 @@ public:
     // preedit input
     void setTextEdit(QQuickTextEdit *textEdit);
     bool eventFilter(QObject *object, QEvent *event) override;
+
+    // suggestions
+    QStringList suggestions();
 
 private:
     // general
@@ -62,6 +67,7 @@ private:
 
     // suggestions
     QMap<QString, QStringList> m_importedTypes;
+    QStringList m_suggestions;
 
 signals:
     void commentColorChanged();
@@ -71,6 +77,7 @@ signals:
     void itemColorChanged();
     void propertyColorChanged();
     void errorColorChanged();
+    void suggestionsChanged();
 };
 
 #endif // EDITORBACKEND_H
