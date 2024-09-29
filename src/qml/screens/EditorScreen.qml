@@ -53,8 +53,6 @@ BlankScreen {
         }
     }
 
-
-
     CCodeArea {
         id: codeArea
 
@@ -127,14 +125,29 @@ BlankScreen {
         }
     }
 
-    ListView {
+    Rectangle {
         width: parent.width
-        height: 200
-	model: codeArea.suggestions
+        height: 15 * settings.pixelDensity
         anchors.bottom: parent.bottom
-        delegate: Text {
-            text: modelData
-	}
+        color: appWindow.colorPalette.toolBarBackground
+
+        ListView {
+            id: suggestionsList
+            anchors.fill: parent
+
+            orientation: ListView.Horizontal
+            model: codeArea.suggestions
+            delegate: Text {
+                padding: (suggestionsList.height-contentHeight)/2
+                font.pixelSize: settings.fontSize
+                color: appWindow.colorPalette.editorNormal
+                text: modelData
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: codeArea.commitSuggestion(modelData)
+                }
+            }
+        }
     }
 
     CToolBarBlur {

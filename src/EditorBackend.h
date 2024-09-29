@@ -45,7 +45,9 @@ public:
     bool eventFilter(QObject *object, QEvent *event) override;
 
     // suggestions
+    void updateImports();
     QStringList suggestions();
+    Q_INVOKABLE void commitSuggestion(QString suggestion);
 
 private:
     // general

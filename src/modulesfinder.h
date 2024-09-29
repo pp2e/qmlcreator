@@ -17,6 +17,8 @@ public:
     QVariantList modules();
     Q_INVOKABLE static void test(QString path);
     static QString getModulePath(QString module);
+    static QString getQMLModulePath();
+    static QStringList getModuleDependencies(QString path);
     static QStringList getModuleComponents(QString path);
 };
 

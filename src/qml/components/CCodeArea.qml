@@ -29,6 +29,9 @@ Item {
     readonly property bool useNativeTouchHandling : (Qt.platform.os === "ios")
 
     property alias suggestions: backend.suggestions
+    function commitSuggestion(suggestion) {
+        backend.commitSuggestion(suggestion)
+    }
 
     function paste() {
         textEdit.paste()
