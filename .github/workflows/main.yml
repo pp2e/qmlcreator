@@ -66,6 +66,14 @@ jobs:
         zip -qq -r -9 Qmlcreator.ipa Payload
       # working-directory: build/qmlcreator.xcarchive/Products/Applications
       working-directory: build
+      
+    - name: 'Upload app to TestFlight'
+      uses: apple-actions/upload-testflight-build@v1
+      with: 
+        app-path: 'build/Qmlcreator.ipa' 
+        issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+        api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
+        api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
 
     - name: Save APK
       uses: actions/upload-artifact@v4
