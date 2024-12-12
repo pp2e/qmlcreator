@@ -46,8 +46,6 @@ jobs:
         cmake --build .
         cmake --install . --prefix ${{ env.QT_ROOT_DIR }}/
 
-    - run: ls ${{ env.QT_ROOT_DIR }}/../macos/lib/cmake/
-
     - name: Configure
       run: ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B build -G Ninja
                             -DQT_HOST_PATH=${{ env.QT_ROOT_DIR }}/../macos/
@@ -66,11 +64,25 @@ jobs:
         zip -qq -r -9 Qmlcreator.ipa Payload
       # working-directory: build/qmlcreator.xcarchive/Products/Applications
       working-directory: build
-      
+
+    - name: Install zsign
+      run: |
+        git clone https://github.com/zhlynn/zsign
+        cd zsign
+        cmake .
+        make
+
+    - name: Sign
+      run: |
+        echo ${{ secrets.IPA_CERT_BASE64 }}     | base64 -d > distribution.cer
+        echo ${{ secrets.IPA_PRIV_KEY_BASE64 }} | base64 -d > distribution.p12
+        echo ${{ secrets.IPA_PROFILE_BASE64 }}  | base64 -d > profile.mobileprovision
+        zsign/zsign -k distribution.p12 -m profile.mobileprovision -c distribution.cer build/Qmlcreator.ipa -o Qmlcreator_signed.ipa
+
     - name: 'Upload app to TestFlight'
       uses: apple-actions/upload-testflight-build@v1
-      with: 
-        app-path: 'build/Qmlcreator.ipa' 
+      with:
+        app-path: 'Qmlcreator_signed.ipa'
         issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
         api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
         api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
@@ -81,61 +93,3 @@ jobs:
         name: qmlcreator-ipa
         # path: build/qmlcreator.xcarchive/Products/Applications/*.ipa
         path: build/*.ipa
-
-
-  build-apk:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-      with:
-        submodules: 'true'
-
-    - name: Install Host Qt
-      uses: jurplel/install-qt-action@v4
-      with:
-        version: 6.7.2
-        host: 'linux'
-        target: 'desktop'
-        arch: 'linux_gcc_64'
-        modules: 'qtshadertools'
-        tools: 'tools_ninja tools_cmake'
-        dir: '${{ runner.temp }}'
-        install-deps: 'true'
-        cache: true
-          
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v4
-      with:
-        version: 6.7.2
-        host: 'linux'
-        target: 'android'
-        arch: 'android_arm64_v8a'
-        modules: 'qtshadertools'
-        dir: '${{ runner.temp }}'
-        install-deps: 'true'
-        cache: true
-
-    - name: Build ecm
-      run: |
-        git clone https://invent.kde.org/frameworks/extra-cmake-modules ${{ runner.temp }}/ecm
-        cd ${{ runner.temp }}/ecm
-        git checkout v6.5.0
-        cmake .
-        cmake --build .
-        cmake --install . --prefix ${{ env.QT_ROOT_DIR }}/
-
-    - name: Configure
-      run: ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B build
-                            -DQT_HOST_PATH=${{ env.QT_ROOT_DIR }}/../gcc_64/
-                            -DQt6LinguistTools_DIR=${{ env.QT_ROOT_DIR }}/../gcc_64/lib/cmake/Qt6LinguistTools
-                            -DQt6ShaderToolsTools_DIR=${{ env.QT_ROOT_DIR }}/../gcc_64/lib/cmake/Qt6ShaderToolsTools || cmake -B build
-
-    - name: Build
-      run: cmake --build .
-      working-directory: build
-
-    - name: Save APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: qmlcreator-apk
-        path: build/src/android-build/*.apk

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDisplayName</key>
-	<string>QML Creator</string>
+	<string>QML Creator 3D!</string>
 	<key>CFBundleExecutable</key>
 	<string>qmlcreator</string>
 	<key>CFBundleIconFile</key>
