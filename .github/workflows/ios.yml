@@ -4,7 +4,8 @@ on:
 
 jobs:
   build-ios:
-    runs-on: macos-latest
+    # runs-on: macos-latest
+    runs-on: self-hosted
     steps:
     - uses: actions/checkout@v4
       with:
@@ -46,15 +47,30 @@ jobs:
         cmake --build .
         cmake --install . --prefix ${{ env.QT_ROOT_DIR }}/
 
+    - name: Install certs
+      run: |
+        echo ${{ secrets.IPA_CERT_BASE64 }}     | base64 -d > distribution.cer
+        echo ${{ secrets.IPA_PRIV_KEY_BASE64 }} | base64 -d > distribution.p12
+        echo ${{ secrets.IPA_PROFILE_BASE64 }}  | base64 -d > profile.mobileprovision
+
+        security create-keychain -p "" keys
+        security set-keychain-settings keys
+        security unlock-keychain -p "" keys
+        security import distribution.cer -k keys -t cert -A
+        security import distribution.p12 -k keys -t priv -A
+
+        mkdir -p "~/Library/MobileDevice/Provisioning Profiles"
+        cp profile.mobileprovision "~/Library/MobileDevice/Provisioning Profiles"
+
     - name: Configure
-      run: ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B build -G Ninja
+      run: ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B build
                             -DQT_HOST_PATH=${{ env.QT_ROOT_DIR }}/../macos/
                             -DQt6LinguistTools_DIR=${{ env.QT_ROOT_DIR }}/../macos/lib/cmake/Qt6LinguistTools
                             -DQt6ShaderToolsTools_DIR=${{ env.QT_ROOT_DIR }}/../macos/lib/cmake/Qt6ShaderToolsTools || cmake -B build
 
     - name: Build
-      # run: xcodebuild build -project qmlcreator.xcodeproj -configuration Release -destination "generic/platform=iOS" CODE_SIGNING_ALLOWED=NO -scheme qmlcreator -archivePath qmlcreator.xcarchive archive
-      run: cmake --build .
+      run: xcodebuild build DEVELOPMENT_TEAM=${{ secrets.TEAM_ID }} CODE_SIGN_STYLE="Manual" PROVISIONING_PROFILE_SPECIFIER="${{ secrets.PROFILE_NAME }}" CODE_SIGN_IDENTITY="${{ secrets.SIGN_IDENTITY }}" -project qmlcreator.xcodeproj -configuration Release -destination "generic/platform=iOS" -scheme qmlcreator -archivePath qmlcreator.xcarchive archive
+      #run: cmake --build .
       working-directory: build
 
     - name: Package
@@ -64,20 +80,6 @@ jobs:
         zip -qq -r -9 Qmlcreator.ipa Payload
       # working-directory: build/qmlcreator.xcarchive/Products/Applications
       working-directory: build
-
-    - name: Install zsign
-      run: |
-        git clone https://github.com/zhlynn/zsign
-        cd zsign
-        cmake .
-        make
-
-    - name: Sign
-      run: |
-        echo ${{ secrets.IPA_CERT_BASE64 }}     | base64 -d > distribution.cer
-        echo ${{ secrets.IPA_PRIV_KEY_BASE64 }} | base64 -d > distribution.p12
-        echo ${{ secrets.IPA_PROFILE_BASE64 }}  | base64 -d > profile.mobileprovision
-        zsign/zsign -k distribution.p12 -m profile.mobileprovision -c distribution.cer build/Qmlcreator.ipa -o Qmlcreator_signed.ipa
 
     - name: 'Upload app to TestFlight'
       uses: apple-actions/upload-testflight-build@v1
