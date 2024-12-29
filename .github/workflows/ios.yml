@@ -4,8 +4,7 @@ on:
 
 jobs:
   build-ios:
-    # runs-on: macos-latest
-    runs-on: self-hosted
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@v4
       with:
@@ -50,17 +49,17 @@ jobs:
     - name: Install certs
       run: |
         echo ${{ secrets.IPA_CERT_BASE64 }}     | base64 -d > distribution.cer
-        echo ${{ secrets.IPA_PRIV_KEY_BASE64 }} | base64 -d > distribution.p12
+        echo ${{ secrets.IPA_PRIV_KEY_BASE64 }} | base64 -d > distribution.pem
         echo ${{ secrets.IPA_PROFILE_BASE64 }}  | base64 -d > profile.mobileprovision
 
         security create-keychain -p "" keys
         security set-keychain-settings keys
         security unlock-keychain -p "" keys
         security import distribution.cer -k keys -t cert -A
-        security import distribution.p12 -k keys -t priv -A
+        security import distribution.pem -k keys -t priv -A
 
-        mkdir -p "~/Library/MobileDevice/Provisioning Profiles"
-        cp profile.mobileprovision "~/Library/MobileDevice/Provisioning Profiles"
+        mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+        cp profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles
 
     - name: Configure
       run: ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B build
