@@ -53,8 +53,8 @@ jobs:
         echo ${{ secrets.IPA_PRIV_KEY_BASE64 }} | base64 -d > distribution.pem
         echo ${{ secrets.IPA_PROFILE_BASE64 }}  | base64 -d > profile.mobileprovision
 
-        security delete-keychain login.keychain | true
-        security create-keychain -p "" login.keychain
+        #security delete-keychain login.keychain | true
+        #security create-keychain -p "" login.keychain
         security set-keychain-settings login.keychain
         security unlock-keychain -p "" login.keychain
         security import distribution.cer -t cert -A
