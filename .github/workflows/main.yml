@@ -13,7 +13,7 @@ jobs:
     - name: Install host Qt
       uses: jurplel/install-qt-action@v4
       with:
-        version: 6.7.*
+        version: 6.8.*
         host: 'mac'
         target: 'desktop'
         arch: 'clang_64'
@@ -25,7 +25,7 @@ jobs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
       with:
-        version: 6.7.*
+        version: 6.8.*
         host: 'mac'
         target: 'ios'
         arch: 'ios'
@@ -37,14 +37,14 @@ jobs:
     - name: Install ninja
       run: brew install ninja
 
-    - name: Build ecm
-      run: |
-        git clone https://invent.kde.org/frameworks/extra-cmake-modules ${{ runner.temp }}/ecm
-        cd ${{ runner.temp }}/ecm
-        git checkout v6.5.0
-        cmake .
-        cmake --build .
-        cmake --install . --prefix ${{ env.QT_ROOT_DIR }}/
+    # - name: Build ecm
+    #   run: |
+    #     git clone https://invent.kde.org/frameworks/extra-cmake-modules ${{ runner.temp }}/ecm
+    #     cd ${{ runner.temp }}/ecm
+    #     git checkout v6.5.0
+    #     cmake .
+    #     cmake --build .
+    #     cmake --install . --prefix ${{ env.QT_ROOT_DIR }}/
 
     - run: ls ${{ env.QT_ROOT_DIR }}/../macos/lib/cmake/
 
@@ -66,14 +66,6 @@ jobs:
         zip -qq -r -9 Qmlcreator.ipa Payload
       # working-directory: build/qmlcreator.xcarchive/Products/Applications
       working-directory: build
-      
-    - name: 'Upload app to TestFlight'
-      uses: apple-actions/upload-testflight-build@v1
-      with: 
-        app-path: 'build/Qmlcreator.ipa' 
-        issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
-        api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
-        api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
 
     - name: Save APK
       uses: actions/upload-artifact@v4
@@ -93,7 +85,7 @@ jobs:
     - name: Install Host Qt
       uses: jurplel/install-qt-action@v4
       with:
-        version: 6.7.2
+        version: 6.8.*
         host: 'linux'
         target: 'desktop'
         arch: 'linux_gcc_64'
@@ -106,7 +98,7 @@ jobs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
       with:
-        version: 6.7.2
+        version: 6.8.*
         host: 'linux'
         target: 'android'
         arch: 'android_arm64_v8a'
@@ -115,14 +107,14 @@ jobs:
         install-deps: 'true'
         cache: true
 
-    - name: Build ecm
-      run: |
-        git clone https://invent.kde.org/frameworks/extra-cmake-modules ${{ runner.temp }}/ecm
-        cd ${{ runner.temp }}/ecm
-        git checkout v6.5.0
-        cmake .
-        cmake --build .
-        cmake --install . --prefix ${{ env.QT_ROOT_DIR }}/
+    # - name: Build ecm
+    #   run: |
+    #     git clone https://invent.kde.org/frameworks/extra-cmake-modules ${{ runner.temp }}/ecm
+    #     cd ${{ runner.temp }}/ecm
+    #     git checkout v6.5.0
+    #     cmake .
+    #     cmake --build .
+    #     cmake --install . --prefix ${{ env.QT_ROOT_DIR }}/
 
     - name: Configure
       run: ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B build

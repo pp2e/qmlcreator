@@ -5,11 +5,11 @@ qt_add_executable(qmlcreator
 )
 
 if (IOS)
-    set(app_icons
-        ${CMAKE_SOURCE_DIR}/ios/Icon.png
+    set(RESOURCES
+        ${CMAKE_SOURCE_DIR}/ios/Assets.xcassets
     )
-    target_sources(qmlcreator PRIVATE ${app_icons})
-    set_source_files_properties(${app_icons} PROPERTIES
+    target_sources(qmlcreator PRIVATE ${RESOURCES})
+    set_source_files_properties(${RESOURCES} PROPERTIES
         MACOSX_PACKAGE_LOCATION Resources
     )
     set_target_properties(
@@ -17,6 +17,8 @@ if (IOS)
         PROPERTIES
         MACOSX_BUNDLE TRUE
         MACOSX_BUNDLE_INFO_PLIST ${CMAKE_SOURCE_DIR}/ios/Info.plist
+        XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "qmlcreator.pp2e"
+        XCODE_ATTRIBUTE_ASSETCATALOG_COMPILER_APPICON_NAME AppIcon
     )
 elseif (ANDROID)
     set_target_properties(qmlcreator PROPERTIES
