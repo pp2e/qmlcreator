@@ -65,7 +65,6 @@ BlankScreen {
         id: logWindow
         visible: settings.debugging
         color: "transparent"
-        parent: playgroundScreen
         width: playgroundScreen.width
         height: playgroundScreen.height - toolBar.height
         y: toolBar.height

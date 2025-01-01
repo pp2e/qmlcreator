@@ -5,9 +5,13 @@ qt_add_executable(qmlcreator
 )
 
 if (IOS)
-    set(RESOURCES
-        ${CMAKE_SOURCE_DIR}/ios/Assets.xcassets
-    )
+    if (${CMAKE_GENERATOR} EQUAL Ninja)
+        message("recursive find all resources for ninja")
+        file(GLOB_RECURSE RESOURCES ${CMAKE_SOURCE_DIR}/ios/Assets.xcassets)
+    else()
+        set(RESOURCES ${CMAKE_SOURCE_DIR}/ios/Assets.xcassets)
+    endif()
+
     target_sources(qmlcreator PRIVATE ${RESOURCES})
     set_source_files_properties(${RESOURCES} PROPERTIES
         MACOSX_PACKAGE_LOCATION Resources
@@ -207,5 +211,7 @@ qt_add_qml_module(qmlcreator
     QML_FILES
     qml/modules.qml
 )
+# here glob can be added to exclude names
+qt_add_resources(qmlcreator QmlCreator_qmltypes PREFIX /qt/qml/ BASE ${CMAKE_CURRENT_BINARY_DIR} FILES ${CMAKE_CURRENT_BINARY_DIR}/QmlCreator/qmlcreator.qmltypes)
 
 target_link_libraries(qmlcreator PRIVATE Qt6::Quick)

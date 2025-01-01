@@ -1,7 +1,8 @@
 qt_add_qml_module(quicktoolingfixed
     URI QtQuick.tooling
     RESOURCE_PREFIX /qt-project.org/imports/
-    VERSION 1.0
+    OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/QtQuick/tooling
+    VERSION 1.2
 
     QML_FILES
     Component.qml
