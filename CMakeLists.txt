@@ -28,19 +28,9 @@ add_subdirectory(src)
 # endif()
 
 add_subdirectory(3rdparty/qtquick.tooling)
-target_link_libraries(qmlcreator PRIVATE quicktoolingfixedplugin)
-
-function(find_qmlplugindump_tool path)
-    # this ugly workaround can be fixed with some Qt6::qmlplugindump target property
-    if (DEFINED QT_HOST_PATH AND EXISTS ${QT_HOST_PATH}/bin/qml)
-        set("${path}" ${QT_HOST_PATH}/bin/qmlplugindump PARENT_SCOPE)
-        return()
-    endif()
-    message(FATAL_ERROR "qmlplugindump tool not found, please fix it")
-endfunction()
 
 function(bundle_qml_imports_types target)
-    find_qmlplugindump_tool(qmlplugindump_tool)
+    find_program(qmlplugindump_tool NAMES qmlplugindump HINTS ${QT_HOST_PATH}/bin)
 
     # conf=probably ok
     include("${CMAKE_CURRENT_BINARY_DIR}/src/.qt/qml_imports/${target}_conf.cmake")
@@ -70,7 +60,7 @@ function(bundle_qml_imports_types target)
         endif()
     endforeach()
 
-    qt_add_resources(${target} qmltypesscan.qrc BASE ${CMAKE_BINARY_DIR}/qmltypesscan/ FILES ${qmltypes_files})
+    qt_add_resources(${target} qmltypesscan BASE ${CMAKE_BINARY_DIR}/qmltypesscan/ FILES ${qmltypes_files})
 endfunction()
 
 bundle_qml_imports_types(qmlcreator)
