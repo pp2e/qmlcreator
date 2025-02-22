@@ -61,38 +61,46 @@ BlankScreen {
         anchors.bottom: parent.bottom
     }
 
-    Window {
-        id: logWindow
-        visible: settings.debugging
-        color: "transparent"
-        width: playgroundScreen.width
-        height: playgroundScreen.height - toolBar.height
-        y: toolBar.height
+    WindowContainer {
+        id: logWindowContainer
+        anchors.top: toolBar.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
 
-        flags: Qt.WindowTransparentForInput
+        window: Window {
+            id: logWindow
+            visible: settings.debugging
+            color: "transparent"
+            // width: playgroundScreen.width
+            // height: playgroundScreen.height - toolBar.height
+            // y: toolBar.height
 
-        TextEdit {
-            id: messages
-            width: parent.width
-            height: parent.height
-            color: appWindow.colorPalette.editorNormal
-            opacity: 0.3
-            font.pixelSize: 6 * settings.pixelDensity
-            wrapMode: TextEdit.Wrap
-            readOnly: true
-        }
+            flags: Qt.WindowTransparentForInput
 
-        Connections {
-            target: messageHandler
-            function onMessageReceived(message) {
-                messages.append(message)
+            TextEdit {
+                id: messages
+                width: parent.width
+                height: parent.height
+                color: appWindow.colorPalette.editorNormal
+                opacity: 0.3
+                font.pixelSize: 6 * settings.pixelDensity
+                wrapMode: TextEdit.Wrap
+                readOnly: true
             }
-        }
 
-        Connections {
-            target: windowLoader
-            function onError(error) {
-                messages.append(error)
+            Connections {
+                target: messageHandler
+                function onMessageReceived(message) {
+                    messages.append(message)
+                }
+            }
+
+            Connections {
+                target: windowLoader
+                function onError(error) {
+                    messages.append(error)
+                }
             }
         }
     }
