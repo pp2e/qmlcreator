@@ -131,6 +131,8 @@ jobs:
       run: cmake --build .
       working-directory: build
 
+    - run: cat /home/runner/work/qmlcreator/qmlcreator/build/src/android-qmlcreator-deployment-settings.json
+
     - name: Save APK
       uses: actions/upload-artifact@v4
       with:
