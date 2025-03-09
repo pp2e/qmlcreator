@@ -47,7 +47,7 @@ BlankScreen {
     }
 
 
-    CListView {
+    ListView {
         id: listView
         anchors.top: toolBar.bottom
         anchors.left: parent.left

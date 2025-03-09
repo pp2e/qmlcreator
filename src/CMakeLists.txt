@@ -176,7 +176,6 @@ qt_add_qml_module(qmlcreator
     qml/components/CHorizontalSeparator.qml
     qml/components/CIcon.qml
     qml/components/CLabel.qml
-    qml/components/CListView.qml
     qml/components/CNavigationButton.qml
     qml/components/CScrollBar.qml
     qml/components/CSettingButton.qml
