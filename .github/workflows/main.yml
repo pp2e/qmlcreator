@@ -121,7 +121,7 @@ jobs:
     #     cmake --install . --prefix ${{ env.QT_ROOT_DIR }}/
 
     - name: I'm sorry, github, i have no choice
-      run: sudo rm /usr/local/lib/android/sdk/platforms/android-35*
+      run: sudo rm -r /usr/local/lib/android/sdk/platforms/android-35*
 
     - name: Configure
       run: ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B build
