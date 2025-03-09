@@ -107,6 +107,10 @@ jobs:
         install-deps: 'true'
         cache: true
 
+    - run: ls /usr/local/lib/android/sdk/platforms/android-35-ext14/
+    - run: ls /usr/local/lib/android/sdk/platforms/
+    - run: ls /usr/local/lib/android/
+
     # - name: Build ecm
     #   run: |
     #     git clone https://invent.kde.org/frameworks/extra-cmake-modules ${{ runner.temp }}/ecm
