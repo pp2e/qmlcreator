@@ -93,10 +93,6 @@ BaseDialog {
             }
         }
 
-        CScrollBar {
-            flickableItem: flickable
-        }
-
         CDialogButton {
             id: footer
             anchors.left: parent.left

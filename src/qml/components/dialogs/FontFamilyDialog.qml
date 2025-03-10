@@ -97,9 +97,5 @@ BaseDialog {
                 label.font.family: model.name
             }
         }
-
-        CScrollBar {
-            flickableItem: fontsList
-        }
     }
 }

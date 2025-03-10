@@ -132,10 +132,6 @@ BaseDialog {
             }
         }
 
-        CScrollBar {
-            flickableItem: flickable
-        }
-
         CDialogButton {
             anchors.left: parent.left
             anchors.right: footer.left

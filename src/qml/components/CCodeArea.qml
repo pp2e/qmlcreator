@@ -99,9 +99,13 @@ Item {
         anchors.top: parent.top
         anchors.bottom: parent.bottom
         anchors.left: lineNumbers.right
-        anchors.right: (scrollBar.visible) ? scrollBar.left : parent.right
+        anchors.right: parent.right
         interactive: useNativeTouchHandling
         flickableDirection: Flickable.VerticalFlick
+
+        ScrollBar.vertical: ScrollBar {
+            id: scrollBar
+        }
 
         function ensureVisible(cursor)
         {
@@ -122,6 +126,7 @@ Item {
             id: textEdit
             anchors.left: parent.left
             anchors.right: parent.right
+            anchors.rightMargin: scrollBar.width
 
             color: appWindow.colorPalette.editorNormal
             selectionColor: appWindow.colorPalette.editorSelection
@@ -572,15 +577,5 @@ Item {
                 }
             }
         }
-    }
-
-    CNavigationScrollBar {
-        id: scrollBar
-
-        anchors.top: parent.top
-        anchors.bottom: parent.bottom
-        anchors.right: parent.right
-
-        flickableItem: flickable
     }
 }

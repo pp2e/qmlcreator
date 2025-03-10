@@ -170,14 +170,12 @@ qt_add_qml_module(qmlcreator
     qml/components/CCheckBox.qml
     qml/components/CContextMenuButton.qml
     qml/components/CDialogButton.qml
-    qml/components/CEditorScrollBar.qml
     qml/components/CFileButton.qml
     qml/components/CFlickable.qml
     qml/components/CHorizontalSeparator.qml
     qml/components/CIcon.qml
     qml/components/CLabel.qml
     qml/components/CNavigationButton.qml
-    qml/components/CScrollBar.qml
     qml/components/CSettingButton.qml
     qml/components/CSlider.qml
     qml/components/CSplitView.qml
@@ -189,7 +187,6 @@ qt_add_qml_module(qmlcreator
     qml/components/CApplicationWindow.qml
     qml/components/CToolBarBlur.qml
     qml/components/CToolBar.qml
-    qml/components/CNavigationScrollBar.qml
     qml/components/CCodeArea.qml
     qml/components/CInformationItem.qml
     qml/components/CTextField.qml

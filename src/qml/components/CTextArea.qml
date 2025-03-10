@@ -17,6 +17,7 @@
 ****************************************************************************/
 
 import QtQuick
+import QtQuick.Controls
 
 Item {
     id: cTextArea
@@ -32,6 +33,8 @@ Item {
         anchors.fill: parent
         contentHeight: textEdit.contentHeight
 
+        ScrollBar.vertical: ScrollBar { }
+
         TextEdit {
             id: textEdit
             anchors.fill: parent
@@ -46,9 +49,5 @@ Item {
             activeFocusOnPress: false
             onLinkActivated: (link) => Qt.openUrlExternally(link)
         }
-    }
-
-    CScrollBar {
-        flickableItem: flickable
     }
 }

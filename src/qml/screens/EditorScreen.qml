@@ -57,9 +57,9 @@ BlankScreen {
         id: codeArea
 
         anchors.top: toolBar.bottom
-        anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
+        anchors.bottom: suggestions.top
 
         text: ""
     }
@@ -126,8 +126,10 @@ BlankScreen {
     }
 
     Rectangle {
+        id: suggestions
+        
         width: parent.width
-        height: 15 * settings.pixelDensity
+        height: 15 * settings.pixelDensity + appWindow.insets.bottom
         anchors.bottom: parent.bottom
         color: appWindow.colorPalette.toolBarBackground
 

@@ -40,14 +40,14 @@ BaseDialog {
         listView.positionViewAtIndex(currentIndex, ListView.Contain)
     }
 
-		MultiEffect {
-            anchors.fill: mainContent
-            shadowEnabled: true
-            shadowColor: appWindow.colorPalette.dialogShadow
-            shadowBlur: 1
-            blurMax: 30 * settings.pixelDensity
-            source: mainContent
-		}
+    MultiEffect {
+        anchors.fill: mainContent
+        shadowEnabled: true
+        shadowColor: appWindow.colorPalette.dialogShadow
+        shadowBlur: 1
+        blurMax: 30 * settings.pixelDensity
+        source: mainContent
+    }
 
     Rectangle {
         id: mainContent
@@ -95,10 +95,6 @@ BaseDialog {
                 checked: index === listView.currentIndex
                 onClicked: listDialog.process(index)
             }
-        }
-
-        CScrollBar {
-            flickableItem: listView
         }
     }
 }

@@ -17,6 +17,7 @@
 ****************************************************************************/
 
 import QtQuick
+import QtQuick.Controls
 import "../components"
 import QmlCreator
 
@@ -31,7 +32,10 @@ BlankScreen {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
+        anchors.bottomMargin: appWindow.insets.bottom
         contentHeight: column.height
+
+        ScrollIndicator.vertical: ScrollIndicator {}
 
         Column {
             id: column
@@ -190,10 +194,6 @@ BlankScreen {
 
     CToolBarBlur {
         sourceItem: settingsFlickable
-    }
-
-    CScrollBar {
-        flickableItem: settingsFlickable
     }
 
     ListModel {
