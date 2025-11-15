@@ -13,7 +13,7 @@ jobs:
     - name: Install host Qt
       uses: jurplel/install-qt-action@v4
       with:
-        version: 6.9.*
+        version: 6.10.0
         host: 'mac'
         target: 'desktop'
         arch: 'clang_64'
@@ -25,7 +25,7 @@ jobs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
       with:
-        version: 6.9.*
+        version: 6.10.0
         host: 'mac'
         target: 'ios'
         arch: 'ios'
@@ -85,7 +85,7 @@ jobs:
     - name: Install Host Qt
       uses: jurplel/install-qt-action@v4
       with:
-        version: 6.9.1
+        version: 6.10.0
         host: 'linux'
         target: 'desktop'
         arch: 'linux_gcc_64'
@@ -98,7 +98,7 @@ jobs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
       with:
-        version: 6.9.1
+        version: 6.10.0
         host: 'linux'
         target: 'android'
         arch: 'android_arm64_v8a'
@@ -107,7 +107,7 @@ jobs:
         install-deps: 'true'
         cache: true
 
-    - run: ls /usr/local/lib/android/sdk/platforms/android-35-ext14/
+    - run: ls /usr/local/lib/android/sdk/platforms/android-36-ext19/
     - run: ls /usr/local/lib/android/sdk/platforms/
     - run: ls /usr/local/lib/android/
 
@@ -121,7 +121,7 @@ jobs:
     #     cmake --install . --prefix ${{ env.QT_ROOT_DIR }}/
 
     - name: I'm sorry, github, i have no choice
-      run: sudo rm -r /usr/local/lib/android/sdk/platforms/android-35*
+      run: sudo rm -r /usr/local/lib/android/sdk/platforms/android-36*
 
     - name: Configure
       run: ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B build
