@@ -210,4 +210,4 @@ qt_add_qml_module(qmlcreator
 # here glob can be added to exclude names
 qt_add_resources(qmlcreator QmlCreator_qmltypes PREFIX /qt/qml/ BASE ${CMAKE_CURRENT_BINARY_DIR} FILES ${CMAKE_CURRENT_BINARY_DIR}/QmlCreator/qmlcreator.qmltypes)
 
-target_link_libraries(qmlcreator PRIVATE Qt6::Quick)
+target_link_libraries(qmlcreator PRIVATE Qt6::Quick Qt6::QuickPrivate)
