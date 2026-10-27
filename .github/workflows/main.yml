@@ -99,7 +99,7 @@ jobs:
       uses: jurplel/install-qt-action@v4
       with:
         version: 6.11.*
-        host: 'linux'
+        host: 'all_os'
         target: 'android'
         arch: 'android_arm64_v8a'
         modules: 'qtshadertools'
