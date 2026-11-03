@@ -107,18 +107,11 @@ jobs:
         install-deps: 'true'
         cache: true
 
-    - name: I'm sorry, github, i have no choice
-      run: sudo rm -r /usr/local/lib/android/sdk/platforms/android-36*
-
-    - name: I'm sorry, github, i have no choice
-      run: sudo rm -r /usr/local/lib/android/sdk/platforms/android-35*
-
     - name: Configure
       run: ${{ env.QT_ROOT_DIR }}/bin/qt-cmake -B build
                             -DQT_HOST_PATH=${{ env.QT_ROOT_DIR }}/../gcc_64/
                             -DQt6LinguistTools_DIR=${{ env.QT_ROOT_DIR }}/../gcc_64/lib/cmake/Qt6LinguistTools
-                            -DQt6ShaderToolsTools_DIR=${{ env.QT_ROOT_DIR }}/../gcc_64/lib/cmake/Qt6ShaderToolsTools
-                            -DQT_ANDROID_GRADLE_PLUGIN_VERSION=8.1.4 || cmake -B build
+                            -DQt6ShaderToolsTools_DIR=${{ env.QT_ROOT_DIR }}/../gcc_64/lib/cmake/Qt6ShaderToolsTools || cmake -B build
 
     - name: Build
       run: cmake --build .
