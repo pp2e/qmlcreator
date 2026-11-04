@@ -129,7 +129,7 @@ BlankScreen {
         id: suggestions
         
         width: parent.width
-        height: 15 * settings.pixelDensity + appWindow.insets.bottom
+        height: 15 * settings.pixelDensity + appWindow.SafeArea.margins.bottom
         anchors.bottom: parent.bottom
         color: appWindow.colorPalette.toolBarBackground
 

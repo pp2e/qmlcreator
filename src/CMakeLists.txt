@@ -46,7 +46,6 @@ qt_add_qml_module(qmlcreator
     linenumbershelper.cpp
     ProjectManager.cpp
     # New original code from alteve4d
-    ScreenInsets.cpp
     windowloader.cpp
     modulesfinder.cpp
     # treesitter

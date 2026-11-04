@@ -53,7 +53,7 @@ BlankScreen {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: appWindow.insets.bottom
+        anchors.bottomMargin: appWindow.SafeArea.margins.bottom
         displayMarginBeginning: toolBar.height
         displayMarginEnd: anchors.bottomMargin
 

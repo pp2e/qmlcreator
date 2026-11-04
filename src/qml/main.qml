@@ -29,7 +29,7 @@ CApplicationWindow {
     property alias splitView : splitView
     minimumHeight: 100
     minimumWidth: 100
-    flags: Qt.Window | Qt.MaximizeUsingFullscreenGeometryHint
+    flags: Qt.Window | Qt.ExpandedClientAreaHint
     readonly property bool isDarkMode : settings.palette == "Dark"
 
     Material.theme: isDarkMode ?
@@ -38,10 +38,6 @@ CApplicationWindow {
     Material.accent: isDarkMode ?
                          Material.Red :
                          Material.Blue
-
-    property var insets: ScreenInsets {
-        window: appWindow
-    }
 
     onBackPressed: {
         if (dialog.visible)

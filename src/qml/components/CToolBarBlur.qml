@@ -3,7 +3,7 @@ import QtQuick.Effects
 
 MultiEffect {
     id: fastBlur
-    height: 22 * settings.pixelDensity + appWindow.insets.top
+    height: 22 * settings.pixelDensity + appWindow.SafeArea.margins.top
     width: parent.width
     blurEnabled: true
     blur: 1
