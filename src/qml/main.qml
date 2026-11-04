@@ -39,6 +39,22 @@ CApplicationWindow {
                          Material.Red :
                          Material.Blue
 
+    // TEMPORARY: safe area diagnostics, read with `adb logcat | grep safearea`
+    function logSafeArea(reason) {
+        console.log("[safearea]", reason,
+                    "window:", x, y, width, height,
+                    "screen:", Screen.width, Screen.height,
+                    "available:", Screen.desktopAvailableWidth, Screen.desktopAvailableHeight,
+                    "flags:", flags, "visibility:", visibility,
+                    "margins:", SafeArea.margins.top, SafeArea.margins.bottom,
+                    SafeArea.margins.left, SafeArea.margins.right)
+    }
+    Component.onCompleted: logSafeArea("completed")
+    onVisibilityChanged: logSafeArea("visibility")
+    onYChanged: logSafeArea("y")
+    onHeightChanged: logSafeArea("height")
+    SafeArea.onMarginsChanged: logSafeArea("margins")
+
     onBackPressed: {
         if (dialog.visible)
             dialog.close()
